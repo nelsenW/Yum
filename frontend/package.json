@@ -1,8 +1,6 @@
 {
-  "name": "chirper-frontend",
-  "version": "1.0.0",
-  "description": "Frontend for a Twitter clone built with the MERN stack",
-  "author": "App Academy",
+  "name": "frontend",
+  "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
@@ -10,11 +8,11 @@
     "@testing-library/user-event": "^12.8.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.2",
-    "react-router-dom": "^5.3.3",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
