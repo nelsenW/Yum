@@ -7,16 +7,17 @@ const handleValidationErrors = require('./handleValidationErrors');
 const validateEventInput = [
     check('title')
     .exists({ checkFalsy: true })
+    .withMessage('Title must be present between 2 and 50 characters')
     .isLength({ min: 2, max: 50 })
     .withMessage('Title must be between 2 and 50 characters'),
 
     check('description')
     .exists({ checkFalsy: true })
-    .isLength({ min: 5, max: 140 })
-    .withMessage('Descrition must be between 5 and 140 characters'),
+    .withMessage('Descrition must be exist between 5 and 255 characters')
+    .isLength({ min: 5, max: 255 })
+    .withMessage('Descrition must be between 5 and 255 characters'),
 
     check('price')
-    .exists({ checkFalsy: true })
     .isLength({ min: 0})
     .withMessage('Price is invalid'),
 
@@ -24,15 +25,15 @@ const validateEventInput = [
     .exists({ checkFalsy: true })
     .withMessage('Location must be included'),
 
-    check('event_type')
+    check('eventType')
     .exists({ checkFalsy: true })
-    .withMessage('Event Type must be inclided'),
+    .withMessage('Event Type must be included'),
 
     check('host')
     .exists({ checkFalsy: true })
-    .withMessage('Host must be inclided'),
+    .withMessage('Host must be included'),
 
   handleValidationErrors
 ];
 
-module.exports = validateTweetInput;
+module.exports = validateEventInput;

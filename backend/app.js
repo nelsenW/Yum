@@ -5,18 +5,16 @@ const csurf = require("csurf");
 const debug = require("debug");
 
 //making model available in application
-require('./models/User');
-require('./models/Event');
-
-var app = express();
 const cors = require("cors");
 const { isProduction } = require("./config/keys");
 
+require('./models/Event');
 require("./models/User");
 require("./config/passport");
 const passport = require("passport");
 
 const usersRouter = require("./routes/api/users");
+const eventsRouter = require("./routes/api/events");
 const csrfRouter = require("./routes/api/csrf");
 
 const app = express();
@@ -42,6 +40,7 @@ app.use(
 );
 
 app.use("/api/users", usersRouter);
+app.use("/api/events", eventsRouter);
 app.use("/api/csrf", csrfRouter);
 app.use((req, res, next) => {
   const err = new Error("Not Found");
