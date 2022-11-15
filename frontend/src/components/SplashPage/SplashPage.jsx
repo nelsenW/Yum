@@ -5,6 +5,7 @@ import SignupForm from '../SessionForms/SignupForm';
 import NavBar from './Navigation';
 import './splashPage.css'
 import UserInfoBubble from './userInfoBubble';
+import foodReel from '../../assets/foodreel.mp4'
 
 export default function SplashPage() {
 	const [loginModal, setLoginModal] = useState(false);
@@ -32,7 +33,7 @@ export default function SplashPage() {
 			)}
 
 			<main>
-				<video autoplay loop muted playsInline src='../../assets/foodreel.mp4'/>
+				<video autoPlay loop muted playsInline src={foodReel}/>
 			</main>
 			<footer className='splash-footer'>
 				<ul>
