@@ -33,19 +33,19 @@ export default function SplashPage() {
 			)}
 
 			<main>
-				<video autoPlay loop muted playsInline src={foodReel}/>
+				
 			</main>
 			<footer className='splash-footer'>
 				<ul>
-					<div onMouseEnter={() =>{setYanBubble(true)}} onMouseLeave={() => {setYanBubble(false)}}>
-					<h2 >Yan Rivera</h2>
+					<div onMouseEnter={() =>{setYanBubble(true)}} onMouseLeave={() => {setYanBubble(false)}} className='footer-bubble'>
+						<h2>Yan Rivera</h2> 
 						{yanBubble && <UserInfoBubble person={'y'}/>}
 					</div>
-					<div onMouseEnter={() =>{setMichaelBubble(true)}} onMouseLeave={() => {setMichaelBubble(false)}}>
+					<div onMouseEnter={() =>{setMichaelBubble(true)}} onMouseLeave={() => {setMichaelBubble(false)}} className='footer-bubble'>
 					<h2 >Michael Shih</h2>
 						{michaelBubble && <UserInfoBubble person={'m'}/>}
 					</div>
-					<div onMouseEnter={() =>{setWilliamBubble(true)}} onMouseLeave={() => {setWilliamBubble(false)}}>
+					<div onMouseEnter={() =>{setWilliamBubble(true)}} onMouseLeave={() => {setWilliamBubble(false)}} className='footer-bubble'>
 					<h2>William Nelsen</h2>
 						{williamBubble && <UserInfoBubble person={'w'}/>}
 					</div>
