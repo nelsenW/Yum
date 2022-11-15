@@ -1,5 +1,4 @@
 node_modules
 .env
-.env.development
 .DS_Store
 **/.DS_Store

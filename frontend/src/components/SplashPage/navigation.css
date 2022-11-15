@@ -1,0 +1,41 @@
+
+.splash-nav{
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.splash-nav-title{
+    font-family: var(--font-indie-flower);
+    text-decoration: none;
+    line-height: 48px;
+    font-size: 48px;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+#tongue{
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+}
+
+.nav-button{
+    background-color: var(--dark-blue);
+    color: whitesmoke;
+    font-family: var(--font-indie-flower);
+    font-size: 18px;
+    height: 32px;
+    width: auto;
+    margin: 0 8px;
+    border-radius: 12px;
+}
+
+.nav-button:hover{
+    text-decoration: underline;
+    box-shadow: 0 4px 20px 0 rgba(255, 255, 255, 0.6); ;
+}   
