@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from '../../context/Modal';
 import LoginForm from '../SessionForms/LoginForm';
 import SignupForm from '../SessionForms/SignupForm';
+import Canvas from './Canvas';
 import NavBar from './Navigation';
 import './splashPage.css'
 import UserInfoBubble from './userInfoBubble';
-import foodReel from '../../assets/foodreel.mp4'
 
 export default function SplashPage() {
 	const [loginModal, setLoginModal] = useState(false);
@@ -13,6 +13,11 @@ export default function SplashPage() {
 	const [yanBubble, setYanBubble] = useState(false);
 	const [williamBubble, setWilliamBubble] = useState(false);
 	const [michaelBubble, setMichaelBubble] = useState(false);
+	const [canvasLoad, setCanvasLoad] = useState(false);
+
+	useEffect(() => {
+		setCanvasLoad(true)
+	},[])
 
 
 	return (
@@ -32,8 +37,10 @@ export default function SplashPage() {
 				</Modal>
 			)}
 
-			<main>
-				
+			<main id='splash-main'>
+				<canvas id='canvas'>
+					{canvasLoad && <Canvas />}
+				</canvas>
 			</main>
 			<footer className='splash-footer'>
 				<ul>
