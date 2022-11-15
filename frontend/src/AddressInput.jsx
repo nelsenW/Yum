@@ -8,6 +8,19 @@ const AddressInput = () => {
     address.setSearchResults([]);
   };
 
+  const handleCurrentLocationClick = () => {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  };
+
+  function showPosition(position) {
+    console.log(
+      "Latitude: " +
+        position.coords.latitude +
+        "<br>Longitude: " +
+        position.coords.longitude
+    );
+  }
+
   return (
     <div>
       <input value={address.inputValue} onChange={address.handleChange} />
@@ -22,6 +35,7 @@ const AddressInput = () => {
           })}
         </div>
       )}
+      <button onClick={handleCurrentLocationClick}>Use Current Location</button>
     </div>
   );
 };

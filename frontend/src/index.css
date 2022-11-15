@@ -3,59 +3,140 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
 }
 body {
-	line-height: 1;
+  line-height: 1;
 }
-ol, ul {
-	list-style: none;
+ol,
+ul {
+  list-style: none;
 }
-blockquote, q {
-	quotes: none;
+blockquote,
+q {
+  quotes: none;
 }
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
-button{
+button {
   border: none;
   outline: none;
 }
 
-*{
+* {
   forced-color-adjust: none;
 }
 
-input{
+input {
   border: none;
   outline: none;
   border-radius: 4px;
@@ -73,19 +154,19 @@ form > .errors {
 }
 
 :root {
-  --font-indie-flower: 'Indie Flower', cursive;
-  --font-brush: 'Kolker Brush', cursive;
-  --font-default: 'Noto Serif JP', serif;
+  --font-indie-flower: "Indie Flower", cursive;
+  --font-brush: "Kolker Brush", cursive;
+  --font-default: "Noto Serif JP", serif;
   --dark-blue: #03071e;
   --darkest-red: #370617;
-  --darker-red: #6A040F;
-  --deep-orange: #9D0208;
-  --solid-orange: #D00000;
-  --bright-orange: #DC2f02;
-  --light-orange: #E85D04;
-  --dark-yellow: #F48C06;
-  --solid-yellow: #FAA307;
-  --light-yellow: #FFBA08;
+  --darker-red: #6a040f;
+  --deep-orange: #9d0208;
+  --solid-orange: #d00000;
+  --bright-orange: #dc2f02;
+  --light-orange: #e85d04;
+  --dark-yellow: #f48c06;
+  --solid-yellow: #faa307;
+  --light-yellow: #ffba08;
   --off-white: whitesmoke;
 }
 
@@ -94,15 +175,15 @@ form > .errors {
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px var(--dark-blue); 
+  box-shadow: inset 0 0 5px var(--dark-blue);
   border-radius: 10px;
 }
- 
+
 ::-webkit-scrollbar-thumb {
   background: var(--darkest-red);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--darker-red)
+  background: var(--darker-red);
 }
