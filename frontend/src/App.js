@@ -1,3 +1,5 @@
+import Map from "./Map";
+
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch } from 'react-router-dom';
@@ -24,7 +26,7 @@ function App() {
         <ProtectedRoute exact path="/tweets/new" component={TweetCompose} /> */}
       </Switch>
     </>
-  );
+
 }
 
 export default App;
