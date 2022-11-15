@@ -7,22 +7,8 @@ const { requireUser } = require('../../config/passport');
 const validateEventInput = require('../../validations/events');
 
 
-//index all events
-router.get('/', async (req, res) => {
-    try {
-      const events = await Event.find()
-                                .populate("host", "_id, username")
-                                .sort({ createdAt: -1 });
-      return res.json(events);
-    }
-    catch(err) {
-      return res.json([]);
-    }
-  });
-
-
   //find events by userId
-  router.get('/user/:userId', async (req, res, next) => {
+  router.get('/users/:userId', async (req, res, next) => {
     let user;
     try {
       user = await User.findById(req.params.userId);
@@ -33,19 +19,21 @@ router.get('/', async (req, res) => {
       return next(error);
     }
     try {
-      const events = await Event.find({$or: [{ host: user._id, guests: user._id}]})
-                                .sort({ createdAt: -1 })
-                                .populate("host", "_id, username")
-                                .populate("guests", "_id, username");
+      const events = await Event.find({
+        $or: [{ host: user._id }, { guests: user._id }]
+      })
+      .sort({ createdAt: -1 })
+      .populate("host", "_id, username")
+      .populate("guests", "_id, username");
       return res.json(events);
     }
     catch(err) {
-      return res.json([]);
+      return res.json(user);
     }
   })
 
   //find events by event id
-  router.get('/:id', async (req, res, next) => {a
+  router.get('/:id', async (req, res, next) => {
     try {
       const events = await Event.findById(req.params.id)
                                .populate("host", "id, username");
@@ -59,6 +47,19 @@ router.get('/', async (req, res) => {
     }
   });
 
+  //index all events
+  router.get('/', async (req, res) => {
+    try {
+      const events = await Event.find()
+                                .populate("host", "_id, username")
+                                .sort({ createdAt: -1 });
+      return res.json(events);
+    }
+    catch(err) {
+      return res.json([]);
+    }
+  });
+
   //create new event
   router.post('/', requireUser, validateEventInput, async (req, res, next) => {
     try {
@@ -67,23 +68,27 @@ router.get('/', async (req, res) => {
       });
 
       let event = await newEvent.save();
-      event = await event.populate('host', '_id, username').populate("guests", "_id, username");
+      event = await event.populate([{path:'host', select:'_id, username'}, {path:'guests', select:'_id, username'}]);
       return res.json(event);
     }
     catch(err) {
-      next(err);
+      const error = new Error('Something went wrong');
+      error.statusCode = 404;
+      error.errors = { message: "Something went wrong" };
+      next(error);
     }
   });
 
   //update event
   router.patch('/:id', requireUser, validateEventInput, async (req, res, next) => {
     try {
+      const userID = req.params.userID
         const filter = {_id: req.params.id}
         const update = { "$set" :{ ...req.body}}
-        const newEvent = await Event.findOneAndUpdate( filter, update, {new: true})
-
+        // const newEvent = await Event.findOneAndUpdate( filter, update, {new: true})
+        if (userID !== newEvent.host._id.toString()) throw "User has to be host";
         let event = await newEvent.save();
-        event = await event.populate('host', '_id, username').populate("guests", "_id, username");
+        event = await event.populate([{path:'host', select:'_id, username'}, {path:'guests', select:'_id, username'}]);
         return res.json(event);
 
     }
@@ -93,10 +98,11 @@ router.get('/', async (req, res) => {
   });
 
   //delete event
-  router.patch('/:id', requireUser, validateEventInput, async (req, res, next) => {
+  router.delete('/:id', requireUser, async (req, res, next) => {
 
     try {
         const newEvent = await Event.deleteOne({ _id: req.params.id });
+        return res.json("Event delete");
     }
     catch(err) {
       next(err);

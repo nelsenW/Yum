@@ -15,6 +15,19 @@ const userSchema = Schema(
       type: String,
       required: true,
     },
+    hostReviews:{
+      _id: Schema.Types.ObjectId,
+      body: String,
+      rating: Number,
+      guestId: Schema.Types.ObjectId
+    },
+    guestReviews:{
+      _id: Schema.Types.ObjectId,
+      title: String,
+      body: String,
+      rating: Number,
+      guestId: Schema.Types.ObjectId
+    }
   },
   {
     timestamps: true,
