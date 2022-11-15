@@ -30,8 +30,7 @@ function LoginForm () {
     <form className="session-form" onSubmit={handleSubmit}>
       <h2>Log In Form</h2>
       <div className="errors">{errors?.email}</div>
-      <label>
-        <span>Email</span>
+      <label>Email
         <input type="text"
           value={email}
           onChange={update('email')}
@@ -39,8 +38,7 @@ function LoginForm () {
         />
       </label>
       <div className="errors">{errors?.password}</div>
-      <label>
-        <span>Password</span>
+      <label>Password
         <input type="password"
           value={password}
           onChange={update('password')}

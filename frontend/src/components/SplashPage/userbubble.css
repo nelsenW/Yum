@@ -1,0 +1,14 @@
+.user-bubble{
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    z-index: 2;
+    position: absolute;
+    top: -200px;
+}
+
+#user-bubble-image{
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
