@@ -8,7 +8,6 @@ const debug = require("debug");
 require('./models/User');
 require('./models/Event');
 
-var app = express();
 const cors = require("cors");
 const { isProduction } = require("./config/keys");
 

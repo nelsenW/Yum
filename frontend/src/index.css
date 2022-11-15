@@ -76,6 +76,7 @@ form > .errors {
   --font-indie-flower: 'Indie Flower', cursive;
   --font-brush: 'Kolker Brush', cursive;
   --font-default: 'Noto Serif JP', serif;
+  --font-button: "Balsamiq Sans", cursive;
   --dark-blue: #03071e;
   --darkest-red: #370617;
   --darker-red: #6A040F;
@@ -87,6 +88,16 @@ form > .errors {
   --solid-yellow: #FAA307;
   --light-yellow: #FFBA08;
   --off-white: whitesmoke;
+  --flickr-pink: #f72585ff;
+  --byzantine: #b5179eff;
+  --purple: #7209b7ff;
+  --purple-2: #560badff;
+  --trypan-blue: #480ca8ff;
+  --trypan-blue-2: #3a0ca3ff;
+  --persian-blue: #3f37c9ff;
+  --ultramarine-blue: #4361eeff;
+  --dodger-blue: #4895efff;
+  --vivid-sky-blue: #4cc9f0ff;
 }
 
 ::-webkit-scrollbar {

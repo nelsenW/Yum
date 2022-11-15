@@ -25,10 +25,15 @@
 }
 
 .nav-button{
-    background-color: var(--dark-blue);
-    color: whitesmoke;
-    font-family: var(--font-indie-flower);
     font-size: 18px;
+
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    color: slategray;
+    border: slategray 0.125em ridge;
+    background-color: transparent;
+    font-family: var(--font-button);
     height: 32px;
     width: auto;
     margin: 0 8px;
@@ -36,6 +41,8 @@
 }
 
 .nav-button:hover{
-    text-decoration: underline;
-    box-shadow: 0 4px 20px 0 rgba(255, 255, 255, 0.6); ;
+    color: var(--flickr-pink);
+    border-color: var(--dodger-blue);
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--flickr-pink);
+    box-shadow: inset 0 0 0.5em 0 var(--dodger-blue), 0 0 0.5em 0 var(--dodger-blue);
 }   
