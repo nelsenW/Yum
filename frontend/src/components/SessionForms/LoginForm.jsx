@@ -28,7 +28,9 @@ function LoginForm () {
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
+      <div className='h2-wrapper'>
       <h2>Log In Form</h2>
+      </div>
       <div className="errors">{errors?.email}</div>
       <label>Email
         <input type="text"
@@ -45,11 +47,10 @@ function LoginForm () {
           placeholder="Password"
         />
       </label>
-      <input
+      <button
         type="submit"
-        value="Log In"
         disabled={!email || !password}
-      />
+      >Log In!</button>
     </form>
   );
 }

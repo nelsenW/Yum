@@ -1,12 +1,10 @@
-import Map from "./Map";
-
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch } from 'react-router-dom';
 import { getCurrentUser } from './store/session';
 import { AuthRoute, ProtectedRoute } from './components/Routes/Routes';
 import SplashPage from './components/SplashPage/SplashPage';
-
+import MainPage from "./components/MainPage/MainPage";
 
 
 function App() {
@@ -21,11 +19,10 @@ function App() {
       <Switch>
         <AuthRoute exact path="/" component={SplashPage} />
 
-        {/* <ProtectedRoute exact path="/tweets" component={Tweets} />
-        <ProtectedRoute exact path="/profile" component={Profile} />
-        <ProtectedRoute exact path="/tweets/new" component={TweetCompose} /> */}
+        <ProtectedRoute exact path="/main" component={MainPage} />
       </Switch>
     </>
+  )
 
 }
 
