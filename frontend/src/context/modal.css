@@ -20,7 +20,10 @@
   
   #modal-content {
     position: absolute;
-    background-color:var(--darkest-red);
+    background-color:var(--dark-blue);
     overflow: hidden;
     border-radius: 8px;
+    border: var(--dodger-blue) 8px solid;
+    box-shadow: inset 0 0 0.5em 0 var(--dodger-blue), 0 0 0.5em 0 var(--dodger-blue);
   }
+
