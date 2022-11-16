@@ -7,6 +7,7 @@ const { requireUser } = require('../../config/passport');
 const validateEventInput = require('../../validations/events');
 
 
+
   //find events by userId
   router.get('/users/:userId', async (req, res, next) => {
     let user;
@@ -72,20 +73,17 @@ const validateEventInput = require('../../validations/events');
       return res.json(event);
     }
     catch(err) {
-      const error = new Error('Something went wrong');
-      error.statusCode = 404;
-      error.errors = { message: "Something went wrong" };
-      next(error);
+      next(err);
     }
   });
 
   //update event
   router.patch('/:id', requireUser, validateEventInput, async (req, res, next) => {
     try {
-      const userID = req.params.userID
+        const userID = req.params.userID
         const filter = {_id: req.params.id}
         const update = { "$set" :{ ...req.body}}
-        // const newEvent = await Event.findOneAndUpdate( filter, update, {new: true})
+        const newEvent = await Event.findOneAndUpdate( filter, update, {new: true})
         if (userID !== newEvent.host._id.toString()) throw "User has to be host";
         let event = await newEvent.save();
         event = await event.populate([{path:'host', select:'_id, username'}, {path:'guests', select:'_id, username'}]);
@@ -93,7 +91,10 @@ const validateEventInput = require('../../validations/events');
 
     }
     catch(err) {
-      next(err);
+      const error = new Error('Something went wrong');
+      error.statusCode = 404;
+      error.errors = { message: "Something went wrong, User has to be the host to patch" };
+      next(error);
     }
   });
 
