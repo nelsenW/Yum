@@ -15,7 +15,7 @@ const receiveErrors = errors => ({
   errors
 });
 
-const logoutUser = () => ({
+export const logoutUser = () => ({
   type: RECEIVE_USER_LOGOUT
 });
 
