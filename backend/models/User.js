@@ -1,6 +1,25 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const reviewSchema = Schema({
+  title: {
+    type: String,
+    required:true
+  },
+  body: {
+    type: String,
+    required: true
+  },
+  rating: {
+    type: Number,
+    required: true
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  }
+})
+
 const userSchema = Schema(
   {
     username: {
@@ -15,23 +34,16 @@ const userSchema = Schema(
       type: String,
       required: true,
     },
-    hostReviews:{
-      _id: Schema.Types.ObjectId,
-      body: String,
-      rating: Number,
-      guestId: Schema.Types.ObjectId
-    },
-    guestReviews:{
-      _id: Schema.Types.ObjectId,
-      title: String,
-      body: String,
-      rating: Number,
-      guestId: Schema.Types.ObjectId
-    }
+    hostReviews: [reviewSchema],
+    guestReviews: [reviewSchema]
   },
   {
     timestamps: true,
   }
 );
+
+
+
+// userSchema.set("validateBeforeSave",false)
 
 module.exports = mongoose.model("User", userSchema);
