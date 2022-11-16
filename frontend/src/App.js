@@ -1,6 +1,4 @@
-import Map from './components/Map/Map';
 import MapContainer from './components/Map/MapContainer';
-
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
@@ -22,7 +20,7 @@ function App() {
 				<Switch>
 					<AuthRoute exact path='/' component={SplashPage} />
 		
-					<Route path='/map-test' component={MapContainer} />;
+					<Route path='/map-test' component={MapContainer} />
 					<ProtectedRoute exact path='/main' component={MainPage} />
 				</Switch>
 			</>
