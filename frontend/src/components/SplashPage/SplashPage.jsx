@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Modal } from '../../context/Modal';
 import LoginForm from '../SessionForms/LoginForm';
 import SignupForm from '../SessionForms/SignupForm';
+import Canvas from './Canvas';
 import NavBar from './Navigation';
 import './splashPage.css'
 import UserInfoBubble from './userInfoBubble';
-import foodReel from '../../assets/foodreel.mp4'
 
 export default function SplashPage() {
 	const [loginModal, setLoginModal] = useState(false);
@@ -13,6 +13,11 @@ export default function SplashPage() {
 	const [yanBubble, setYanBubble] = useState(false);
 	const [williamBubble, setWilliamBubble] = useState(false);
 	const [michaelBubble, setMichaelBubble] = useState(false);
+	const [canvasLoad, setCanvasLoad] = useState(false);
+
+	useEffect(() => {
+		setCanvasLoad(true)
+	},[])
 
 
 	return (
@@ -32,20 +37,22 @@ export default function SplashPage() {
 				</Modal>
 			)}
 
-			<main>
-				<video autoPlay loop muted playsInline src={foodReel}/>
+			<main id='splash-main'>
+				<canvas id='canvas'>
+					{canvasLoad && <Canvas />}
+				</canvas>
 			</main>
 			<footer className='splash-footer'>
 				<ul>
-					<div onMouseEnter={() =>{setYanBubble(true)}} onMouseLeave={() => {setYanBubble(false)}}>
-					<h2 >Yan Rivera</h2>
+					<div onMouseEnter={() =>{setYanBubble(true)}} onMouseLeave={() => {setYanBubble(false)}} className='footer-bubble'>
+						<h2>Yan Rivera</h2> 
 						{yanBubble && <UserInfoBubble person={'y'}/>}
 					</div>
-					<div onMouseEnter={() =>{setMichaelBubble(true)}} onMouseLeave={() => {setMichaelBubble(false)}}>
+					<div onMouseEnter={() =>{setMichaelBubble(true)}} onMouseLeave={() => {setMichaelBubble(false)}} className='footer-bubble'>
 					<h2 >Michael Shih</h2>
 						{michaelBubble && <UserInfoBubble person={'m'}/>}
 					</div>
-					<div onMouseEnter={() =>{setWilliamBubble(true)}} onMouseLeave={() => {setWilliamBubble(false)}}>
+					<div onMouseEnter={() =>{setWilliamBubble(true)}} onMouseLeave={() => {setWilliamBubble(false)}} className='footer-bubble'>
 					<h2>William Nelsen</h2>
 						{williamBubble && <UserInfoBubble person={'w'}/>}
 					</div>

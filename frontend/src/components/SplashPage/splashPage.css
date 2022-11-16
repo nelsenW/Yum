@@ -2,26 +2,14 @@
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
-    background: linear-gradient(-45deg, var(--darkest-red), var(--deep-orange), var(--light-orange), var(--solid-yellow));
-    background-size: 400% 400%;
-    -webkit-animation: background-animation 5s ease infinite;
-    animation: background-animation 5s ease infinite;
+    background-size: 400% 400%; 
     position: relative;
     overflow-x: hidden;
+    overflow-y: scroll;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-@-webkit-keyframes background-animation {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 51%}
-    100%{background-position:0% 50%}
-}
-@keyframes background-animation {
-    0%{background-position:0% 50%}
-    50%{background-position:100% 51%}
-    100%{background-position:0% 50%}
+    background-color: var(--dark-blue);
 }
 
 .splash-footer{
@@ -36,15 +24,17 @@
     align-items: center;
 }
 
+
 .splash-footer > ul > div{
     position: relative;
+    border: slategray 0.125em ridge;
+    padding: 8px 8px;
+    border-radius: 12px;
 }
 
-.splassh-footer h2{
-    font-size: 24px;
-    line-height: 32px;
-    padding: 16px;
-    width: fit-content;
+.splash-footer h2{
+    font-family: var(--font-button);
+    
 }
 
 .splash-footer ul{
@@ -54,4 +44,21 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
+}
+
+.footer-bubble{
+    color: slategray;
+}
+
+
+#canvas{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#splash-main{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
