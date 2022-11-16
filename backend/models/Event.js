@@ -11,8 +11,7 @@ const eventSchema = Schema({
         required: true
     },
     price: {
-        type: Number,
-        required: true
+        type: Number
     },
     location: {
         type: {
@@ -25,13 +24,14 @@ const eventSchema = Schema({
             required: true
         }
     },
-    event_type: {
+    eventType: {
         type: String,
         default: 'both',
         enum:['in-person','to-go','both']
     },
     host:{
         type: Schema.Types.ObjectId,
+        required: true,
         ref: "User"
     },
     guests: [{
