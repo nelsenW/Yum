@@ -1,35 +1,33 @@
-import Map from "./Map";
-import MapContainer from "./MapContainer";
+import Map from './components/Map/Map';
+import MapContainer from './components/Map/MapContainer';
 
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Switch, Route } from "react-router-dom";
-import { getCurrentUser } from "./store/session";
-import { AuthRoute, ProtectedRoute } from "./components/Routes/Routes";
-import SplashPage from "./components/SplashPage/SplashPage";
-import MainPage from "./components/MainPage/MainPage";
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
+import { getCurrentUser } from './store/session';
+import { AuthRoute, ProtectedRoute } from './components/Routes/Routes';
+import SplashPage from './components/SplashPage/SplashPage';
+import MainPage from './components/MainPage/MainPage';
 
 function App() {
-  const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getCurrentUser()).then(() => setLoaded(true));
-  }, [dispatch]);
+	const [loaded, setLoaded] = useState(false);
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(getCurrentUser()).then(() => setLoaded(true));
+	}, [dispatch]);
 
-  return (
-    loaded && (
-      <>
-        <Switch>
-          <AuthRoute exact path="/" component={SplashPage} />
-          {/* <ProtectedRoute exact path="/tweets" component={Tweets} />
-        <ProtectedRoute exact path="/profile" component={Profile} />
-        <ProtectedRoute exact path="/tweets/new" component={TweetCompose} /> */}
-          <Route path="/map-test" component={MapContainer} />;
-          <ProtectedRoute exact path="/main" component={MainPage} />
-        </Switch>
-      </>
-    )
-  );
+	return (
+		loaded && (
+			<>
+				<Switch>
+					<AuthRoute exact path='/' component={SplashPage} />
+		
+					<Route path='/map-test' component={MapContainer} />;
+					<ProtectedRoute exact path='/main' component={MainPage} />
+				</Switch>
+			</>
+		)
+	);
 }
 
 export default App;
