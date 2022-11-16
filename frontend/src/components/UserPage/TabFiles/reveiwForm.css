@@ -1,0 +1,5 @@
+label:hover ~ label .rating-ind,
+input[name='rating']:focus ~ label .rating-ind,
+input[name='rating']:checked ~ label .rating-ind {
+    color: magenta;
+}
