@@ -4,13 +4,13 @@ import { Modal } from '../../context/Modal';
 import { logout, logoutUser } from '../../store/session';
 import UserPage from '../UserPage/UserPage';
 
-export default function SideNav() {
+export default function SideNav({rot}) {
 	const userName = useSelector((state) => state.session.user.username);
     const dispatch = useDispatch();
     const [userModal, setUserModal] = useState();
 
 	return (
-		<nav id='nav-sidebar'>
+		<nav id='nav-sidebar' className={`${(rot() === ' rotated') ? ' rotated hidden' : ' unrotated'}`}>
 			<div></div>
 			<div className='sidebar-profile-token'>
 				<h1>{userName}</h1>

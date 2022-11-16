@@ -8,6 +8,8 @@
     top: 1em;
     left: 1em;
     overflow: hidden;
+    backface-visibility: hidden;
+    transition-delay: display 1s;
 }
 
 #main-page{
@@ -32,6 +34,16 @@
     margin: 2px;
     border-radius: 4px;
     z-index: 3;
+}
+
+@keyframes spin {
+    from {transform:rotateY(0deg);}
+    to {transform:rotateY(180deg);}
+}
+
+@keyframes unspin {
+    from {transform:rotateY(-180deg);}
+    to {transform:rotateY(0deg);}
 }
 
 .settings-button{
@@ -69,4 +81,17 @@
 
 .sidebar-profile-token div{
     display: flex;
+}
+
+.rotated {
+    animation: spin 1s 1 linear;
+}
+
+.unrotated {
+    animation: unspin 1s 1 linear;
+}
+
+.hidden {
+    
+    display: none;
 }

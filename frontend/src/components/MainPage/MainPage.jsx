@@ -5,16 +5,21 @@ import SideNav from "./SideNav";
 
 
 export default function MainPage(){
-    const [sideBar, setSideBar] = useState(false);
+    const [sideBar, setSideBar] = useState(false)
+
+    const rot = () => {
+        return sideBar ? ' rotated' : ' unrotated'
+    }
+
 
     return (
         <div id="main-page">
             <div onClick={() => setSideBar(!sideBar)} id='hamburger-wrapper'>
-                <div className="hamburger"></div>
-                <div className="hamburger"></div>
-                <div className="hamburger"></div>                    
+                <div className={`hamburger${rot()}`}></div>
+                <div className={`hamburger${rot()}`}></div>
+                <div className={`hamburger${rot()}`}></div>                    
             </div>
-            {sideBar && <SideNav />} 
+            <SideNav rot={rot}/>
         <MapContainer />
         </div>
     )
