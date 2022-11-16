@@ -63,5 +63,10 @@
 	background-color: magenta;
 	display: flex;
 	align-items: center;
+    justify-content: space-between;
 	color: whitesmoke;
+}
+
+.sidebar-profile-token div{
+    display: flex;
 }

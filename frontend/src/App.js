@@ -22,6 +22,7 @@ function App() {
 		
 					<Route path='/map-test' component={MapContainer} />
 					<ProtectedRoute exact path='/main' component={MainPage} />
+          <Route component={SplashPage} />
 				</Switch>
 			</>
 		)
