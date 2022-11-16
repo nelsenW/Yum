@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import AddressInput from '../../Map/AddressInput';
+import { clearSessionErrors } from '../../../store/session';
+import './reviewForm.css'
 
 function ReviewForm () {
     const [title, setTitle] = useState('');
@@ -28,12 +29,15 @@ function ReviewForm () {
         case 'body':
             setState = setBody;
             break;
+        default:
+            return;
     }
     return e => setState(e.currentTarget.value);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // dispatch()
   }
 
   return (
@@ -50,17 +54,13 @@ function ReviewForm () {
         />
       </label>
       <div className="errors">{errors?.rating}</div>
-      <fieldset className='rating-box'>Rating
-        <input type='radio' name='rating' value={1} id='rating-1'></input>
-            <label className='rating-ind' for='rating-1'></label>
-        <input type='radio' name='rating' value={2} id='rating-2'></input>
-            <label className='rating-ind' for='rating-2'></label>
-        <input type='radio' name='rating' value={3} id='rating-3'></input>
-            <label className='rating-ind' for='rating-3'></label>
-        <input type='radio' name='rating' value={4} id='rating-4'></input>
-            <label className='rating-ind' for='rating-4'></label>
-        <input type='radio' name='rating' value={5} id='rating-5'></input>
-            <label className='rating-ind' for='rating-5'></label>
+      <fieldset className='rating' onChange={(e) => setRating(e.target.value)}>
+        <legend>Rating</legend>
+        <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+        <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+        <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+        <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+        <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
       </fieldset>
       <div className="errors">{errors?.body}</div>
       <label>Body
@@ -70,25 +70,9 @@ function ReviewForm () {
           placeholder="ur mom"
         />
       </label>
-      <div className="errors">{errors?.guests}</div>
-      <label>Guests
-        <input type="text"
-          value={guests}
-          onChange={update('guests')}
-          placeholder="guests"
-        />
-      </label>
-      <div className="errors">{errors?.restrictions}</div>
-      <label>Restrictions
-        <input type="text"
-          value={restrictions}
-          onChange={update('restrictions')}
-          placeholder="restrictions"
-        />
-      </label>
       <button
         type="submit"
-        disabled={!location || !title}
+        disabled={!rating || !title}
       >Create</button>
     </form>
   );

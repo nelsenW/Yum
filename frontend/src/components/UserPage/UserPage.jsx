@@ -1,13 +1,13 @@
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import './userPage.css';
 import { useState } from 'react';
 import { logout } from '../../store/session';
+import ReviewForm from './TabFiles/ReviewForm';
+import EventForm from './TabFiles/EventForm';
 
 function UserPage({ setUserModal }) {
-	const history = useHistory();
 	const dispatch = useDispatch();
-	const [tab, setTab] = useState('My Account')
+	const [tab, setTab] = useState('');
 
 	const logoutUser = (e) => {
 		e.preventDefault();
@@ -18,18 +18,14 @@ function UserPage({ setUserModal }) {
 		<div className='user-form-modal'>
 			<aside className='user-form-modal-nav'>
 				<ul className='modal-nav-tabs'>
-					<li onClick={() => setTab('My Account')}>My Account</li>
-					<li onClick={() => setTab('Reviews')}>Reviews</li>
-					<li onClick={() => setTab('Make an Event')}>Make an Event</li>
-                    
+					<li onClick={() => setTab('')}>My Account</li>
+					<li onClick={() => setTab(<ReviewForm />)}>Reviews</li>
+					<li onClick={() => setTab(<EventForm />)}>Make an Event</li>
+
 					<div className='seperator'></div>
 					<li onClick={logoutUser}>
 						Log Out
-						<svg
-							role='img'
-							width='16'
-							height='16'
-							viewBox='0 0 24 24'>
+						<svg role='img' width='16' height='16' viewBox='0 0 24 24'>
 							<path
 								fill='currentColor'
 								d='M18 2H7C5.897 2 5 2.898 5 4V11H12.59L10.293 8.708L11.706 7.292L16.414 11.991L11.708 16.706L10.292 15.294L12.582 13H5V20C5 21.103 5.897 22 7 22H18C19.103 22 20 21.103 20 20V4C20 2.898 19.103 2 18 2Z'></path>
@@ -39,10 +35,8 @@ function UserPage({ setUserModal }) {
 				</ul>
 			</aside>
 			<main className='user-form-modal-main'>
-				<div className='modal-main-column'>
+				<div className='modal-main-column'>{tab}</div>
 
-				</div>
-				
 				<div id='esc-toolbar' onClick={() => setUserModal(false)}>
 					<div id='esc-button'>
 						<svg role='img' width='18' height='18' viewBox='0 0 24 24'>

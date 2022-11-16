@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '../../context/Modal';
-import { logout, logoutUser } from '../../store/session';
+import { logout } from '../../store/session';
 import UserPage from '../UserPage/UserPage';
 
 export default function SideNav({rot}) {
