@@ -1,16 +1,3 @@
-#nav-sidebar{
-    position: absolute;
-    height: 90vh;
-    width: 20vw;
-    background-color: var(--dark-blue);
-    border-radius: 8px;
-    border: 4px solid slategray;
-    top: 1em;
-    left: 1em;
-    overflow: hidden;
-    backface-visibility: hidden;
-    transition-delay: display 1s;
-}
 
 #main-page{
     height: 100vh;
@@ -24,74 +11,51 @@
     position: absolute;
     top: 1.5em;
     left: 1.5em;
-    z-index: 2;
+    z-index: 301;
 }
 
 .hamburger{
     width: 30px;
     height: 5px;
-    background-color: magenta;
+    background-color: var(--dark-yellow);
     margin: 2px;
     border-radius: 4px;
-    z-index: 3;
+    box-sizing: border-box;
+    z-index: 301;
+    border: 2px solid var(--dark-yellow);
+    box-shadow: inset 0 0 0.5em 0 var(--dark-yellow), 0 0 0.5em 0 var(--dark-yellow);
+    transition: background-color 1s, box-shadow 1s, border 1s;
+    transition-timing-function: cubic-bezier(0,2.03,0,-1.57);
 }
 
-@keyframes spin {
-    from {transform:rotateY(0deg);}
-    to {transform:rotateY(180deg);}
+.hidden { 
+    background-color: slategray;
+    box-shadow: none;
+    border: slategray 2px solid;
 }
 
-@keyframes unspin {
-    from {transform:rotateY(-180deg);}
-    to {transform:rotateY(0deg);}
+#hamburger-wrapper:hover .hamburger{
+    border: 2px solid var(--dark-yellow);
+    box-shadow: inset 0 0 0.5em 0 var(--dark-yellow), 0 0 0.5em 0 var(--dark-yellow);
+    background-color: var(--dark-yellow);
 }
 
-.settings-button{
-	border: none;
-	outline: none;
-	background-color: transparent;
-	color: var(--dark-blue);
-	width: 32px;
-	height: 32px;
-	border-radius: 4px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-left: auto;
-    z-index: 4;
+#make-event{
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    bottom: 2em;
+    right: 2em;
+    border-radius: 50%;
+    font-size: 32px;
+    background-color: var(--dark-blue);
+    color: slategray;
+    transition: background-color 1s, box-shadow 1s, border 1s, color 1s;
 }
 
-.settings-button:hover {
-	background-color: var(--dark-blue);
-}
-
-.sidebar-profile-token {
-    position: relative;
-    top: calc(100% - 52px);
-	height: 52px;
-	font-size: 14px;
-	font-weight: 500;
-	padding: 0 8px;
-	background-color: magenta;
-	display: flex;
-	align-items: center;
-    justify-content: space-between;
-	color: whitesmoke;
-}
-
-.sidebar-profile-token div{
-    display: flex;
-}
-
-.rotated {
-    animation: spin 1s 1 linear;
-}
-
-.unrotated {
-    animation: unspin 1s 1 linear;
-}
-
-.hidden {
-    
-    display: none;
+#make-event:hover{
+    border: 2px solid var(--dark-yellow);
+    box-shadow: inset 0 0 0.5em 0 var(--dark-yellow), 0 0 0.5em 0 var(--dark-yellow);
+    background-color: var(--dark-yellow);
+    color: var(--dark-blue);
 }

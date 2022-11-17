@@ -5,9 +5,9 @@ import { logout } from '../../store/session';
 import ReviewForm from './TabFiles/ReviewForm';
 import EventForm from './TabFiles/EventForm';
 
-function UserPage({ setUserModal }) {
+function UserPage({ setUserModal, inputTab }) {
 	const dispatch = useDispatch();
-	const [tab, setTab] = useState('');
+	const [tab, setTab] = useState(inputTab ?? '');
 
 	const logoutUser = (e) => {
 		e.preventDefault();
