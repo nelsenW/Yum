@@ -57,6 +57,10 @@ const validateEventInput = require('../../validations/events');
                                   .populate("host", "_id, username")
                                   .populate("guestLists", "_id, username")
                                   .sort({ createdAt: -1 });
+        let noMatch;
+        if (events.length < 1 ){
+          noMatch = "No Events match that query, please try again"
+        }
         return res.json(events);
       } else {
         const events = await Event.find()
