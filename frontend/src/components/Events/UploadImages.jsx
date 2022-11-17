@@ -1,5 +1,5 @@
 import { useState } from "react";
-import jwtFetch from "../store/jwt";
+import jwtFetch from "../../store/jwt";
 
 const UploadImages = ({ setImageUploadElement, event }) => {
   const [imageFiles, setImageFiles] = useState([]);

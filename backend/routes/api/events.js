@@ -95,6 +95,24 @@ router.get("/:id", async (req, res, next) => {
     }
   });
 
+  router.post("/:eventId/postImages", function (req, res) {
+    const eventId = req.params.eventId;
+  
+    upload.array("images", 5)(req, res, async function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        const newImages = req.files.map((file) => file.location);
+  
+        let modified = await Event.findByIdAndUpdate(eventId, {
+          images: newImages,
+        });
+  
+        return res.json();
+      }
+    });
+  });
+
   //update event
   router.patch('/:id/', requireUser, validateEventInput, async (req, res, next) => {
     try {
