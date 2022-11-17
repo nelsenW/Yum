@@ -31,6 +31,7 @@ function App() {
             component={AddEventForm}
           />
           <ProtectedRoute exact path="/main" component={MainPage} />
+          <Route component={SplashPage} />
         </Switch>
       </>
     )

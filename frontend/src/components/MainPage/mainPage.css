@@ -1,0 +1,61 @@
+
+#main-page{
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+}
+
+#hamburger-wrapper{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 1.5em;
+    left: 1.5em;
+    z-index: 301;
+}
+
+.hamburger{
+    width: 30px;
+    height: 5px;
+    background-color: var(--dark-yellow);
+    margin: 2px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    z-index: 301;
+    border: 2px solid var(--dark-yellow);
+    box-shadow: inset 0 0 0.5em 0 var(--dark-yellow), 0 0 0.5em 0 var(--dark-yellow);
+    transition: background-color 1s, box-shadow 1s, border 1s;
+    transition-timing-function: cubic-bezier(0,2.03,0,-1.57);
+}
+
+.hidden { 
+    background-color: slategray;
+    box-shadow: none;
+    border: slategray 2px solid;
+}
+
+#hamburger-wrapper:hover .hamburger{
+    border: 2px solid var(--dark-yellow);
+    box-shadow: inset 0 0 0.5em 0 var(--dark-yellow), 0 0 0.5em 0 var(--dark-yellow);
+    background-color: var(--dark-yellow);
+}
+
+#make-event{
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    bottom: 2em;
+    right: 2em;
+    border-radius: 50%;
+    font-size: 32px;
+    background-color: var(--dark-blue);
+    color: slategray;
+    transition: background-color 1s, box-shadow 1s, border 1s, color 1s;
+}
+
+#make-event:hover{
+    border: 2px solid var(--dark-yellow);
+    box-shadow: inset 0 0 0.5em 0 var(--dark-yellow), 0 0 0.5em 0 var(--dark-yellow);
+    background-color: var(--dark-yellow);
+    color: var(--dark-blue);
+}

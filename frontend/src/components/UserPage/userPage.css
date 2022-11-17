@@ -1,0 +1,106 @@
+.user-form-modal{
+    width: 100vw;
+    height: 100vh;
+    background-color: slategray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 7;
+}
+
+.user-form-modal-nav{
+    flex: 1 0 218px;
+    height: 100%;
+    background-color: var(--dark-blue);
+    display: flex;
+    justify-content: flex-end;
+    
+}
+
+.modal-nav-tabs{
+    overflow: hidden;
+    width: 218px;
+    margin: 60px 6px 60px 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column; 
+}
+
+.modal-nav-tabs li{
+    color: slategray;
+    padding: 4px 8px 8px 8px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: .5s color, .5s text-shadow;
+    transition-timing-function: linear;
+    font-family: var(--font-button);
+    font-size: 16px;
+}
+
+.modal-nav-tabs li:hover{
+    color: var(--dark-yellow);
+    text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--dark-yellow);
+}
+
+.user-form-modal-main{
+    flex: 1 1 800px;
+    height: 100%;
+    overflow: hidden scroll;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.modal-main-column{
+    flex: 1 1 auto;
+    max-width: 740px;
+    min-width: 460px;
+    min-height: 100%;
+    padding: 60px 40px 80px;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.seperator{
+    width: 90%;
+    height: 1px;
+    background: slategray;
+    margin: 8px 0;
+}
+
+#esc-button{
+    flex: 0 0 36px;
+    border: 2px solid;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    color: var(--clickable-default);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+
+#esc-toolbar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 60px;
+}
+
+#esc-toolbar h2{
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+    color: var(--clickable-default)
+}
