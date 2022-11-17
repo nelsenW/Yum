@@ -40,7 +40,7 @@ const AddressInput = ({setLocation}) => {
           })}
         </div>
       )}
-      <button onClick={handleCurrentLocationClick}>Use Current Location</button>
+      <button onClick={handleCurrentLocationClick} type='button'>Use Current Location</button>
     </div>
   );
 };

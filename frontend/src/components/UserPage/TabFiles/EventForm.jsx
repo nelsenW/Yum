@@ -4,16 +4,18 @@ import { composeEvent } from '../../../store/events';
 import { clearSessionErrors } from '../../../store/session';
 import EventCard from '../../Events/EventCard';
 import AddressInput from '../../Map/AddressInput';
-import './eventForm.css'
+import './eventForm.css';
 
 function EventForm() {
 	const [location, setLocation] = useState('');
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');
 	const [price, setPrice] = useState('');
-	const [guests, setGuests] = useState('');
+	const [guests, setGuests] = useState(null);
 	const [restrictions, setRestrictions] = useState('');
+	const [eventType, setEventType] = useState('')
 	const errors = useSelector((state) => state.errors.session);
+	const userId = useSelector((state) => state.session.user._id)
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -21,33 +23,6 @@ function EventForm() {
 			dispatch(clearSessionErrors());
 		};
 	}, [dispatch]);
-
-	const update = (field) => {
-		let setState;
-		switch (field) {
-			case 'location':
-				setState = setLocation;
-				break;
-			case 'title':
-				setState = setTitle;
-				break;
-			case 'description':
-				setState = setDescription;
-				break;
-			case 'price':
-				setState = setPrice;
-				break;
-			case 'guests':
-				setState = setGuests;
-				break;
-			case 'restrictions':
-				setState = setRestrictions;
-				break;
-			default:
-				return;
-		}
-		return (e) => setState(e.currentTarget.value);
-	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -58,7 +33,10 @@ function EventForm() {
 				description,
 				price,
 				guests,
-				restrictions
+				restrictions,
+				eventType,
+				host: userId,
+				images: (FormData)
 			})
 		);
 	};
@@ -72,7 +50,7 @@ function EventForm() {
 				<div className='errors'>{errors?.location}</div>
 				<label>
 					Location
-					<AddressInput setLocation = {setLocation}/>
+					<AddressInput setLocation={setLocation} />
 				</label>
 				<div className='errors'>{errors?.title}</div>
 				<label>
@@ -80,7 +58,7 @@ function EventForm() {
 					<input
 						type='text'
 						value={title}
-						onChange={() => {update('title')}}
+						onChange={(e) => setTitle(e.target.value)}
 						placeholder='title'
 					/>
 				</label>
@@ -90,7 +68,7 @@ function EventForm() {
 					<input
 						type='textarea'
 						value={description}
-						onChange={() => {update('description')}}
+						onChange={(e) => setDescription(e.target.value)}
 						placeholder='description'
 					/>
 				</label>
@@ -98,9 +76,9 @@ function EventForm() {
 				<label>
 					Price
 					<input
-						type='number\'
+						type='number'
 						value={price}
-						onChange={() => {update('price')}}
+						onChange={(e) => setPrice(e.target.value)}
 						placeholder='price'
 					/>
 				</label>
@@ -108,9 +86,9 @@ function EventForm() {
 				<label>
 					Guests
 					<input
-						type='text'
+						type='number'
 						value={guests}
-						onChange={() => {update('guests')}}
+						onChange={(e) => setGuests(e.target.value)}
 						placeholder='guests'
 					/>
 				</label>
@@ -120,15 +98,27 @@ function EventForm() {
 					<input
 						type='text'
 						value={restrictions}
-						onChange={() => {update('restrictions')}}
+						onChange={(e) => setRestrictions(e.target.value)}
 						placeholder='restrictions'
 					/>
 				</label>
+				<fieldset
+					className='event-type'
+					onChange={(e) => setEventType(e.target.value)} value={eventType}>
+					<legend>Event Type</legend>
+					<input type='radio' id='in-person' name='rating' value='in-person' />
+					<label for='in-person'>In-person</label>
+					<input type='radio' id='to-go' name='rating' value='to-go' />
+					<label for='to-go'>To-go</label>
+					<input type='radio' id='both' name='rating' value='both'/>
+					<label for='both'>Both</label>
+				</fieldset>
+
 				<button type='submit' disabled={!location || !title}>
 					Create
 				</button>
 			</form>
-            <EventCard />
+			<EventCard />
 		</div>
 	);
 }
