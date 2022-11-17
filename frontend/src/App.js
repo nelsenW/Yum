@@ -1,8 +1,6 @@
-import Map from "./components/Map/Map";
-import MapContainer from "./components/Map/MapContainer";
-import UploadImages from "./components/UploadImages";
-import AddEventForm from "./components/AddEventForm";
 
+import MapContainer from "./components/Map/MapContainer";
+import AddEventForm from "./components/AddEventForm";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
@@ -24,7 +22,6 @@ function App() {
         <Switch>
           <AuthRoute exact path="/" component={SplashPage} />
           <Route path="/map-test" component={MapContainer} />;
-          {/* <ProtectedRoute path="/upload-image-test" component={UploadImages} /> */}
           <ProtectedRoute
             exact
             path="/upload-image-test"
