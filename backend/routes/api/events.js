@@ -67,6 +67,7 @@ const validateEventInput = require('../../validations/events');
                                   .populate("host", "_id, username")
                                   .populate("guestLists", "_id, username")
                                   .sort({ createdAt: -1 });
+        console.log(events)
         return res.json(events);
       }
     }

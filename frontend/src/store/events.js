@@ -44,7 +44,7 @@ export const fetchEvents = () => async dispatch => {
       }
     }
   };
-  
+
   export const fetchUserEvents = id => async dispatch => {
     try {
       const res = await jwtFetch(`/api/events/user/${id}`);
@@ -57,7 +57,7 @@ export const fetchEvents = () => async dispatch => {
       }
     }
   };
-  
+
   export const composeEvent = data => async dispatch => {
     try {
       const res = await jwtFetch('/api/events/', {
@@ -91,16 +91,16 @@ export const eventErrorsReducer = (state = nullErrors, action) => {
 const eventsReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
     switch(action.type) {
       case RECEIVE_EVENTS:
-        return { ...state, all: action.EVENTS, new: undefined};
+        return { ...state, all: action.events, new: undefined};
       case RECEIVE_USER_EVENTS:
-        return { ...state, user: action.EVENTS, new: undefined};
+        return { ...state, user: action.events, new: undefined};
       case RECEIVE_NEW_EVENT:
-        return { ...state, new: action.EVENT};
+        return { ...state, new: action.event};
       case RECEIVE_USER_LOGOUT:
         return { ...state, user: {}, new: undefined }
       default:
         return state;
     }
   };
-  
+
   export default eventsReducer;
