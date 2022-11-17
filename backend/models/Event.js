@@ -34,7 +34,7 @@ const eventSchema = Schema({
         required: true,
         ref: "User"
     },
-    guests: [{
+    guestLists: [{
         type: Schema.Types.ObjectId,
         ref: "User"
         }],
@@ -43,5 +43,6 @@ const eventSchema = Schema({
     }}, {
     timestamps: true
   });
+
 
   module.exports = mongoose.model('Event', eventSchema);

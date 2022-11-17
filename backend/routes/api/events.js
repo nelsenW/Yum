@@ -25,7 +25,7 @@ const validateEventInput = require('../../validations/events');
       })
       .sort({ createdAt: -1 })
       .populate("host", "_id, username")
-      .populate("guests", "_id, username");
+      .populate("guestLists", "_id, username");
       return res.json(events);
     }
     catch(err) {
@@ -51,15 +51,29 @@ const validateEventInput = require('../../validations/events');
   //index all events
   router.get('/', async (req, res) => {
     try {
-      const events = await Event.find()
-                                .populate("host", "_id, username")
-                                .sort({ createdAt: -1 });
-      return res.json(events);
+      if (req.query.search){
+        const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+        const events = await Event.find({title: regex})
+                                  .populate("host", "_id, username")
+                                  .populate("guestLists", "_id, username")
+                                  .sort({ createdAt: -1 });
+        return res.json(events);
+      } else {
+        const events = await Event.find()
+                                  .populate("host", "_id, username")
+                                  .populate("guestLists", "_id, username")
+                                  .sort({ createdAt: -1 });
+        return res.json(events);
+      }
     }
     catch(err) {
       return res.json([]);
     }
   });
+
+  function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+  };
 
   //create new event
   router.post('/', requireUser, validateEventInput, async (req, res, next) => {
@@ -69,7 +83,7 @@ const validateEventInput = require('../../validations/events');
       });
 
       let event = await newEvent.save();
-      event = await event.populate([{path:'host', select:'_id, username'}, {path:'guests', select:'_id, username'}]);
+      event = await event.populate([{path:'host', select:'_id, username'}, {path:'guestLists', select:'_id, username'}]);
       return res.json(event);
     }
     catch(err) {
@@ -86,7 +100,7 @@ const validateEventInput = require('../../validations/events');
         const newEvent = await Event.findOneAndUpdate( filter, update, {new: true})
         if (userID !== newEvent.host._id.toString()) throw "User has to be host";
         let event = await newEvent.save();
-        event = await event.populate([{path:'host', select:'_id, username'}, {path:'guests', select:'_id, username'}]);
+        event = await event.populate([{path:'host', select:'_id, username'}, {path:'guestLists', select:'_id, username'}]);
         return res.json(event);
 
     }
