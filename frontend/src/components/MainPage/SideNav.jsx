@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '../../context/Modal';
+import { fetchEvents } from '../../store/events';
 import { logout } from '../../store/session';
 import EventBubble from '../Events/EventBubble';
 import UserPage from '../UserPage/UserPage';
@@ -10,15 +11,16 @@ export default function SideNav({hidden}) {
 	const userName = useSelector((state) => state.session.user.username);
     const dispatch = useDispatch();
     const [userModal, setUserModal] = useState();
+	const events = useSelector((state) => state.events ? Object.values(state.events) : [])
+
+	useEffect(() => {
+		dispatch(fetchEvents())
+	},[])
 
 	return (
 		<nav id='nav-sidebar' className={`${(hidden() === ' hidden') ? ' hidden2' : ''}`}>
 			<div id='nav-sidebar-main'>
-			<EventBubble />
-			<EventBubble />
-			<EventBubble />
-			<EventBubble />
-
+			{events.map(event => <EventBubble event={event}/>)}
 			</div>
 			<div className='sidebar-profile-token'>
 				<h1>{userName}</h1>

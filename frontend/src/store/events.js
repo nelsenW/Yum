@@ -74,6 +74,22 @@ export const fetchEvents = () => async dispatch => {
     }
   };
 
+  export const addUserToEvent = data => async dispatch => {
+    try {
+      const res = await jwtFetch(`/api/events/${data.eventId}`, {
+        method: 'PATCH',
+        body: JSON.stringify(data)
+      });
+      const event = await res.json();
+      dispatch(receiveNewEvent(event));
+    } catch(err) {
+      const resBody = await err.json();
+      if (resBody.statusCode === 400) {
+        return dispatch(receiveErrors(resBody.errors));
+      }
+    }
+  };
+
   const nullErrors = null;
 
 export const eventErrorsReducer = (state = nullErrors, action) => {
