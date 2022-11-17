@@ -1,17 +1,25 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal } from '../../context/Modal';
-import { logout, logoutUser } from '../../store/session';
+import { logout } from '../../store/session';
+import EventBubble from '../Events/EventBubble';
 import UserPage from '../UserPage/UserPage';
+import './sideNav.css'
 
-export default function SideNav({rot}) {
+export default function SideNav({hidden}) {
 	const userName = useSelector((state) => state.session.user.username);
     const dispatch = useDispatch();
     const [userModal, setUserModal] = useState();
 
 	return (
-		<nav id='nav-sidebar' className={`${(rot() === ' rotated') ? ' rotated hidden' : ' unrotated'}`}>
-			<div></div>
+		<nav id='nav-sidebar' className={`${(hidden() === ' hidden') ? ' hidden2' : ''}`}>
+			<div id='nav-sidebar-main'>
+			<EventBubble />
+			<EventBubble />
+			<EventBubble />
+			<EventBubble />
+
+			</div>
 			<div className='sidebar-profile-token'>
 				<h1>{userName}</h1>
                 <div>
