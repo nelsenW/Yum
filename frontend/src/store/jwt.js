@@ -13,12 +13,7 @@ async function jwtFetch(url, options = {}) {
   const jwtToken = localStorage.getItem("jwtToken");
   if (jwtToken) options.headers["Authorization"] = "Bearer " + jwtToken;
   if (options.method.toUpperCase() !== "GET") {
-    // if (!url.includes("postImages")) {
-    //   options.headers["Content-Type"] =
-    //     options.headers["Content-Type"] || "application/json";
-    // }
-    // options.headers["CSRF-Token"] = getCookie("CSRF-TOKEN");
-    if (!options.body instanceof FormData) {
+    if (!url.includes("postImages")) {
       options.headers["Content-Type"] =
         options.headers["Content-Type"] || "application/json";
     }

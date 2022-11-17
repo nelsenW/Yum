@@ -62,10 +62,11 @@ export const composeEvent = (data) => async (dispatch) => {
   try {
     const res = await jwtFetch("/api/events/", {
       method: "POST",
-      body: data,
+      body: JSON.stringify(data),
     });
     const event = await res.json();
     dispatch(receiveNewEvent(event));
+    return event;
   } catch (err) {
     const resBody = await err.json();
     if (resBody.statusCode === 400) {

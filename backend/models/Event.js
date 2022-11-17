@@ -20,6 +20,10 @@ const eventSchema = Schema(
         enum: ["Point"],
         required: true,
       },
+      name: {
+        type: String,
+        required: true,
+      },
       coordinates: {
         type: [Number],
         required: true,

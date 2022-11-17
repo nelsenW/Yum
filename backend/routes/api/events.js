@@ -59,19 +59,27 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.post("/postImages", function (req, res) {
-//   upload.array("images", 5)(req, res, function (err) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       req.files.forEach((file) => console.log(file.location));
-//     }
-//   });
-// });
+// add images to event
+router.post("/:eventId/postImages", function (req, res) {
+  const eventId = req.params.eventId;
+
+  upload.array("images", 5)(req, res, async function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      const newImages = req.files.map((file) => file.location);
+
+      let modified = await Event.findByIdAndUpdate(eventId, {
+        images: newImages,
+      });
+
+      return res.json();
+    }
+  });
+});
 
 // create new event
 router.post("/", requireUser, validateEventInput, async (req, res, next) => {
-  debugger;
   try {
     const newEvent = new Event({
       ...req.body,
@@ -83,25 +91,6 @@ router.post("/", requireUser, validateEventInput, async (req, res, next) => {
       { path: "guests", select: "_id, username" },
     ]);
 
-    upload.array("images", 5)(req, res, async function (err) {
-      if (err) {
-        console.log(err);
-        //delete created event
-        // event.delete;
-        await Event.remove({ _id: event._id });
-        throw err;
-      } else {
-        const newImages = req.files.map(
-          (file) =>
-            // console.log(file.location);
-            // event.images;
-            file.location
-        );
-        event.images = newImages;
-        event = await event.save();
-      }
-    });
-    console.log(event);
     return res.json(event);
   } catch (err) {
     next(err);

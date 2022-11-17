@@ -2,9 +2,11 @@ import useAddress from "./useAddress";
 
 const AddressInput = ({ setLocation, setCoordinates }) => {
   const address = useAddress("");
+  const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
   const handleResultClick = (searchResult) => {
-    setCoordinates(searchResult.coordinates);
+    setCoordinates([searchResult.center[1], searchResult.center[0]]);
+    setLocation(searchResult.place_name);
     address.setInputValue(searchResult.place_name);
     address.setSearchResults([]);
   };
@@ -13,13 +15,19 @@ const AddressInput = ({ setLocation, setCoordinates }) => {
     navigator.geolocation.getCurrentPosition(showPosition);
   };
 
-  function showPosition(position) {
-    console.log(
-      "Latitude: " +
-        position.coords.latitude +
-        "<br>Longitude: " +
-        position.coords.longitude
-    );
+  async function showPosition(position) {
+    setCoordinates(position.coords.latitude, position.coords.longitude);
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+
+    try {
+      const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${accessToken}&autocomplete=true`;
+      const response = await fetch(endpoint);
+      const results = await response.json();
+      setLocation(results.features[0].place_name);
+    } catch (err) {
+      console.log("Error", err);
+    }
   }
 
   return (
@@ -42,7 +50,9 @@ const AddressInput = ({ setLocation, setCoordinates }) => {
           })}
         </div>
       )}
-      <button onClick={handleCurrentLocationClick}>Use Current Location</button>
+      <button type="button" onClick={handleCurrentLocationClick}>
+        Use Current Location
+      </button>
     </div>
   );
 };

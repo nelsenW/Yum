@@ -7,6 +7,7 @@ import { clearSessionErrors } from "../store/session";
 // import EventCard from "../../Events/EventCard";
 // import AddressInput from "../../Map/AddressInput";
 import AddressInput from "../components/Map/AddressInput";
+import UploadImages from "./UploadImages";
 // import "..//eventForm.css";
 
 function AddEventForm() {
@@ -20,7 +21,11 @@ function AddEventForm() {
   const [imageFiles, setImageFiles] = useState([]);
   const [imageFilesUrls, setImageFilesUrls] = useState([]);
   const errors = useSelector((state) => state.errors.session);
+  const [eventType, setEventType] = useState("");
+  const userId = useSelector((state) => state.session.user._id);
   const dispatch = useDispatch();
+  const [imageUploadElement, setImageUploadElement] = useState(false);
+  const [newEvent, setNewEvent] = useState(null);
 
   useEffect(() => {
     return () => {
@@ -60,26 +65,28 @@ function AddEventForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(coordinates);
     const location = {
       type: "Point",
       name: locationName,
       coordinates: coordinates,
     };
 
-    const formData = new FormData();
-    formData.append("location", location);
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("price", price);
-    formData.append("guests", guests);
-    formData.append("restrictions", restrictions);
-
-    for (let i = 0; i < imageFiles.length; i++) {
-      formData.append("images", imageFiles[i]);
-    }
-
-    dispatch(composeEvent(formData));
+    dispatch(
+      composeEvent({
+        location: location,
+        title,
+        description,
+        price,
+        restrictions,
+        eventType,
+        host: userId,
+      })
+    ).then((event) => {
+      debugger;
+      setNewEvent(event);
+      setImageUploadElement(true);
+    });
   };
 
   const handleFiles = (e) => {
@@ -166,16 +173,29 @@ function AddEventForm() {
           />
         </label>
         <div className="errors">{errors?.images}</div>
-        <label>
+        {/* <label>
           Images
-          <input onChange={handleFiles} type="file" multiple />
-          {/* <input
+          <input onChange={handleFiles} type="file" multiple /> */}
+        {/* <input
             type="text"
             value={restrictions}
             onChange={update("restrictions")}
             placeholder="restrictions"
           /> */}
-        </label>
+        {/* </label> */}
+        <fieldset
+          className="event-type"
+          onChange={(e) => setEventType(e.target.value)}
+          value={eventType}
+        >
+          <legend>Event Type</legend>
+          <input type="radio" id="in-person" name="rating" value="in-person" />
+          <label htmlFor="in-person">In-person</label>
+          <input type="radio" id="to-go" name="rating" value="to-go" />
+          <label htmlFor="to-go">To-go</label>
+          <input type="radio" id="both" name="rating" value="both" />
+          <label htmlFor="both">Both</label>
+        </fieldset>
         <button
           type="submit"
           disabled={locationName.length === 0 || title.length === 0}
@@ -184,6 +204,15 @@ function AddEventForm() {
         </button>
       </form>
       {/* <EventCard /> */}
+      {imageUploadElement && (
+        <label>
+          Images
+          <UploadImages
+            setImageUploadElement={setImageUploadElement}
+            event={newEvent}
+          />
+        </label>
+      )}
     </div>
   );
 }

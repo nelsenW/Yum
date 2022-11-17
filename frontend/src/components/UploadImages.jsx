@@ -1,34 +1,31 @@
 import { useState } from "react";
 import jwtFetch from "../store/jwt";
 
-const UploadImages = () => {
+const UploadImages = ({ setImageUploadElement, event }) => {
   const [imageFiles, setImageFiles] = useState([]);
   const [imageFilesUrls, setImageFilesUrls] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(imageFiles);
 
     const formData = new FormData();
 
     for (let i = 0; i < imageFiles.length; i++) {
-      // console.log(imageFiles[i]);
       formData.append("images", imageFiles[i]);
     }
 
-    await jwtFetch("/api/events/postImages", {
+    const addedImages = await jwtFetch(`/api/events/${event._id}/postImages`, {
       method: "POST",
       body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    });
+
+    setImageUploadElement(false);
+    console.log("success");
+    //redirect to wherever we want
   };
 
   const handleFiles = (e) => {
-    // console.log(e.currentTarget.files);
     const files = Object.values(e.currentTarget.files);
-    // setImageFlies(e.target.files);
-    // console.log(Object.values(files));
 
     if (files) {
       files.map((file) => {
