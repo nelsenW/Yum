@@ -21,7 +21,7 @@ const validateEventInput = require('../../validations/events');
     }
     try {
       const events = await Event.find({
-        $or: [{ host: user._id }, { guests: user._id }]
+        $or: [{ host: user._id }, { guestLists: user._id }]
       })
       .sort({ createdAt: -1 })
       .populate("host", "_id, username")
@@ -92,9 +92,9 @@ const validateEventInput = require('../../validations/events');
   });
 
   //update event
-  router.patch('/:id', requireUser, validateEventInput, async (req, res, next) => {
+  router.patch('/:id/', requireUser, validateEventInput, async (req, res, next) => {
     try {
-        const userID = req.params.userID
+        const userID = req.query.userId
         const filter = {_id: req.params.id}
         const update = { "$set" :{ ...req.body}}
         const newEvent = await Event.findOneAndUpdate( filter, update, {new: true})
