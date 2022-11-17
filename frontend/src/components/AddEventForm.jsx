@@ -10,7 +10,8 @@ import AddressInput from "../components/Map/AddressInput";
 // import "..//eventForm.css";
 
 function AddEventForm() {
-  const [location, setLocation] = useState("");
+  const [locationName, setLocationName] = useState("");
+  const [coordinates, setCoordinates] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
@@ -27,49 +28,55 @@ function AddEventForm() {
     };
   }, [dispatch]);
 
-  const update = (field) => {
-    let setState;
-    switch (field) {
-      case "location":
-        setState = setLocation;
-        break;
-      case "title":
-        setState = setTitle;
-        break;
-      case "description":
-        setState = setDescription;
-        break;
-      case "price":
-        setState = setPrice;
-        break;
-      case "guests":
-        setState = setGuests;
-        break;
-      case "restrictions":
-        setState = setRestrictions;
-        break;
-      case "images":
-        setState = setRestrictions;
-        break;
-      default:
-        return;
-    }
-    return (e) => setState(e.currentTarget.value);
-  };
+  // const update = (field) => {
+  //   let setState;
+  //   switch (field) {
+  //     case "location":
+  //       setState = setLocationName;
+  //       break;
+  //     case "title":
+  //       setState = setTitle;
+  //       break;
+  //     case "description":
+  //       setState = setDescription;
+  //       break;
+  //     case "price":
+  //       setState = setPrice;
+  //       break;
+  //     case "guests":
+  //       setState = setGuests;
+  //       break;
+  //     case "restrictions":
+  //       setState = setRestrictions;
+  //       break;
+  //     // case "images":
+  //     //   setState = setRestrictions;
+  //     //   break;
+  //     default:
+  //       return;
+  //   }
+  //   return (e) => setState(e.currentTarget.value);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const location = {
+      type: "Point",
+      name: locationName,
+      coordinates: coordinates,
+    };
+
     const formData = new FormData();
-    formData.append("event[location]", location);
-    formData.append("event[title]", title);
-    formData.append("event[description]", description);
-    formData.append("event[price]", price);
-    formData.append("event[guests]", guests);
-    formData.append("event[restrictions]", restrictions);
+    formData.append("location", location);
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("price", price);
+    formData.append("guests", guests);
+    formData.append("restrictions", restrictions);
 
     for (let i = 0; i < imageFiles.length; i++) {
-      formData.append("event[images]", imageFiles[i]);
+      formData.append("images", imageFiles[i]);
     }
 
     dispatch(composeEvent(formData));
@@ -100,10 +107,13 @@ function AddEventForm() {
         <div className="h2-wrapper">
           <h2>Make an Event</h2>
         </div>
-        <div className="errors">{errors?.location}</div>
+        <div className="errors">{errors?.location} </div>
         <label>
           Location
-          <AddressInput />
+          <AddressInput
+            setLocation={setLocationName}
+            setCoordinates={setCoordinates}
+          />
         </label>
         <div className="errors">{errors?.title}</div>
         <label>
@@ -111,7 +121,7 @@ function AddEventForm() {
           <input
             type="text"
             value={title}
-            onChange={update("title")}
+            onChange={(e) => setTitle(e.target.value)}
             placeholder="title"
           />
         </label>
@@ -121,7 +131,7 @@ function AddEventForm() {
           <input
             type="textarea"
             value={description}
-            onChange={update("description")}
+            onChange={(e) => setDescription(e.target.value)}
             placeholder="description"
           />
         </label>
@@ -129,9 +139,9 @@ function AddEventForm() {
         <label>
           Price
           <input
-            type="number\"
+            type="number"
             value={price}
-            onChange={update("price")}
+            onChange={(e) => setPrice(e.target.value)}
             placeholder="price"
           />
         </label>
@@ -141,7 +151,7 @@ function AddEventForm() {
           <input
             type="text"
             value={guests}
-            onChange={update("guests")}
+            onChange={(e) => setGuests(e.target.value)}
             placeholder="guests"
           />
         </label>
@@ -151,7 +161,7 @@ function AddEventForm() {
           <input
             type="text"
             value={restrictions}
-            onChange={update("restrictions")}
+            onChange={(e) => setRestrictions(e.target.value)}
             placeholder="restrictions"
           />
         </label>
@@ -166,7 +176,10 @@ function AddEventForm() {
             placeholder="restrictions"
           /> */}
         </label>
-        <button type="submit" disabled={!location || !title}>
+        <button
+          type="submit"
+          disabled={locationName.length === 0 || title.length === 0}
+        >
           Create
         </button>
       </form>

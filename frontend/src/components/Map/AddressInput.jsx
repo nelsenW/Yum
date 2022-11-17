@@ -1,9 +1,10 @@
 import useAddress from "./useAddress";
 
-const AddressInput = () => {
+const AddressInput = ({ setLocation, setCoordinates }) => {
   const address = useAddress("");
 
   const handleResultClick = (searchResult) => {
+    setCoordinates(searchResult.coordinates);
     address.setInputValue(searchResult.place_name);
     address.setSearchResults([]);
   };
@@ -23,7 +24,13 @@ const AddressInput = () => {
 
   return (
     <div>
-      <input value={address.inputValue} onChange={address.handleChange} />
+      <input
+        value={address.inputValue}
+        onChange={(e) => {
+          address.handleChange(e);
+          setLocation(e.target.value);
+        }}
+      />
       {address.searchResults && (
         <div>
           {address.searchResults.map((searchResult) => {

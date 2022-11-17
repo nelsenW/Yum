@@ -71,6 +71,7 @@ router.get("/", async (req, res) => {
 
 // create new event
 router.post("/", requireUser, validateEventInput, async (req, res, next) => {
+  debugger;
   try {
     const newEvent = new Event({
       ...req.body,
