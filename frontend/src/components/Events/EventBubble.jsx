@@ -1,14 +1,19 @@
 import { Modal } from '../../context/Modal';
 import './eventBubble.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EventModal from './EventModal';
 
 
 export default function EventBubble({event}){
     const [eventModal, setEventModal] = useState(false);
+
+    useEffect(() => {
+
+    },[event.image])
+
     return (
         <div className="event-bubble" onClick={() => {setEventModal(true)}}>
-            <img id='event-bubble-img' src={event?.image}></img>
+            <img id='event-bubble-img' src={event?.images[0]}></img>
             <div id='event-bubble-desc'>
                 <h2>{event?.title}</h2>
                 <h4>{event?.price}</h4>

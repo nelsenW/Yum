@@ -1,6 +1,5 @@
 
 import MapContainer from "./components/Map/MapContainer";
-import AddEventForm from "./components/AddEventForm";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
@@ -22,11 +21,7 @@ function App() {
         <Switch>
           <AuthRoute exact path="/" component={SplashPage} />
           <Route path="/map-test" component={MapContainer} />;
-          <ProtectedRoute
-            exact
-            path="/upload-image-test"
-            component={AddEventForm}
-          />
+
           <ProtectedRoute exact path="/main" component={MainPage} />
           <Route component={SplashPage} />
         </Switch>
