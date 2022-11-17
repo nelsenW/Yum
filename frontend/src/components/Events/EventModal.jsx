@@ -29,11 +29,14 @@ export default function EventModal({ setEventModal, event }) {
         <h2>ESC</h2>
       </div>
       <h1>{event.title}</h1>
-      <p>{event.description}</p>
-      <p>{event.price}</p>
-      <p>{event.type}</p>
-      <p>Hosted by: {event.host.username}</p>
-      <p>
+        <div className='event-modal-image-group'>
+            {event?.images?.map(image => <img src={image} className='event-modal-image'></img>)}    
+        </div>
+      <p id='event-modal-desc'>{event.description}</p>
+      <p id='event-modal-price'>{event.price}</p>
+      <p id='event-modal-type'>{event.eventType}</p>
+      <p id='event-modal-host'>Hosted by: {event.host.username}</p>
+      <p id='event-modal-guests'>
         {event.guestList.length}/{event.guests}
       </p>
       <label>Number of meals
