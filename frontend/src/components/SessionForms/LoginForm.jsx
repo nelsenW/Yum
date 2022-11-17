@@ -26,6 +26,11 @@ function LoginForm () {
     dispatch(login({ email, password })); 
   }
 
+  const demoUser = () => {
+    setEmail('demo@user.io')
+    setPassword('password')
+  }
+
   return (
     <form className="session-form" onSubmit={handleSubmit}>
       <div className='h2-wrapper'>
@@ -47,10 +52,14 @@ function LoginForm () {
           placeholder="Password"
         />
       </label>
+      <div>
+        <button type='submit' onClick={demoUser}>Demo User</button>
       <button
         type="submit"
         disabled={!email || !password}
       >Log In!</button>
+      </div>
+      
     </form>
   );
 }

@@ -12,7 +12,7 @@ const useAddress = () => {
       const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${e.target.value}.json?access_token=${accessToken}&autocomplete=true`;
       const response = await fetch(endpoint);
       const results = await response.json();
-      // console.log(results)
+
       setSearchResults(results.features);
     } catch (err) {
       console.log("Error", err);

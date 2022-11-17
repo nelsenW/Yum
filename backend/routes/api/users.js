@@ -4,26 +4,27 @@ const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const passport = require("passport");
-const { loginUser, restoreUser, requireUser } = require("../../config/passport");
+const {
+  loginUser,
+  restoreUser,
+  requireUser,
+} = require("../../config/passport");
 const { isProduction } = require("../../config/keys");
-const validateRegisterInput = require('../../validations/register');
-const validateLoginInput = require('../../validations/login');
+const validateRegisterInput = require("../../validations/register");
+const validateLoginInput = require("../../validations/login");
 const validateReviewsInput = require("../../validations/reviews");
-
 
 //all users
 router.get("/", async function (req, res, next) {
-
   if (!isProduction) {
     const user = await User.find();
-    return res.json(user)
+    return res.json(user);
   }
 
   res.json({
     message: "GET /api/users",
   });
 });
-
 
 //register user
 router.post("/register", validateRegisterInput, async (req, res, next) => {
@@ -68,6 +69,7 @@ router.post("/register", validateRegisterInput, async (req, res, next) => {
 //login user
 router.post("/login", validateLoginInput, async (req, res, next) => {
   passport.authenticate("local", async function (err, user) {
+    debugger;
     if (err) return next(err);
     if (!user) {
       const err = new Error("Invalid credentials");
@@ -79,57 +81,65 @@ router.post("/login", validateLoginInput, async (req, res, next) => {
   })(req, res, next);
 });
 
-
 // posting a guest review under User
-router.post("/:id/guest_reviews/", validateReviewsInput, async (req, res, next) => {
+router.post(
+  "/:id/guest_reviews/",
+  validateReviewsInput,
+  async (req, res, next) => {
     let user;
     try {
-      user = await User.findById(req.params.id)
+      user = await User.findById(req.params.id);
       let newReview = {
-          ...req.body
-      }
-      user.guestReviews.push(newReview)
+        ...req.body,
+      };
+      user.guestReviews.push(newReview);
       newUser = await user.save();
-      return res.json(newUser)
-
-    } catch(err) {
-      const error = new Error('Something went wrong');
+      return res.json(newUser);
+    } catch (err) {
+      const error = new Error("Something went wrong");
       error.statusCode = 404;
       error.errors = { message: "Something went wrong saving" };
       return next(error);
     }
-});
+  }
+);
 
 // posting a host reviews
-router.post("/:id/host_reviews/", validateReviewsInput, async (req, res, next) => {
-  let user;
-  try {
-    // find user to create review user
-    user = await User.findById(req.params.id)
-    let newReview = {
-        ...req.body
+router.post(
+  "/:id/host_reviews/",
+  validateReviewsInput,
+  async (req, res, next) => {
+    let user;
+    try {
+      // find user to create review user
+      user = await User.findById(req.params.id);
+      let newReview = {
+        ...req.body,
+      };
+      user.hostReviews.push(newReview);
+      newUser = await user.save();
+      return res.json(newUser);
+    } catch (err) {
+      const error = new Error("Something went wrong");
+      error.statusCode = 404;
+      error.errors = { message: "Something went wrong saving" };
+      return next(error);
     }
-    user.hostReviews.push(newReview)
-    newUser = await user.save();
-    return res.json(newUser)
-
-  } catch(err) {
-    const error = new Error('Something went wrong');
-    error.statusCode = 404;
-    error.errors = { message: "Something went wrong saving" };
-    return next(error);
   }
-});
+);
 
 //update a host reviews
-router.patch('/:id/host_reviews/:review_id', async (req, res, next) => {
+router.patch("/:id/host_reviews/:review_id", async (req, res, next) => {
   try {
-    const filter = { "_id": req.params.id, "hostReviews._id": req.params.review_id}
-    const update = { "$set": { "hostReviews.$": { ...req.body}}}
-    await User.findOneAndUpdate( filter, update, {new: true})
+    const filter = {
+      _id: req.params.id,
+      "hostReviews._id": req.params.review_id,
+    };
+    const update = { $set: { "hostReviews.$": { ...req.body } } };
+    await User.findOneAndUpdate(filter, update, { new: true });
     return res.json("Event updated");
-  } catch(err) {
-    const error = new Error('Something went wrong');
+  } catch (err) {
+    const error = new Error("Something went wrong");
     error.statusCode = 404;
     error.errors = { message: "something went wrong" };
     return next(error);
@@ -137,30 +147,32 @@ router.patch('/:id/host_reviews/:review_id', async (req, res, next) => {
 });
 
 //update a guest reviews
-router.patch('/:id/guest_reviews/:review_id', async (req, res, next) => {
+router.patch("/:id/guest_reviews/:review_id", async (req, res, next) => {
   try {
-    const filter = { "_id": req.params.id, "guestReviews._id": req.params.review_id}
-    const update = { "$set": { "guestReviews.$": { ...req.body}}}
-    await User.findOneAndUpdate( filter, update, {new: true})
+    const filter = {
+      _id: req.params.id,
+      "guestReviews._id": req.params.review_id,
+    };
+    const update = { $set: { "guestReviews.$": { ...req.body } } };
+    await User.findOneAndUpdate(filter, update, { new: true });
     return res.json("Event updated");
-  } catch(err) {
-    const error = new Error('Something went wrong');
+  } catch (err) {
+    const error = new Error("Something went wrong");
     error.statusCode = 404;
     error.errors = { message: "something went wrong" };
     return next(error);
   }
 });
 
-
 //delete host review
-router.delete('/:id/host_reviews/:review_id', async (req, res, next) => {
+router.delete("/:id/host_reviews/:review_id", async (req, res, next) => {
   try {
-    const user = await User.findById({_id: req.params.id})
+    const user = await User.findById({ _id: req.params.id });
     const newUser = user.hostReviews.id(req.params.review_id).remove();
     await user.save();
     return res.json("Event delete");
-  } catch(err) {
-    const error = new Error('Something went wrong');
+  } catch (err) {
+    const error = new Error("Something went wrong");
     error.statusCode = 404;
     error.errors = { message: "something went wrong" };
     return next(error);
@@ -168,14 +180,14 @@ router.delete('/:id/host_reviews/:review_id', async (req, res, next) => {
 });
 
 //delete guest review
-router.delete('/:id/guest_reviews/:review_id', async (req, res, next) => {
+router.delete("/:id/guest_reviews/:review_id", async (req, res, next) => {
   try {
-    const user = await User.findById({_id: req.params.id})
+    const user = await User.findById({ _id: req.params.id });
     const newUser = user.guestReviews.id(req.params.review_id).remove();
     await user.save();
     return res.json("Event delete");
-  } catch(err) {
-    const error = new Error('Something went wrong');
+  } catch (err) {
+    const error = new Error("Something went wrong");
     error.statusCode = 404;
     error.errors = { message: "something went wrong" };
     return next(error);

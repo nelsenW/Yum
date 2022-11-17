@@ -3,12 +3,13 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const csurf = require("csurf");
 const debug = require("debug");
+const bodyParser = require("body-parser");
 
 //making model available in application
 const cors = require("cors");
 const { isProduction } = require("./config/keys");
 
-require('./models/Event');
+require("./models/Event");
 require("./models/User");
 require("./config/passport");
 const passport = require("passport");
@@ -21,7 +22,10 @@ const csrfRouter = require("./routes/api/csrf");
 const app = express();
 
 app.use(logger("dev"));
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(passport.initialize());

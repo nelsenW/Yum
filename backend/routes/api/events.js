@@ -1,28 +1,27 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const mongoose = require('mongoose');
-const User = mongoose.model('User');
-const Event = mongoose.model('Event');
-const { requireUser } = require('../../config/passport');
-const validateEventInput = require('../../validations/events');
+const mongoose = require("mongoose");
+const User = mongoose.model("User");
+const Event = mongoose.model("Event");
+const { requireUser } = require("../../config/passport");
+const validateEventInput = require("../../validations/events");
+const upload = require("./image-upload");
 
-
-
-  //find events by userId
-  router.get('/users/:userId', async (req, res, next) => {
-    let user;
-    try {
-      user = await User.findById(req.params.userId);
-    } catch(err) {
-      const error = new Error('User not found');
-      error.statusCode = 404;
-      error.errors = { message: "No user found with that id" };
-      return next(error);
-    }
-    try {
-      const events = await Event.find({
-        $or: [{ host: user._id }, { guestLists: user._id }]
-      })
+//find events by userId
+router.get("/users/:userId", async (req, res, next) => {
+  let user;
+  try {
+    user = await User.findById(req.params.userId);
+  } catch (err) {
+    const error = new Error("User not found");
+    error.statusCode = 404;
+    error.errors = { message: "No user found with that id" };
+    return next(error);
+  }
+  try {
+    const events = await Event.find({
+      $or: [{ host: user._id }, { guestsLists: user._id }],
+    })
       .sort({ createdAt: -1 })
       .populate("host", "_id, username")
       .populate("guestLists", "_id, username");
@@ -33,20 +32,21 @@ const validateEventInput = require('../../validations/events');
     }
   })
 
-  //find events by event id
-  router.get('/:id', async (req, res, next) => {
-    try {
-      const events = await Event.findById(req.params.id)
-                               .populate("host", "id, username");
-      return res.json(events);
-    }
-    catch(err) {
-      const error = new Error('Event not found');
-      error.statusCode = 404;
-      error.errors = { message: "No event found with that id" };
-      return next(error);
-    }
-  });
+//find events by event id
+router.get("/:id", async (req, res, next) => {
+  try {
+    const events = await Event.findById(req.params.id).populate(
+      "host",
+      "id, username"
+    );
+    return res.json(events);
+  } catch (err) {
+    const error = new Error("Event not found");
+    error.statusCode = 404;
+    error.errors = { message: "No event found with that id" };
+    return next(error);
+  }
+});
 
   //index all events
   router.get('/', async (req, res) => {
@@ -67,7 +67,6 @@ const validateEventInput = require('../../validations/events');
                                   .populate("host", "_id, username")
                                   .populate("guestLists", "_id, username")
                                   .sort({ createdAt: -1 });
-        console.log(events)
         return res.json(events);
       }
     }
@@ -112,21 +111,22 @@ const validateEventInput = require('../../validations/events');
     catch(err) {
       const error = new Error('Something went wrong');
       error.statusCode = 404;
-      error.errors = { message: "Something went wrong, User has to be the host to patch" };
+      error.errors = {
+        message: "Something went wrong, User has to be the host to patch",
+      };
       next(error);
     }
-  });
+  }
+);
 
-  //delete event
-  router.delete('/:id', requireUser, async (req, res, next) => {
+//delete event
+router.delete("/:id", requireUser, async (req, res, next) => {
+  try {
+    const newEvent = await Event.deleteOne({ _id: req.params.id });
+    return res.json("Event delete");
+  } catch (err) {
+    next(err);
+  }
+});
 
-    try {
-        const newEvent = await Event.deleteOne({ _id: req.params.id });
-        return res.json("Event delete");
-    }
-    catch(err) {
-      next(err);
-    }
-  });
-
-  module.exports = router;
+module.exports = router;
