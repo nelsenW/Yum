@@ -106,22 +106,19 @@ export const eventErrorsReducer = (state = nullErrors, action) => {
   }
 };
 
-const eventsReducer = (
-  state = { all: {}, user: {}, new: undefined },
-  action
-) => {
-  switch (action.type) {
-    case RECEIVE_EVENTS:
-      return { ...state, all: action.EVENTS, new: undefined };
-    case RECEIVE_USER_EVENTS:
-      return { ...state, user: action.EVENTS, new: undefined };
-    case RECEIVE_NEW_EVENT:
-      return { ...state, new: action.EVENT };
-    case RECEIVE_USER_LOGOUT:
-      return { ...state, user: {}, new: undefined };
-    default:
-      return state;
-  }
-};
-
-export default eventsReducer;
+const eventsReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
+    switch(action.type) {
+      case RECEIVE_EVENTS:
+        return { ...state, all: action.events, new: undefined};
+      case RECEIVE_USER_EVENTS:
+        return { ...state, user: action.events, new: undefined};
+      case RECEIVE_NEW_EVENT:
+        return { ...state, new: action.event};
+      case RECEIVE_USER_LOGOUT:
+        return { ...state, user: {}, new: undefined }
+      default:
+        return state;
+    }
+  };
+  
+  export default eventsReducer;
