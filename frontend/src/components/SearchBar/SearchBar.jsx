@@ -21,6 +21,7 @@ export default function SearchBar ({placeholder, data}) {
         searchInput.current.value = "";
     }
 
+    // debugger
     // if (searchInput.current) console.log(searchInput.current.value)
 
     return (
@@ -28,7 +29,7 @@ export default function SearchBar ({placeholder, data}) {
             <div className="search-inputs">
                 <input type="text" placeholder={placeholder} onChange={handleFilter} ref={searchInput}/>
                 <div className="search-icon">
-                    {!searchInput.current ?
+                    {!searchInput.current?.value ?
                         <i className="fa-solid fa-magnifying-glass"></i> :
                         <i className="fa-solid fa-xmark" id="clear-btn" onClick={clearInput}></i>
                 }
