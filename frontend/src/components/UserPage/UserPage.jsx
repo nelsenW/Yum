@@ -19,11 +19,12 @@ function UserPage({ setUserModal, inputTab }) {
 			<aside className='user-form-modal-nav'>
 				<ul className='modal-nav-tabs'>
 					<li onClick={() => setTab('')}>My Account</li>
-					<li onClick={() => setTab(<ReviewForm />)}>Reviews</li>
-					<li onClick={() => setTab(<EventForm />)}>Make an Event</li>
-
 					<div className='seperator'></div>
-					<li onClick={logoutUser}>
+					<li onClick={() => setTab(<ReviewForm />)}>Reviews</li>
+					<div className='seperator'></div>
+					<li onClick={() => setTab(<EventForm />)}>Make an Event</li>
+					<div className='seperator'></div>
+					<li onClick={logoutUser} id='logout-user'>
 						Log Out
 						<svg role='img' width='16' height='16' viewBox='0 0 24 24'>
 							<path

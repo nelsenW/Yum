@@ -72,7 +72,7 @@ function EventForm() {
 				<div className='errors'>{errors?.location}</div>
 				<label>
 					Location
-					<AddressInput />
+					<AddressInput setLocation = {setLocation}/>
 				</label>
 				<div className='errors'>{errors?.title}</div>
 				<label>
@@ -80,7 +80,7 @@ function EventForm() {
 					<input
 						type='text'
 						value={title}
-						onChange={update('title')}
+						onChange={() => {update('title')}}
 						placeholder='title'
 					/>
 				</label>
@@ -90,7 +90,7 @@ function EventForm() {
 					<input
 						type='textarea'
 						value={description}
-						onChange={update('description')}
+						onChange={() => {update('description')}}
 						placeholder='description'
 					/>
 				</label>
@@ -100,7 +100,7 @@ function EventForm() {
 					<input
 						type='number\'
 						value={price}
-						onChange={update('price')}
+						onChange={() => {update('price')}}
 						placeholder='price'
 					/>
 				</label>
@@ -110,7 +110,7 @@ function EventForm() {
 					<input
 						type='text'
 						value={guests}
-						onChange={update('guests')}
+						onChange={() => {update('guests')}}
 						placeholder='guests'
 					/>
 				</label>
@@ -120,7 +120,7 @@ function EventForm() {
 					<input
 						type='text'
 						value={restrictions}
-						onChange={update('restrictions')}
+						onChange={() => {update('restrictions')}}
 						placeholder='restrictions'
 					/>
 				</label>
