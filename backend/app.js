@@ -16,6 +16,8 @@ const passport = require("passport");
 const usersRouter = require("./routes/api/users");
 const eventsRouter = require("./routes/api/events");
 const csrfRouter = require("./routes/api/csrf");
+const searchRouter = require("./routes/api/search");
+
 
 const app = express();
 
@@ -42,6 +44,7 @@ app.use(
 app.use("/api/users", usersRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/csrf", csrfRouter);
+app.use("/api/search", searchRouter);
 app.use((req, res, next) => {
   const err = new Error("Not Found");
   err.statusCode = 404;
