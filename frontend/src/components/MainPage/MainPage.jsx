@@ -14,6 +14,12 @@ import SideNav from "./SideNav";
 export default function MainPage(){
     const dispatch = useDispatch();
     const events = useSelector(state=>state.events)
+    const [sideBar, setSideBar] = useState(false);
+    const [userModal, setUserModal] = useState();
+
+    const hidden = () => {
+        return sideBar ? ' hidden' : ''
+    }
 
     useEffect(()=>{
         dispatch(fetchEvents())
@@ -22,7 +28,7 @@ export default function MainPage(){
     return (
         <div id="main-page">
             <SearchBar placeholder="Find a Specific Event" data={events?.all}/>
-            {/* <div onClick={() => setSideBar(!sideBar)} id='hamburger-wrapper'>
+            <div onClick={() => setSideBar(!sideBar)} id='hamburger-wrapper'>
                 <div className={`hamburger${hidden()}`}></div>
                 <div className={`hamburger${hidden()}`}></div>
                 <div className={`hamburger${hidden()}`}></div>
@@ -36,7 +42,9 @@ export default function MainPage(){
 					<Modal onClose={() => setUserModal(false)}>
 						<UserPage setUserModal={setUserModal} inputTab={<EventForm />}/>
 					</Modal>
-			)} */}
+			)}
         </div>
     )
 }
+
+
