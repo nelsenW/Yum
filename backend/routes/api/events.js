@@ -21,11 +21,11 @@ const validateEventInput = require('../../validations/events');
     }
     try {
       const events = await Event.find({
-        $or: [{ host: user._id }, { guests: user._id }]
+        $or: [{ host: user._id }, { guestLists: user._id }]
       })
       .sort({ createdAt: -1 })
       .populate("host", "_id, username")
-      .populate("guests", "_id, username");
+      .populate("guetsLists", "_id, username");
       return res.json(events);
     }
     catch(err) {
@@ -69,7 +69,7 @@ const validateEventInput = require('../../validations/events');
       });
 
       let event = await newEvent.save();
-      event = await event.populate([{path:'host', select:'_id, username'}, {path:'guests', select:'_id, username'}]);
+      event = await event.populate([{path:'host', select:'_id, username'}, {path:'guestLists', select:'_id, username'}]);
       return res.json(event);
     }
     catch(err) {
@@ -78,15 +78,15 @@ const validateEventInput = require('../../validations/events');
   });
 
   //update event
-  router.patch('/:id', requireUser, validateEventInput, async (req, res, next) => {
+  router.patch('/:id/', requireUser, validateEventInput, async (req, res, next) => {
     try {
-        const userID = req.params.userID
+        const userID = req.query.userId
         const filter = {_id: req.params.id}
         const update = { "$set" :{ ...req.body}}
         const newEvent = await Event.findOneAndUpdate( filter, update, {new: true})
         if (userID !== newEvent.host._id.toString()) throw "User has to be host";
         let event = await newEvent.save();
-        event = await event.populate([{path:'host', select:'_id, username'}, {path:'guests', select:'_id, username'}]);
+        event = await event.populate([{path:'host', select:'_id, username'}, {path:'guestLists', select:'_id, username'}]);
         return res.json(event);
 
     }

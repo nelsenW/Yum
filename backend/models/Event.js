@@ -22,6 +22,10 @@ const eventSchema = Schema({
         coordinates: {
             type: [Number],
             required: true
+        },
+        name:{
+            type: String,
+            required: true
         }
     },
     eventType: {
@@ -34,7 +38,11 @@ const eventSchema = Schema({
         required: true,
         ref: "User"
     },
-    guests: [{
+    guestNumber: {
+        type: Number,
+        required:true
+    },
+    guestLists: [{
         type: Schema.Types.ObjectId,
         ref: "User"
         }],

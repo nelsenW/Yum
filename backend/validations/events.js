@@ -13,7 +13,7 @@ const validateEventInput = [
 
     check('description')
     .exists({ checkFalsy: true })
-    .withMessage('Descrition must be exist between 5 and 255 characters')
+    .withMessage('Descrition must exist between 5 and 255 characters')
     .isLength({ min: 5, max: 255 })
     .withMessage('Descrition must be between 5 and 255 characters'),
 
@@ -32,6 +32,11 @@ const validateEventInput = [
     check('host')
     .exists({ checkFalsy: true })
     .withMessage('Host must be included'),
+
+    check('guestNumber')
+    .isLength({ min: 1})
+    .withMessage('Must allow at least one guest'),
+
 
   handleValidationErrors
 ];
