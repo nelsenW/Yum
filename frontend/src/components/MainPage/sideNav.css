@@ -1,78 +1,80 @@
-#nav-sidebar{
-    position: absolute;
-    height: 90vh;
-    width: 20vw;
-    max-width: 300px;
-    padding-top: 48px;
-    box-sizing: border-box;
-    background-color: var(--dark-blue);
-    border-radius: 8px;
-    border: 4px solid black;
-    top: 1em;
-    left: 1em;
-    overflow: hidden;
-    backface-visibility: hidden;
-    transition: opacity .25s linear;
-    box-shadow: 0 0 1em 0 var(--dark-blue), 0 0 1em 0 var(--dark-yellow);
-    z-index: 300;
+#nav-sidebar {
+  position: absolute;
+  height: 90vh;
+  width: 20vw;
+  max-width: 300px;
+  padding-top: 48px;
+  box-sizing: border-box;
+  background-color: var(--dark-blue);
+  border-radius: 8px;
+  border: 4px solid black;
+  top: 1em;
+  left: 1em;
+  overflow: hidden;
+  backface-visibility: hidden;
+  transition: opacity 0.25s linear;
+  box-shadow: 0 0 1em 0 var(--dark-blue), 0 0 1em 0 var(--dark-yellow);
+  z-index: 300;
 }
 
-#nav-sidebar-main{
-    height: 90%;
-    flex-grow: 1 1 auto;
-    overflow: auto;
-    padding: 16px;
-    overflow-x: hidden;
+#nav-sidebar-main {
+  height: 90%;
+  flex-grow: 1 1 auto;
+  overflow: overlay;
+  padding: 16px;
+  overflow-x: hidden;
 }
 
-
-.settings-button{
-	border: none;
-	outline: none;
-	background-color: transparent;
-	color: var(--dark-blue);
-	width: auto;
-	height: 32px;
-	border-radius: 4px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-left: auto;
-    z-index: 4;
-    box-sizing: border-box;
-    border: 2px solid slategray;
-    transition: color 1s, box-shadow 1s, border 1s;
-    transition-timing-function: cubic-bezier(0,2.03,0,-1.57);
-    font-family: var(--font-button);
+.settings-button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--dark-blue);
+  width: auto;
+  height: 32px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  z-index: 4;
+  box-sizing: border-box;
+  border: 2px solid rgba(112, 128, 144, 0);
+  transition: color 1s, box-shadow 1s, border 1s;
+  transition-timing-function: cubic-bezier(0, 2.03, 0, -1.57);
+  font-family: var(--font-helvetica);
+  cursor: pointer;
 }
 
 .settings-button:hover {
-	border: 2px solid var(--dark-yellow);
-    color: var(--dark-yellow);
-    box-shadow: inset 0 0 0.5em 0 var(--dark-yellow), 0 0 0.5em 0 var(--dark-yellow);
+  border: 2px solid var(--dark-yellow);
+  color: var(--dark-yellow);
+  box-shadow: inset 0 0 0.5em 0 var(--dark-yellow),
+    0 0 0.5em 0 var(--dark-yellow);
 }
 
 .sidebar-profile-token {
-    position: absolute;
-    bottom: 0;
-	height: 52px;
-    width: 100%;
-    box-sizing: border-box;
-	font-size: 14px;
-	font-weight: 500;
-	padding: 0 8px;
-	background-color: slategray;
-	display: flex;
-	align-items: center;
-    justify-content: space-between;
-    font-family: var(--font-button);
-	color:black; 
+  position: absolute;
+  bottom: 0;
+  height: 52px;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 8px;
+  background-color: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-helvetica);
+  color: black;
+  font-weight: 600;
 }
 
-.sidebar-profile-token div{
-    display: flex;
+.sidebar-profile-token div {
+  display: flex;
 }
 
 .hidden2 {
-    opacity: 0;
+  opacity: 0;
 }

@@ -144,6 +144,17 @@ input {
   color: var(--off-white);
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 form > .errors {
   color: var(--off-white);
   font-size: 0.875em;
@@ -154,6 +165,8 @@ form > .errors {
 }
 
 :root {
+  --font-poppins: "Poppins", sans-serif;
+  --font-helvetica: "Helvetica Neue", sans-serif;
   --font-indie-flower: "Indie Flower", cursive;
   --font-brush: "Kolker Brush", cursive;
   --font-default: "Noto Serif JP", serif;
@@ -183,20 +196,21 @@ form > .errors {
 
 ::-webkit-scrollbar {
   width: 4px;
+  transition: 2s ease-in-out;
 }
 
 ::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px var(--dark-blue);
   border-radius: 10px;
+  transition: 2s ease-in-out;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--darkest-red);
+  background: var(--dark-yellow);
   border-radius: 10px;
+  transition: 2s ease-in-out;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--darker-red);
-}
-
-
+/* ::-webkit-scrollbar-thumb:hover {
+  background: var(--light-orange);
+} */

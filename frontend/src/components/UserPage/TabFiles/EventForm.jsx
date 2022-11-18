@@ -54,7 +54,7 @@ function AddEventForm() {
     });
   };
   return (
-    <div>
+    <div className="event-form-cont">
       <form
         className="event-form"
         onSubmit={handleSubmit}
@@ -64,13 +64,12 @@ function AddEventForm() {
           <h2>Make an Event</h2>
         </div>
         <div className="errors">{errors?.location} </div>
-        <label>
-          Location
-          <AddressInput
-            setLocationName={setLocationName}
-            setCoordinates={setCoordinates}
-          />
-        </label>
+
+        <AddressInput
+          setLocationName={setLocationName}
+          setCoordinates={setCoordinates}
+        />
+
         <div className="errors">{errors?.title}</div>
         <label>
           Title
@@ -122,11 +121,11 @@ function AddEventForm() {
         </label>
         <div className="errors">{errors?.images}</div>
         <fieldset
-          className="event-type"
+          className="event-type radio"
           onChange={(e) => setEventType(e.target.value)}
           value={eventType}
         >
-          <legend>Event Type</legend>
+          <p id="event-type-legend">Event Type</p>
           <input type="radio" id="in-person" name="rating" value="in-person" />
           <label htmlFor="in-person">In-person</label>
           <input type="radio" id="to-go" name="rating" value="to-go" />
@@ -134,12 +133,14 @@ function AddEventForm() {
           <input type="radio" id="both" name="rating" value="both" />
           <label htmlFor="both">Both</label>
         </fieldset>
-        <button
-          type="submit"
-          disabled={locationName.length === 0 || title.length === 0}
-        >
-          Create
-        </button>
+        <div className="create-btn-container">
+          <button
+            type="submit"
+            disabled={locationName.length === 0 || title.length === 0}
+          >
+            Create
+          </button>
+        </div>
       </form>
       <EventCard />
       {imageUploadElement && (
