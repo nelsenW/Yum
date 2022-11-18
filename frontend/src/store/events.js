@@ -77,9 +77,9 @@ export const composeEvent = (data) => async (dispatch) => {
 
 export const addUserToEvent = (data) => async (dispatch) => {
   try {
-    const res = await jwtFetch(`/api/events/${data.eventId}`, {
+    const res = await jwtFetch(`/api/events/${data.event._id}`, {
       method: "PATCH",
-      body: JSON.stringify(data),
+      body: JSON.stringify(data.event),
     });
     const event = await res.json();
     dispatch(receiveNewEvent(event));
