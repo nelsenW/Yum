@@ -3,20 +3,22 @@ import { useSelector, useDispatch } from "react-redux";
 import EventCard from "../../Events/EventCard";
 import "./eventForm.css";
 import { clearSessionErrors } from "../../../store/session";
-import { composeEvent } from "../../../store/events";
+import { addUserToEvent, composeEvent } from "../../../store/events";
 import AddressInput from "../../Map/AddressInput";
 import UploadImages from "../../Events/UploadImages";
 
-function AddEventForm() {
-  const [locationName, setLocationName] = useState("");
-  const [coordinates, setCoordinates] = useState([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
-  const [guestNumber, setGuestNumber] = useState(1);
-  const [restrictions, setRestrictions] = useState("");
+export default function EventForm({ event, type, setUserModal }) {
+  const [locationName, setLocationName] = useState(event?.location.name ?? "");
+  const [coordinates, setCoordinates] = useState(
+    event?.location.coordinates ?? []
+  );
+  const [title, setTitle] = useState(event?.title ?? "");
+  const [description, setDescription] = useState(event?.description ?? "");
+  const [price, setPrice] = useState(event?.price ?? "");
+  const [guestNumber, setGuestNumber] = useState(event?.guestNumber ?? 1);
+  const [restrictions, setRestrictions] = useState(event?.restrictions ?? "");
   const errors = useSelector((state) => state.errors.session);
-  const [eventType, setEventType] = useState("");
+  const [eventType, setEventType] = useState(event?.eventType ?? "");
   const userId = useSelector((state) => state.session.user._id);
   const dispatch = useDispatch();
   const [imageUploadElement, setImageUploadElement] = useState(false);
@@ -30,13 +32,31 @@ function AddEventForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const location = {
       type: "Point",
       name: locationName,
       coordinates: coordinates,
     };
-
+    if (type === "edit") {
+      debugger;
+      dispatch(
+        addUserToEvent({
+          event: {
+            _id: event._id,
+            location: location,
+            title,
+            description,
+            price,
+            guestNumber,
+            restrictions,
+            eventType,
+            host: userId,
+          },
+        })
+      );
+      setUserModal(false);
+      return;
+    }
     dispatch(
       composeEvent({
         location: location,
@@ -61,15 +81,22 @@ function AddEventForm() {
         encType="multipart/form-data"
       >
         <div className="h2-wrapper">
-          <h2>Make an Event</h2>
+          {type === "edit" ? (
+            <h2>Edit: {event.title}</h2>
+          ) : (
+            <h2>Make an Event</h2>
+          )}
         </div>
         <div className="errors">{errors?.location} </div>
-
-        <AddressInput
-          setLocationName={setLocationName}
-          setCoordinates={setCoordinates}
-        />
-
+        <label>
+          Location
+          <AddressInput
+            setLocationName={setLocationName}
+            setCoordinates={setCoordinates}
+            type={type}
+            name={locationName}
+          />
+        </label>
         <div className="errors">{errors?.title}</div>
         <label>
           Title
@@ -155,5 +182,3 @@ function AddEventForm() {
     </div>
   );
 }
-
-export default AddEventForm;
