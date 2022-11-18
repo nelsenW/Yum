@@ -87,15 +87,12 @@ export default function EventForm({ event, type, setUserModal }) {
           )}
         </div>
         <div className="errors">{errors?.location} </div>
-        <label>
-          Location
-          <AddressInput
-            setLocationName={setLocationName}
-            setCoordinates={setCoordinates}
-            type={type}
-            name={locationName}
-          />
-        </label>
+        <AddressInput
+          setLocationName={setLocationName}
+          setCoordinates={setCoordinates}
+          type={type}
+          name={locationName}
+        />
         <div className="errors">{errors?.title}</div>
         <label>
           Title

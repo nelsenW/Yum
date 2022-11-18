@@ -46,11 +46,6 @@ app.use(
 app.use("/api/users", usersRouter);
 app.use("/api/events", eventsRouter);
 app.use("/api/csrf", csrfRouter);
-app.use((req, res, next) => {
-  const err = new Error("Not Found");
-  err.statusCode = 404;
-  next(err);
-});
 
 if (isProduction) {
   const path = require("path");
@@ -69,6 +64,12 @@ if (isProduction) {
     res.sendFile(path.resolve(__dirname, "../frontend", "build", "index.html"));
   });
 }
+
+app.use((req, res, next) => {
+  const err = new Error("Not Found");
+  err.statusCode = 404;
+  next(err);
+});
 
 const serverErrorLogger = debug("backend:error");
 

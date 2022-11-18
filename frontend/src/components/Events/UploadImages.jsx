@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import jwtFetch from "../../store/jwt";
 
 const UploadImages = ({ setImageUploadElement, event }) => {
   const [imageFiles, setImageFiles] = useState([]);
   const [imageFilesUrls, setImageFilesUrls] = useState([]);
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

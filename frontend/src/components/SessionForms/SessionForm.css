@@ -9,6 +9,7 @@
   border-radius: 4px;
   border: slategray 2px solid;
   position: relative;
+  font-family: var(--font-helvetica);
 }
 
 .session-form input:focus {
@@ -127,6 +128,7 @@
 label {
   display: flex;
   align-items: center;
+  justify-content: center;
   width: 100%;
   box-sizing: border-box;
 }
