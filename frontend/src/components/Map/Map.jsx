@@ -5,6 +5,9 @@ import ReactMapGL, {
   NavigationControl,
   Popup,
 } from "react-map-gl";
+import mapboxgl from "mapbox-gl";
+mapboxgl.workerClass =
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 import getCenter from "geolib/es/getCenter";
 import { ImLocation2 } from "react-icons/im";
 import jwtFetch from "../../store/jwt";
