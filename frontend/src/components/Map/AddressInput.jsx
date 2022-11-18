@@ -1,6 +1,6 @@
 import useAddress from './useAddress';
 
-const AddressInput = ({ setLocationName, setCoordinates }) => {
+const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
 	const address = useAddress('');
 	const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
@@ -30,10 +30,11 @@ const AddressInput = ({ setLocationName, setCoordinates }) => {
 		}
 	}
 
+	debugger
 	return (
 		<div>
 			<input
-				value={address.inputValue}
+				value={type === 'edit' ? name : address.inputValue}
 				onChange={(e) => {
 					address.handleChange(e);
 					setLocationName(e.target.value);
