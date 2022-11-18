@@ -10,6 +10,8 @@ import { ImLocation2 } from "react-icons/im";
 import jwtFetch from "../../store/jwt";
 import "./map.css";
 import "mapbox-gl/dist/mapbox-gl.css";
+import EventModal from "../Events/EventModal";
+import { Modal } from "../../context/Modal";
 
 const Map = ({ selectedEvent, handleSelectedEvent }) => {
   const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
@@ -17,6 +19,8 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
   const [currentUserLocation, setCurrentUserLocation] = useState();
   const [viewport, setViewport] = useState({});
   const [selectedLocation, setSelectedLocation] = useState([]);
+  const [eventModal, setEventModal] = useState(false);
+  const [clickedPin, setClickedPin] = useState(null);
 
   useEffect(() => {
     fetchEvents().then((data) => {
@@ -55,8 +59,6 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
     }
   }
 
-  console.log(currentUserLocation);
-
   return (
     <>
       <div className="current-location-btn-div">
@@ -93,28 +95,29 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
                   longitude={event.location.coordinates[1]}
                 >
                   <p
-                    onClick={() =>
-                      setSelectedLocation(event.location.coordinates)
-                    }
+                    onClick={() => {
+                      setSelectedLocation(event.location.coordinates);
+                      setClickedPin(event);
+                      setEventModal(true);
+                    }}
                   >
                     <ImLocation2 size={30} className="map-marker-icon" />
                   </p>
                 </Marker>
-                {selectedLocation[0] === event.location.coordinates[0] ? (
-                  <Popup
-                    onClose={() => setSelectedLocation([])}
-                    closeOnClick={true}
-                    latitude={event.location.coordinates[0]}
-                    longitude={event.location.coordinates[1]}
-                  >
-                    {event.title}
-                  </Popup>
-                ) : null}
               </>
             ))}
           <NavigationControl position="bottom-right" />
           <GeolocateControl position="bottom-right" trackerUseLocation />
         </ReactMapGL>
+      )}
+      {eventModal && (
+        <Modal
+          onClose={() => {
+            setEventModal(false);
+          }}
+        >
+          <EventModal setEventModal={setEventModal} event={clickedPin} />
+        </Modal>
       )}
     </>
   );

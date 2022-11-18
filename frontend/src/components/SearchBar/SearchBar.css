@@ -30,7 +30,7 @@
   flex-direction: column;
   position: absolute;
   top: 20px;
-  z-index: 99999999;
+  z-index: 99;
 }
 
 .search-icon {
