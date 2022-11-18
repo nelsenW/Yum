@@ -5,6 +5,8 @@ const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
   const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
   const handleResultClick = (searchResult) => {
+    console.log(searchResult.center);
+    debugger;
     setCoordinates([searchResult.center[1], searchResult.center[0]]);
     setLocationName(searchResult.place_name);
     address.setInputValue(searchResult.place_name);
@@ -16,7 +18,7 @@ const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
   };
 
   async function showPosition(position) {
-    setCoordinates(position.coords.latitude, position.coords.longitude);
+    setCoordinates([position.coords.latitude, position.coords.longitude]);
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
 

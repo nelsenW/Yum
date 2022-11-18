@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
 import "./userPage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { logout } from "../../store/session";
 import ReviewForm from "./TabFiles/ReviewForm";
 import EventForm from "./TabFiles/EventForm";
+import MyPosts from "./TabFiles/MyPosts";
 
 function UserPage({ setUserModal, inputTab }) {
   const dispatch = useDispatch();
-  const [tab, setTab] = useState(inputTab ?? "");
+  const [tab, setTab] = useState(inputTab ?? <EventForm />);
 
   const logoutUser = (e) => {
     e.preventDefault();
@@ -18,7 +19,13 @@ function UserPage({ setUserModal, inputTab }) {
     <div className="user-form-modal">
       <aside className="user-form-modal-nav">
         <ul className="modal-nav-tabs">
-          <li onClick={() => setTab("")}>My Account</li>
+          <li
+            onClick={() =>
+              setTab(<MyPosts setTab={setTab} setUserModal={setUserModal} />)
+            }
+          >
+            My Account
+          </li>
           <div className="seperator"></div>
           <li onClick={() => setTab(<ReviewForm />)}>Reviews</li>
           <div className="seperator"></div>

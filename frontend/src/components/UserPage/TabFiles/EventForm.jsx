@@ -31,6 +31,7 @@ export default function EventForm({ event, type, setUserModal }) {
   }, [dispatch]);
 
   const handleSubmit = (e) => {
+    debugger;
     e.preventDefault();
     const location = {
       type: "Point",
@@ -38,7 +39,6 @@ export default function EventForm({ event, type, setUserModal }) {
       coordinates: coordinates,
     };
     if (type === "edit") {
-      debugger;
       dispatch(
         addUserToEvent({
           event: {

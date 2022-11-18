@@ -10,22 +10,22 @@ const REMOVE_EVENT = "EVENTS/REMOVE_EVENT";
 
 const receiveEvents = (events) => ({
   type: RECEIVE_EVENTS,
-  events
+  events,
 });
 
 const removeEvent = (eventId) => ({
   type: REMOVE_EVENT,
-  eventId
-})
+  eventId,
+});
 
 const receiveUserEvents = (events) => ({
   type: RECEIVE_USER_EVENTS,
-  events
+  events,
 });
 
 const receiveNewEvent = (event) => ({
   type: RECEIVE_NEW_EVENT,
-  event
+  event,
 });
 
 const receiveErrors = (errors) => ({
@@ -65,6 +65,7 @@ export const fetchUserEvents = (userId) => async (dispatch) => {
 };
 
 export const composeEvent = (data) => async (dispatch) => {
+  debugger;
   try {
     const res = await jwtFetch("/api/events/", {
       method: "POST",
@@ -81,20 +82,18 @@ export const composeEvent = (data) => async (dispatch) => {
   }
 };
 
-
 export const deleteEvent = (eventId) => async (dispatch) => {
   try {
     await jwtFetch(`/api/events/${eventId}`, {
-      method: "DELETE"
-    })
-    .then(dispatch(removeEvent(eventId)));
+      method: "DELETE",
+    }).then(dispatch(removeEvent(eventId)));
   } catch (err) {
     const resBody = await err.json();
     if (resBody.statusCode === 400) {
       return dispatch(receiveErrors(resBody.errors));
     }
   }
-}
+};
 
 export const addUserToEvent = (data) => async (dispatch) => {
   try {
@@ -127,28 +126,37 @@ export const eventErrorsReducer = (state = nullErrors, action) => {
   }
 };
 
-const eventsReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
-    switch(action.type) {
-      case RECEIVE_EVENTS:
-        return { ...state, all: action.events, new: undefined};
-      case RECEIVE_USER_EVENTS:
-        return { ...state, user: action.events, new: undefined};
-      case RECEIVE_NEW_EVENT:
-        return { ...state, new: action.event};
-      case RECEIVE_USER_LOGOUT:
-        return { ...state, user: {}, new: undefined }
-      case REMOVE_EVENT:
-        const newState = { ...state }
-        newState.user.splice(state.user.findIndex(object => {
+const eventsReducer = (
+  state = { all: {}, user: {}, new: undefined },
+  action
+) => {
+  switch (action.type) {
+    case RECEIVE_EVENTS:
+      return { ...state, all: action.events, new: undefined };
+    case RECEIVE_USER_EVENTS:
+      return { ...state, user: action.events, new: undefined };
+    case RECEIVE_NEW_EVENT:
+      return { ...state, new: action.event };
+    case RECEIVE_USER_LOGOUT:
+      return { ...state, user: {}, new: undefined };
+    case REMOVE_EVENT:
+      const newState = { ...state };
+      newState.user.splice(
+        state.user.findIndex((object) => {
           return object._id === action.eventId;
-        }), 1)
-        newState.all.splice(state.user.findIndex(object => {
+        }),
+        1
+      );
+      newState.all.splice(
+        state.user.findIndex((object) => {
           return object._id === action.eventId;
-        }), 1)
-        return newState
-      default:
-        return state;
-    }
-  };
-  
-  export default eventsReducer;
+        }),
+        1
+      );
+      return newState;
+    default:
+      return state;
+  }
+};
+
+export default eventsReducer;
