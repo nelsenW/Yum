@@ -21,9 +21,7 @@ export default function MainPage() {
 
   useEffect(() => {
     dispatch(fetchEvents());
-  }, []);
-
-  useEffect(() => {}, [events, eventChange]);
+  }, [events, eventChange]);
 
   const hidden = () => {
     return sideBar ? " hidden" : "";
