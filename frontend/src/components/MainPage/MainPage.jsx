@@ -16,6 +16,11 @@ export default function MainPage() {
   const [sideBar, setSideBar] = useState(false);
   const [userModal, setUserModal] = useState();
   const [selectedEvent, setSetectedEvent] = useState(null);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+
+  useEffect(() => {
+    dispatch(fetchEvents());
+  }, []);
 
   const hidden = () => {
     return sideBar ? " hidden" : "";
@@ -25,9 +30,10 @@ export default function MainPage() {
     setSetectedEvent(event);
   };
 
-  useEffect(() => {
-    dispatch(fetchEvents());
-  }, []);
+  const handleFilterEvents = (events) => {
+    setFilteredEvents(events);
+    console.log(events);
+  };
 
   return (
     <div id="main-page">
@@ -37,6 +43,7 @@ export default function MainPage() {
             placeholder="Find a Specific Event"
             data={events?.all}
             handleSelectedEvent={handleSelectedEvent}
+            handleFilterEvents={handleFilterEvents}
           />
         </div>
       )}
@@ -45,7 +52,7 @@ export default function MainPage() {
         <div className={`hamburger${hidden()}`}></div>
         <div className={`hamburger${hidden()}`}></div>
       </div>
-      <SideNav hidden={hidden} />
+      <SideNav hidden={hidden} filteredEvents={filteredEvents} />
       <MapContainer
         selectedEvent={selectedEvent}
         handleSelectedEvent={handleSelectedEvent}

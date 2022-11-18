@@ -1,6 +1,10 @@
 import Map from "./Map";
 
-const MapContainer = ({ selectedEvent, handleSelectedEvent }) => {
+const MapContainer = ({
+  selectedEvent,
+  handleSelectedEvent,
+  filteredEvents,
+}) => {
   return (
     <div
       style={{

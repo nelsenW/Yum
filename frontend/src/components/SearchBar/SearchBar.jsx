@@ -1,7 +1,12 @@
 import React, { useRef, useState } from "react";
 import "./SearchBar.css";
 
-export default function SearchBar({ placeholder, data, handleSelectedEvent }) {
+export default function SearchBar({
+  placeholder,
+  data,
+  handleSelectedEvent,
+  handleFilterEvents,
+}) {
   const [filteredData, setFilteredData] = useState([]);
   const [selectedResult, setSelectedResult] = useState(null);
   const [inputValue, setInputValue] = useState("");
@@ -12,6 +17,8 @@ export default function SearchBar({ placeholder, data, handleSelectedEvent }) {
     const newFilter = data.filter((event) =>
       event.title.toLowerCase().includes(searchWord.toLowerCase())
     );
+    handleFilterEvents(newFilter);
+
     if (searchWord === "") {
       setFilteredData([]);
     } else {
@@ -30,9 +37,6 @@ export default function SearchBar({ placeholder, data, handleSelectedEvent }) {
     setInputValue(event.title);
     setFilteredData([]);
   };
-
-  // debugger
-  // if (searchInput.current) console.log(searchInput.current.value)
 
   return (
     <div className="search-bar">

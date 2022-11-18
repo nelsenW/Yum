@@ -26,7 +26,6 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
     fetchEvents().then((data) => {
       setEvents(data);
     });
-    // console.log(selectedEvent);
 
     handleCurrentUserLocation();
   }, [selectedEvent]);
@@ -49,7 +48,7 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
       setViewport({
         longitude: selectedEvent.location.coordinates[1],
         latitude: selectedEvent.location.coordinates[0],
-        zoom: 11,
+        zoom: 12,
       });
     } else {
       setCurrentUserLocation({
@@ -67,7 +66,7 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
             setViewport({
               longitude: currentUserLocation.longitude,
               latitude: currentUserLocation.latitude,
-              zoom: 11,
+              zoom: 12,
             })
           }
           className="current-loc-btn"
@@ -82,7 +81,7 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
           initialViewState={{
             longitude: currentUserLocation.longitude,
             latitude: currentUserLocation.latitude,
-            zoom: 11,
+            zoom: 12,
           }}
           {...viewport}
           onMove={(evt) => setViewport(evt.viewport)}

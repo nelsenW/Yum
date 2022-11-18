@@ -14,13 +14,14 @@
   color: black;
   border: 0;
   border-radius: 2px;
-  font-size: 18px;
+  font-size: 16px;
   padding: 15px;
-  height: 30px;
+  height: 20px;
   width: 250px;
   border-radius: 0;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  font-family: var(--font-helvetica);
 }
 
 .search-bar {
@@ -34,7 +35,7 @@
 }
 
 .search-icon {
-  height: 60px;
+  height: 50px;
   width: 50px;
   background-color: white;
   display: grid;
@@ -48,8 +49,8 @@ input:focus {
 }
 
 .search-icon i {
-  font-size: 35px;
-  color: lightblue;
+  font-size: 15px;
+  color: var(--dark-blue);
 }
 
 .data-result {
@@ -62,6 +63,8 @@ input:focus {
   overflow: hidden;
   overflow-y: auto;
   top: 90px;
+  font-family: var(--font-helvetica);
+  border-radius: 10px;
 }
 
 /* .data-result::-webkit-scrollbar {
@@ -76,10 +79,11 @@ input:focus {
   display: flex;
   align-items: center;
   color: black;
+  cursor: pointer;
 }
 
 .data-item p {
-  margin-left: 10 px;
+  margin-left: 10px;
 }
 
 .data-item:hover {

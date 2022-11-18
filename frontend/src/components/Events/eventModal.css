@@ -1,13 +1,13 @@
 .event-modal-image {
-    height: 30vh;
-    aspect-ratio: 5/7;
-    border-radius: 8px;
-    position: absolute;
-    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
-    object-fit: cover;
+  height: 30vh;
+  aspect-ratio: 5/7;
+  border-radius: 8px;
+  position: absolute;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  object-fit: cover;
 }
 
-.event-modal-image-group{
+.event-modal-image-group {
   overflow: visible;
   position: relative;
   display: flex;
@@ -16,7 +16,7 @@
   margin-top: 40%;
 }
 
-.event-modal-image-group:before{
+.event-modal-image-group:before {
   pointer-events: none;
   content: "";
   position: absolute;
@@ -44,16 +44,16 @@
   z-index: -1;
   box-sizing: border-box;
   transition: opacity 1s;
-  transition-timing-function: cubic-bezier(0,2.03,0,-1.57);
+  transition-timing-function: cubic-bezier(0, 2.03, 0, -1.57);
 }
 
-.event-modal-main{
+.event-modal-main {
   width: 100%;
   box-sizing: border-box;
   padding: 16px;
 }
 
-#event-modal{
+#event-modal {
   height: 80vh;
   aspect-ratio: 5/7;
   border-radius: 12px;
@@ -65,10 +65,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  font-family: var(--font-button);
+  font-family: var(--font-helvetica);
 }
 
-#event-modal h1{
+#event-modal h1 {
   align-self: flex-start;
   width: 100%;
   font-size: 32px;
@@ -76,37 +76,36 @@
   padding-left: 16px;
 }
 
-#event-modal p{
+#event-modal p {
   margin: 8px 0;
   padding-left: 16px;
 }
 
-#event-modal button{
+#event-modal button {
   color: slategray;
 }
 
-#event-modal label{
+#event-modal label {
   padding-left: none;
   margin-left: none;
 }
 
-#event-modal button:hover{
+#event-modal button:hover {
   color: var(--dark-yellow);
   text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--dark-yellow);
 }
 
-#event-modal input{
+#event-modal input {
   border: 2px solid salmon;
-  padding-left: 4px ;
+  padding-left: 4px;
 }
 
-#event-modal #esc-toolbar{
+#event-modal #esc-toolbar {
   position: absolute;
   top: 1em;
   right: 1em;
   padding-top: 0;
 }
-
 
 .event-modal-image-group img:nth-child(1) {
   background-color: var(--vivid-sky-blue);
@@ -137,17 +136,16 @@
 }
 
 .event-modal-image-group:hover img:nth-child(2) {
-    animation: spin1 4s infinite;
+  animation: spin1 4s infinite;
 }
 
 .event-modal-image-group:hover img:nth-child(3) {
-animation: spin3 4s infinite;
+  animation: spin3 4s infinite;
 }
 
 .event-modal-image-group:hover img:nth-child(4) {
-animation: spin4 4s infinite;
+  animation: spin4 4s infinite;
 }
-
 
 @keyframes spin1 {
   25% {
@@ -165,49 +163,46 @@ animation: spin4 4s infinite;
 }
 
 @keyframes spin2 {
-    25% {
-      transform: translate(25%, 0);
-      z-index: 55;
-    }
-    50% {
-      transform: translate(0, -15%);
-      z-index: 50;
-    }
-    75% {
-      transform: translate(-25%, 0);
-      z-index: 55;
-    }
+  25% {
+    transform: translate(25%, 0);
+    z-index: 55;
+  }
+  50% {
+    transform: translate(0, -15%);
+    z-index: 50;
+  }
+  75% {
+    transform: translate(-25%, 0);
+    z-index: 55;
+  }
 }
 
 @keyframes spin3 {
-    25% {
-      transform: translate(0, 15%);
-      z-index: 60;
-    }
-    50% {
-      transform: translate(25%, 0);
-      z-index: 55;
-    }
-    75% {
-      transform: translate(0, -15%);
-      z-index: 50;
-    }
+  25% {
+    transform: translate(0, 15%);
+    z-index: 60;
+  }
+  50% {
+    transform: translate(25%, 0);
+    z-index: 55;
+  }
+  75% {
+    transform: translate(0, -15%);
+    z-index: 50;
+  }
 }
 
-
-  @keyframes spin4 {
-    25% {
-      transform: translate(0, -15%);
-      z-index: 50;
-    }
-    50% {
-      transform: translate(-25%, 0);
-      z-index: 55;
-    }
-    75% {
-      transform: translate(0, 15%);
-      z-index: 60;
-    }
+@keyframes spin4 {
+  25% {
+    transform: translate(0, -15%);
+    z-index: 50;
+  }
+  50% {
+    transform: translate(-25%, 0);
+    z-index: 55;
+  }
+  75% {
+    transform: translate(0, 15%);
+    z-index: 60;
+  }
 }
-
-

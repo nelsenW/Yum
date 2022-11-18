@@ -1,36 +1,39 @@
-.event-bubble{
-    width: 98%;
-    background-color: slategray;
-    border-radius: 8px;
-    height: 200px;
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    overflow: hidden;
-    margin-bottom: 12px;
-    border: 2px solid transparent;
-    transition: color .5s, box-shadow .5s, border .5s;
-    transition-timing-function: linear;
+.event-bubble {
+  width: 98%;
+  background-color: var(--off-white);
+  border-radius: 8px;
+  height: 200px;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 2px solid transparent;
+  transition: color 0.5s, box-shadow 0.5s, border 0.5s;
+  transition-timing-function: linear;
+  cursor: pointer;
 }
 
-.event-bubble:hover{
-    border: 2px solid var(--dark-yellow);
-    color: var(--dark-yellow);
-    box-shadow: inset 0 0 0.5em 0 var(--dark-yellow), 0 0 0.5em 0 var(--dark-yellow);
+.event-bubble:hover {
+  border: 2px solid var(--dark-yellow);
+  color: var(--dark-yellow);
+  box-shadow: inset 0 0 0.5em 0 var(--dark-yellow),
+    0 0 0.5em 0 var(--dark-yellow);
 }
 
-#event-bubble-img{
-    grid-row: 1/span 3;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+#event-bubble-img {
+  grid-row: 1 / span 3;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
-#event-bubble-desc{
-    grid-row: 4;
-    color: black;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 12px;
-    font-family: var(--font-button);
+#event-bubble-desc {
+  grid-row: 4;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-family: var(--font-helvetica);
+  font-weight: 600;
 }

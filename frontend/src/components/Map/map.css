@@ -26,9 +26,21 @@
 }
 
 .current-loc-btn {
-  top: 120px;
+  bottom: 40px;
   position: absolute;
-  z-index: 99;
+  z-index: 9;
   border-radius: 5px;
-  padding: 5px;
+  padding: 8px;
+  background-color: var(--off-white);
+  font-family: var(--font-helvetica);
+  transition: background-color 0.8s, box-shadow 0.8s, border 0.8s, color 0.8s;
+  cursor: pointer;
+}
+
+.current-loc-btn:hover {
+  border: 1px solid var(--dark-yellow);
+  box-shadow: inset 0 0 0.2em 0 var(--dark-yellow),
+    0 0 0.5em 0 var(--dark-yellow);
+  background-color: var(--dark-yellow);
+  color: var(--dark-blue);
 }
