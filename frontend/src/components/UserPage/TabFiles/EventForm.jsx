@@ -31,7 +31,6 @@ export default function EventForm({ event, type, setUserModal }) {
   }, [dispatch]);
 
   const handleSubmit = (e) => {
-    debugger;
     e.preventDefault();
     const location = {
       type: "Point",
@@ -176,6 +175,7 @@ export default function EventForm({ event, type, setUserModal }) {
           <UploadImages
             setImageUploadElement={setImageUploadElement}
             event={newEvent}
+            setUserModal={setUserModal}
           />
         </label>
       )}

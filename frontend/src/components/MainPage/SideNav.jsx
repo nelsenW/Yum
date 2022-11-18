@@ -19,12 +19,7 @@ export default function SideNav({ hidden, filteredEvents }) {
 
   useEffect(() => {
     dispatch(fetchEvents());
-  }, [filteredEvents]);
-
-  useEffect(() => {}, [newEvents]);
-
-  console.log(events);
-  console.log(filteredEvents);
+  }, [filteredEvents, newEvents]);
 
   return (
     <nav
