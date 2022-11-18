@@ -55,8 +55,6 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
     }
   }
 
-  console.log(currentUserLocation);
-
   return (
     <>
       <div className="current-location-btn-div">

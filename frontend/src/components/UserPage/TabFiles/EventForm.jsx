@@ -28,10 +28,9 @@ function AddEventForm() {
     };
   }, [dispatch]);
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(coordinates);
+
     const location = {
       type: "Point",
       name: locationName,
@@ -44,7 +43,7 @@ function AddEventForm() {
         title,
         description,
         price,
-		guestNumber,
+        guestNumber,
         restrictions,
         eventType,
         host: userId,
@@ -53,7 +52,6 @@ function AddEventForm() {
       setNewEvent(event);
       setImageUploadElement(true);
     });
-
   };
   return (
     <div>
@@ -155,6 +153,6 @@ function AddEventForm() {
       )}
     </div>
   );
-};
+}
 
 export default AddEventForm;

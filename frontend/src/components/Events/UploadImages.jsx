@@ -20,7 +20,6 @@ const UploadImages = ({ setImageUploadElement, event }) => {
     });
 
     setImageUploadElement(false);
-    console.log("success");
     //redirect to wherever we want
   };
 

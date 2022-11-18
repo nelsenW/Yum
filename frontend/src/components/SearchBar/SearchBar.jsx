@@ -25,7 +25,6 @@ export default function SearchBar({ placeholder, data, handleSelectedEvent }) {
   };
 
   const handleResultClick = (e, event) => {
-    // console.log(event);
     handleSelectedEvent(event);
     setSelectedResult(event);
     setInputValue(event.title);
