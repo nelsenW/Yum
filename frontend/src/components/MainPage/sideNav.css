@@ -31,7 +31,7 @@
 	outline: none;
 	background-color: transparent;
 	color: var(--dark-blue);
-	width: 32px;
+	width: auto;
 	height: 32px;
 	border-radius: 4px;
 	display: flex;
@@ -43,6 +43,7 @@
     border: 2px solid slategray;
     transition: color 1s, box-shadow 1s, border 1s;
     transition-timing-function: cubic-bezier(0,2.03,0,-1.57);
+    font-family: var(--font-button);
 }
 
 .settings-button:hover {

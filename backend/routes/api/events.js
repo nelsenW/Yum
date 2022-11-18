@@ -116,11 +116,11 @@ router.get("/:id", async (req, res, next) => {
   //update event
   router.patch('/:id/', requireUser, validateEventInput, async (req, res, next) => {
     try {
-        const userID = req.query.userId
+        // const userID = req.query.userId
         const filter = {_id: req.params.id}
         const update = { "$set" :{ ...req.body}}
         const newEvent = await Event.findOneAndUpdate( filter, update, {new: true})
-        if (userID !== newEvent.host._id.toString()) throw "User has to be host";
+        // if (userID !== newEvent.host._id.toString()) throw "User has to be host";
         let event = await newEvent.save();
         event = await event.populate([{path:'host', select:'_id, username'}, {path:'guestLists', select:'_id, username'}]);
         return res.json(event);

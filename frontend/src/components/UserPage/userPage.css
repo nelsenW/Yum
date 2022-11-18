@@ -82,11 +82,15 @@
     width: 36px;
     height: 36px;
     cursor: pointer;
-    color: var(--clickable-default);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+}
+
+#esc-toolbar:hover #esc-button{
+    color: var(--solid-orange);
 }
 
 
@@ -95,6 +99,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 60px;
+    z-index: 9999;
 }
 
 #esc-toolbar h2{
@@ -102,5 +107,5 @@
     font-weight: 600;
     font-size: 13px;
     text-align: center;
-    color: var(--clickable-default)
+    color: white;
 }
