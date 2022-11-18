@@ -11,6 +11,7 @@ export default function SideNav({ hidden, filteredEvents }) {
   const userName = useSelector((state) => state.session.user.username);
   const dispatch = useDispatch();
   const [userModal, setUserModal] = useState();
+  const newEvents = useSelector((state) => state.events.new);
   let events = useSelector((state) =>
     state.events.all ? Object.values(state.events.all) : []
   );
@@ -19,6 +20,8 @@ export default function SideNav({ hidden, filteredEvents }) {
   useEffect(() => {
     dispatch(fetchEvents());
   }, [filteredEvents]);
+
+  useEffect(() => {}, [newEvents]);
 
   console.log(events);
   console.log(filteredEvents);

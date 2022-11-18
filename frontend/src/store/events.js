@@ -65,7 +65,6 @@ export const fetchUserEvents = (userId) => async (dispatch) => {
 };
 
 export const composeEvent = (data) => async (dispatch) => {
-  debugger;
   try {
     const res = await jwtFetch("/api/events/", {
       method: "POST",
