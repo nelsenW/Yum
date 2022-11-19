@@ -2,7 +2,7 @@
   width: fit-content;
   box-sizing: border-box;
   padding: 8px;
-  margin: 16px;
+  margin: 12px 0 0;
   display: flex;
   overflow: hidden;
   color: slategray;
@@ -100,6 +100,7 @@
 
 .h2-wrapper {
   position: relative;
+  margin-bottom: 25px;
 }
 
 .session-form h2 {
@@ -126,9 +127,17 @@
 }
 
 label {
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 100%; */
   box-sizing: border-box;
+  margin: 0 16px;
+}
+
+#sign-up-error {
+  display: flex;
+  justify-content: center;
+  color: red;
+  margin-top: 8px;
 }

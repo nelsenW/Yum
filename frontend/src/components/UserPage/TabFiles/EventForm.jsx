@@ -79,7 +79,7 @@ export default function EventForm({ event, type, setUserModal }) {
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >
-        <div className="h2-wrapper">
+        <div className="h2-wrapper event">
           {type === "edit" ? (
             <h2>Edit: {event.title}</h2>
           ) : (
@@ -95,7 +95,7 @@ export default function EventForm({ event, type, setUserModal }) {
         />
         <div className="errors">{errors?.title}</div>
         <label>
-          Title
+          <span>Title</span>
           <input
             type="text"
             value={title}
@@ -105,7 +105,7 @@ export default function EventForm({ event, type, setUserModal }) {
         </label>
         <div className="errors">{errors?.description}</div>
         <label>
-          Description
+          <span>Description</span>
           <input
             type="textarea"
             value={description}
@@ -115,7 +115,7 @@ export default function EventForm({ event, type, setUserModal }) {
         </label>
         <div className="errors">{errors?.price}</div>
         <label>
-          Price
+          <span>Price</span>
           <input
             type="number"
             value={price}
@@ -125,7 +125,7 @@ export default function EventForm({ event, type, setUserModal }) {
         </label>
         <div className="errors">{errors?.guests}</div>
         <label>
-          Guests
+          <span>Guests</span>
           <input
             type="number"
             value={guestNumber}
@@ -134,7 +134,7 @@ export default function EventForm({ event, type, setUserModal }) {
         </label>
         <div className="errors">{errors?.restrictions}</div>
         <label>
-          Restrictions
+          <span>Restrictions</span>
           <input
             type="text"
             value={restrictions}

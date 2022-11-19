@@ -14,7 +14,7 @@ const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
   };
 
   const handleCurrentLocationClick = () => {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    navigator.geolocation?.getCurrentPosition(showPosition);
   };
 
   async function showPosition(position) {
@@ -35,10 +35,9 @@ const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
 
   return (
     <>
-      {/* <div className="location-input-cont"> */}
-      <div className="location-container" style={{ width: "100%" }}>
+      <div className="location-container">
         <label>
-          Location
+          <span>Location</span>
           <input
             value={type === "edit" ? name : address.inputValue}
             onChange={(e) => {
@@ -63,7 +62,7 @@ const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
           </div>
         )}
       </div>
-      <div className="current-loc-container">
+      {/* <div className="current-loc-container">
         <button
           className="use-current-loc-btn"
           type="button"
@@ -71,8 +70,7 @@ const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
         >
           Use Current Location
         </button>
-      </div>
-      {/* </div> */}
+      </div> */}
     </>
   );
 };

@@ -1,15 +1,14 @@
 .rating {
-  width: 208px;
-  height: 32px;
-  margin: 16px auto;
-  padding: 32px 50px;
+  /* width: 208px; */
+  margin: 10px 16px;
+  padding: 5px 20px 15px;
   border: 1px solid hsl(0, 0%, 80%);
   background: var(--dark-blue);
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box;
+  border-radius: 5px;
 }
 
 .rating label {
@@ -108,4 +107,17 @@
   text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--dark-yellow);
   box-shadow: inset 0 0 0.5em 0 var(--dodger-blue),
     0 0 0.5em 0 var(--dodger-blue);
+}
+
+.h2-wrapper.review {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-size: 25px;
+}
+
+.create-review-btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }

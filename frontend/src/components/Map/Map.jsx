@@ -43,8 +43,22 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
     }
   };
 
+  const mapOptions = {
+    maximumAge: 10000,
+    timeout: 5000,
+    enableHighAccuracy: true,
+  };
+
+  const mapErrorHandler = (err) => {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  };
+
   const handleCurrentUserLocation = () => {
-    navigator.geolocation.getCurrentPosition(showPosition);
+    navigator.geolocation.getCurrentPosition(
+      showPosition,
+      mapErrorHandler,
+      mapOptions
+    );
   };
 
   function showPosition(position) {
@@ -110,7 +124,7 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
               </>
             ))}
           <NavigationControl position="bottom-right" />
-          <GeolocateControl position="bottom-right" trackerUseLocation />
+          {/* <GeolocateControl position="bottom-right" trackerUseLocation /> */}
         </ReactMapGL>
       )}
       {eventModal && (

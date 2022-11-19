@@ -1,10 +1,11 @@
 .event-form {
   border: solid 5px black;
-  width: 100%;
+  width: 80%;
+  margin: auto;
   display: flex;
   flex-direction: column;
-  padding: 32px;
-  align-items: center;
+  padding: 20px;
+  align-items: flex-start;
   border-radius: 12px;
   background-color: var(--dark-blue);
   color: var(--off-white);
@@ -14,6 +15,10 @@
   box-sizing: border-box;
 }
 
+.event-form label {
+  width: 80%;
+}
+
 .event-form-cont {
   display: flex;
   flex-direction: column;
@@ -21,13 +26,14 @@
 }
 
 .event-form input {
-  margin-left: 16px;
+  margin-top: 8px;
   padding: 8px 16px;
   background-color: var(--off-white);
   color: black;
   border: 2px solid slategray;
   box-sizing: border-box;
   font-family: var(--font-helvetica);
+  display: flex;
   width: 100%;
 }
 
@@ -53,19 +59,20 @@ label:focus-within {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  width: 100%;
 }
 
 .location-results {
   border: 2px solid slategray;
-  max-width: 80%;
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   padding: 10px 20px;
   position: absolute;
-  top: 37px;
+  top: 60px;
+  left: 16px;
   margin-bottom: 5px;
   border-radius: 10px;
   text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--dark-yellow);
@@ -108,6 +115,7 @@ label:focus-within {
   justify-content: flex-start !important;
   align-items: center !important;
   width: 100%;
+  margin: 8px 16px;
 }
 
 #event-type-legend {
@@ -116,16 +124,25 @@ label:focus-within {
 }
 
 .event-type.radio input {
-  height: 25px;
-  width: 25px;
+  margin: 0;
+  height: 20px;
+  width: 20px;
   cursor: pointer;
 }
 
 .create-btn-container {
-  margin-top: 15px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .event-form-cont h2 {
   font-size: 25px;
-  margin-bottom: 10px;
+}
+
+.h2-wrapper.event {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

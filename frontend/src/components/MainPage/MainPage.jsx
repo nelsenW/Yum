@@ -21,7 +21,7 @@ export default function MainPage() {
 
   useEffect(() => {
     dispatch(fetchEvents());
-  }, [events, eventChange]);
+  }, [eventChange]);
 
   const hidden = () => {
     return sideBar ? " hidden" : "";
@@ -41,7 +41,7 @@ export default function MainPage() {
       {!userModal && (
         <div className="search-bar-cont">
           <SearchBar
-            placeholder="Find a Specific Event"
+            placeholder="Search for an event"
             data={events?.all}
             handleSelectedEvent={handleSelectedEvent}
             handleFilterEvents={handleFilterEvents}
