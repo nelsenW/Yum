@@ -6,9 +6,6 @@ import ReactMapGL, {
   Popup,
 } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
-// eslint-disable-next-line import/no-webpack-loader-syntax
-// prettier-ignore
-mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 import getCenter from "geolib/es/getCenter";
 import { ImLocation2 } from "react-icons/im";
 import jwtFetch from "../../store/jwt";
@@ -16,6 +13,9 @@ import "./map.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import EventModal from "../Events/EventModal";
 import { Modal } from "../../context/Modal";
+// prettier-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 const Map = ({ selectedEvent, handleSelectedEvent }) => {
   const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
