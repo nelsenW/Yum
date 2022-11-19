@@ -12,8 +12,8 @@ import SideNav from "./SideNav";
 
 export default function MainPage() {
   const dispatch = useDispatch();
-  const events = useSelector((state) => state.events);
-  const eventChange = useSelector((state) => state.events.new);
+  const events = useSelector((state) => state?.events);
+  const eventChange = useSelector((state) => state?.events.new);
   const [sideBar, setSideBar] = useState(false);
   const [userModal, setUserModal] = useState();
   const [selectedEvent, setSetectedEvent] = useState(null);

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import jwtFetch from "../../store/jwt";
 
-const UploadImages = ({ setImageUploadElement, event, setUserModal}) => {
+const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
   const [imageFiles, setImageFiles] = useState([]);
   const [imageFilesUrls, setImageFilesUrls] = useState([]);
   const history = useHistory();
@@ -16,12 +16,10 @@ const UploadImages = ({ setImageUploadElement, event, setUserModal}) => {
       formData.append("images", imageFiles[i]);
     }
 
-    const addedImages = await jwtFetch(`/api/events/${event._id}/postImages`, {
+    await jwtFetch(`/api/events/${event._id}/postImages`, {
       method: "POST",
       body: formData,
     }).then(setUserModal(false));
-
-    
   };
 
   const handleFiles = (e) => {
