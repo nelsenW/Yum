@@ -1,12 +1,28 @@
+import { useEffect, useRef, useState } from "react";
 import useAddress from "./useAddress";
 
 const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
   const address = useAddress("");
   const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+  const [showResultsDiv, setShowResultsDiv] = useState(false);
+  const resultsRef = useRef();
+
+  useEffect(() => {
+    document.addEventListener("click", handleDocumentClick);
+
+    return () => document.removeEventListener("click", handleDocumentClick);
+  }, []);
+
+  const handleDocumentClick = (e) => {
+    if (resultsRef && resultsRef.current) {
+      const ref = resultsRef.current;
+      if (!ref.contains(e.target)) {
+        setShowResultsDiv(false);
+      }
+    }
+  };
 
   const handleResultClick = (searchResult) => {
-    console.log(searchResult.center);
-    debugger;
     setCoordinates([searchResult.center[1], searchResult.center[0]]);
     setLocationName(searchResult.place_name);
     address.setInputValue(searchResult.place_name);
@@ -43,24 +59,26 @@ const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
             onChange={(e) => {
               address.handleChange(e);
               setLocationName(e.target.value);
+              setShowResultsDiv(true);
             }}
           />
         </label>
 
-        {address.searchResults.length > 0 && (
-          <div className="location-results">
+        {address.searchResults.length > 0 && showResultsDiv ? (
+          <div className="location-results" ref={resultsRef}>
             {address.searchResults.map((searchResult) => {
               return (
                 <div
                   className="result-items"
                   onClick={() => handleResultClick(searchResult)}
+                  key={searchResult.id}
                 >
                   {searchResult.place_name}
                 </div>
               );
             })}
           </div>
-        )}
+        ) : null}
       </div>
       {/* <div className="current-loc-container">
         <button

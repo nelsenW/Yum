@@ -15,13 +15,13 @@ export default function MainPage() {
   const events = useSelector((state) => state?.events);
   const eventChange = useSelector((state) => state?.events.new);
   const [sideBar, setSideBar] = useState(false);
-  const [userModal, setUserModal] = useState();
+  const [userModal, setUserModal] = useState(false);
   const [selectedEvent, setSetectedEvent] = useState(null);
   const [filteredEvents, setFilteredEvents] = useState([]);
 
   useEffect(() => {
     dispatch(fetchEvents());
-  }, [eventChange]);
+  }, [eventChange, userModal]);
 
   const hidden = () => {
     return sideBar ? " hidden" : "";
@@ -61,11 +61,14 @@ export default function MainPage() {
       <button onClick={() => setUserModal(true)} id="make-event">
         +
       </button>
-      {userModal && (
+      {userModal ? (
         <Modal onClose={() => setUserModal(false)}>
-          <UserPage setUserModal={setUserModal} inputTab={<EventForm />} />
+          <UserPage
+            setUserModal={setUserModal}
+            inputTab={<EventForm setUserModal={setUserModal} />}
+          />
         </Modal>
-      )}
+      ) : null}
     </div>
   );
 }

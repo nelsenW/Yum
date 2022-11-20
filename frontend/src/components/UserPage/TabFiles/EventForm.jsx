@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import EventCard from "../../Events/EventCard";
 import "./eventForm.css";
-import { clearSessionErrors } from "../../../store/session";
+import { clearEventErrors } from "../../../store/events";
 import { addUserToEvent, composeEvent } from "../../../store/events";
 import AddressInput from "../../Map/AddressInput";
 import UploadImages from "../../Events/UploadImages";
@@ -17,7 +17,9 @@ export default function EventForm({ event, type, setUserModal }) {
   const [price, setPrice] = useState(event?.price ?? "");
   const [guestNumber, setGuestNumber] = useState(event?.guestNumber ?? 1);
   const [restrictions, setRestrictions] = useState(event?.restrictions ?? "");
-  const errors = useSelector((state) => state.errors.session);
+  const errors = useSelector((state) =>
+    state.errors.event ? state.errors.event : []
+  );
   const [eventType, setEventType] = useState(event?.eventType ?? "");
   const userId = useSelector((state) => state.session.user._id);
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ export default function EventForm({ event, type, setUserModal }) {
 
   useEffect(() => {
     return () => {
-      dispatch(clearSessionErrors());
+      dispatch(clearEventErrors());
     };
   }, [dispatch]);
 
@@ -70,8 +72,11 @@ export default function EventForm({ event, type, setUserModal }) {
     ).then((event) => {
       setNewEvent(event);
       setImageUploadElement(true);
+      // console.log(imageUploadElement);
     });
   };
+
+  console.log(Object.values(errors).length);
   return (
     <div className="event-form-cont">
       <form
@@ -86,14 +91,13 @@ export default function EventForm({ event, type, setUserModal }) {
             <h2>Make an Event</h2>
           )}
         </div>
-        <div className="errors">{errors?.location} </div>
         <AddressInput
           setLocationName={setLocationName}
           setCoordinates={setCoordinates}
           type={type}
           name={locationName}
         />
-        <div className="errors">{errors?.title}</div>
+        <div className="errors">{errors?.location} </div>
         <label>
           <span>Title</span>
           <input
@@ -103,7 +107,8 @@ export default function EventForm({ event, type, setUserModal }) {
             placeholder="title"
           />
         </label>
-        <div className="errors">{errors?.description}</div>
+        <div className="errors">{errors?.title}</div>
+
         <label>
           <span>Description</span>
           <input
@@ -113,7 +118,8 @@ export default function EventForm({ event, type, setUserModal }) {
             placeholder="description"
           />
         </label>
-        <div className="errors">{errors?.price}</div>
+        <div className="errors">{errors?.description}</div>
+
         <label>
           <span>Price</span>
           <input
@@ -123,7 +129,8 @@ export default function EventForm({ event, type, setUserModal }) {
             placeholder="price"
           />
         </label>
-        <div className="errors">{errors?.guests}</div>
+        <div className="errors">{errors?.price}</div>
+
         <label>
           <span>Guests</span>
           <input
@@ -132,7 +139,8 @@ export default function EventForm({ event, type, setUserModal }) {
             onChange={(e) => setGuestNumber(e.target.value)}
           />
         </label>
-        <div className="errors">{errors?.restrictions}</div>
+        <div className="errors">{errors?.guests}</div>
+
         <label>
           <span>Restrictions</span>
           <input
@@ -142,7 +150,9 @@ export default function EventForm({ event, type, setUserModal }) {
             placeholder="restrictions"
           />
         </label>
-        <div className="errors">{errors?.images}</div>
+        <div className="errors">{errors?.restrictions}</div>
+
+        {/* <div className="errors">{errors?.images}</div> */}
         <fieldset
           className="event-type radio"
           onChange={(e) => setEventType(e.target.value)}
@@ -156,26 +166,27 @@ export default function EventForm({ event, type, setUserModal }) {
           <input type="radio" id="both" name="rating" value="both" />
           <label htmlFor="both">Both</label>
         </fieldset>
+        <div className="errors">{errors?.eventType}</div>
+
         <div className="create-btn-container">
           <button
             type="submit"
-            disabled={locationName.length === 0 || title.length === 0}
+            // disabled={locationName.length === 0 || title.length === 0}
           >
             Create
           </button>
         </div>
       </form>
-      <EventCard />
-      {imageUploadElement && (
-        <label>
-          Images
+      {/* <EventCard /> */}
+      {imageUploadElement && errors.length === 0 ? (
+        <div className="upload-images-modal-container">
           <UploadImages
             setImageUploadElement={setImageUploadElement}
             event={newEvent}
             setUserModal={setUserModal}
           />
-        </label>
-      )}
+        </div>
+      ) : null}
     </div>
   );
 }

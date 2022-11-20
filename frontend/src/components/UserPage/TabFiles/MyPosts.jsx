@@ -24,7 +24,7 @@ export default function MyPosts({ setTab, setUserModal }) {
       <h1>My Events</h1>
       {userEvents?.map((event) => {
         return (
-          <div className="user-event">
+          <div className="user-event" key={event.id}>
             <h1>{event.title}</h1>
             <div className="event-buttons">
               <button

@@ -3,7 +3,6 @@ import ReactMapGL, {
   GeolocateControl,
   Marker,
   NavigationControl,
-  Popup,
 } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import getCenter from "geolib/es/getCenter";
@@ -106,7 +105,7 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
         >
           {events &&
             events.map((event) => (
-              <>
+              <div key={event.id}>
                 <Marker
                   latitude={event.location.coordinates[0]}
                   longitude={event.location.coordinates[1]}
@@ -121,7 +120,7 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
                     <ImLocation2 size={30} className="map-marker-icon" />
                   </p>
                 </Marker>
-              </>
+              </div>
             ))}
           <NavigationControl position="bottom-right" />
           {/* <GeolocateControl position="bottom-right" trackerUseLocation /> */}

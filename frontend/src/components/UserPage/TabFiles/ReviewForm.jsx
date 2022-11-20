@@ -70,15 +70,15 @@ function ReviewForm() {
       <fieldset className="rating" onChange={(e) => setRating(e.target.value)}>
         <legend>Rating</legend>
         <input type="radio" id="star1" name="rating" value="1" />
-        <label for="star1"></label>
+        <label htmlFor="star1"></label>
         <input type="radio" id="star2" name="rating" value="2" />
-        <label for="star2"></label>
+        <label htmlFor="star2"></label>
         <input type="radio" id="star3" name="rating" value="3" />
-        <label for="star3"></label>
+        <label htmlFor="star3"></label>
         <input type="radio" id="star4" name="rating" value="4" />
-        <label for="star4"></label>
+        <label htmlFor="star4"></label>
         <input type="radio" id="star5" name="rating" value="5" />
-        <label for="star5"></label>
+        <label htmlFor="star5"></label>
       </fieldset>
       <div className="errors">{errors?.rating}</div>
       <div className="create-review-btn-container">
