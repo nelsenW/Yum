@@ -7,7 +7,9 @@ import { login, clearSessionErrors } from "../../store/session";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const errors = useSelector((state) => state.errors.session);
+  const errors = useSelector((state) =>
+    state.errors.session ? state.errors.session : []
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -64,12 +64,12 @@ label:focus-within {
 
 .location-results {
   border: 2px solid slategray;
-  width: 70%;
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 10px 20px;
+  padding: 10px 0;
   position: absolute;
   top: 60px;
   left: 16px;
@@ -86,7 +86,7 @@ label:focus-within {
   overflow: hidden;
   white-space: nowrap;
   cursor: pointer;
-  padding: 5px 0;
+  padding: 5px 20px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -112,14 +112,12 @@ label:focus-within {
 
 .event-type.radio {
   display: flex !important;
-  justify-content: flex-start !important;
   align-items: center !important;
-  width: 100%;
-  margin: 8px 16px;
+  margin: 0 16px;
 }
 
 #event-type-legend {
-  margin-right: 10px;
+  margin-right: 25px;
   white-space: nowrap;
 }
 
@@ -128,10 +126,10 @@ label:focus-within {
   height: 20px;
   width: 20px;
   cursor: pointer;
+  accent-color: var(--bright-orange);
 }
 
 .create-btn-container {
-  margin-top: 10px;
   display: flex;
   justify-content: center;
   width: 100%;

@@ -10,7 +10,7 @@ import "./sideNav.css";
 export default function SideNav({ hidden, filteredEvents }) {
   const userName = useSelector((state) => state.session.user.username);
   const dispatch = useDispatch();
-  const [userModal, setUserModal] = useState();
+  const [userModal, setUserModal] = useState(false);
   const newEvents = useSelector((state) => state.events.new);
   let events = useSelector((state) =>
     state.events.all ? Object.values(state.events.all) : []
@@ -28,7 +28,7 @@ export default function SideNav({ hidden, filteredEvents }) {
     >
       <div id="nav-sidebar-main">
         {listedEvents?.map((event) => {
-          return <EventBubble event={event} />;
+          return <EventBubble event={event} key={event.id} />;
         })}
       </div>
       <div className="sidebar-profile-token">
@@ -66,11 +66,11 @@ export default function SideNav({ hidden, filteredEvents }) {
           </button>
         </div>
       </div>
-      {userModal && (
+      {userModal ? (
         <Modal onClose={() => setUserModal(false)}>
           <UserPage setUserModal={setUserModal} />
         </Modal>
-      )}
+      ) : null}
     </nav>
   );
 }

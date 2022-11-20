@@ -107,7 +107,7 @@ section {
 }
 body {
   line-height: 1;
-  font-family: var(--font-button);
+  font-family: var(--font-helvetica);
 }
 ol,
 ul {
@@ -146,12 +146,14 @@ input {
 }
 
 form > .errors {
-  color: var(--off-white);
+  color: red;
   font-size: 0.875em;
   height: 15px;
   display: flex;
   align-items: center;
   width: 100%;
+  margin-left: 16px;
+  padding: 10px 0;
 }
 
 :root {

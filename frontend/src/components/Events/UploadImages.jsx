@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import jwtFetch from "../../store/jwt";
+import "./uploadImagesModal.css";
 
 const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
   const [imageFiles, setImageFiles] = useState([]);
@@ -19,7 +20,12 @@ const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
     await jwtFetch(`/api/events/${event._id}/postImages`, {
       method: "POST",
       body: formData,
-    }).then(setUserModal(false));
+    }).then(() => {
+      setTimeout(() => {
+        setImageUploadElement(false);
+        setUserModal(false);
+      }, 5000);
+    });
   };
 
   const handleFiles = (e) => {
@@ -38,10 +44,12 @@ const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} encType="multipart/form-data">
-      <input onChange={handleFiles} type="file" multiple />
-      <button>submit</button>
-    </form>
+    <div className="upload-images-modal">
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <input onChange={handleFiles} type="file" multiple />
+        <button>submit</button>
+      </form>
+    </div>
   );
 };
 
