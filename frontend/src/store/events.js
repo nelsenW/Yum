@@ -3,6 +3,7 @@ import { RECEIVE_USER_LOGOUT } from "./session";
 
 const RECEIVE_EVENTS = "EVENTS/RECEIVE_EVENTS";
 const RECEIVE_USER_EVENTS = "EVENTS/RECEIVE_USER_EVENTS";
+const RECEIVE_USER_EVENTS_ATTENDING = "EVENTS/RECEIVE_USER_EVENTS_ATTENDING";
 const RECEIVE_NEW_EVENT = "EVENTS/RECEIVE_NEW_EVENT";
 const RECEIVE_EVENT_ERRORS = "EVENTS/RECEIVE_EVENT_ERRORS";
 const CLEAR_EVENT_ERRORS = "EVENTS/CLEAR_EVENT_ERRORS";
@@ -20,6 +21,11 @@ const removeEvent = (eventId) => ({
 
 const receiveUserEvents = (events) => ({
   type: RECEIVE_USER_EVENTS,
+  events,
+});
+
+const receiveUserEventsAttending = (events) => ({
+  type: RECEIVE_USER_EVENTS_ATTENDING,
   events,
 });
 
@@ -64,6 +70,19 @@ export const fetchUserEvents = (userId) => async (dispatch) => {
   }
 };
 
+export const fetchUserEventsAttending = (userId) => async (dispatch) => {
+  try {
+    const res = await jwtFetch(`/api/events/attending/users/${userId}`);
+    const events = await res.json();
+    dispatch(receiveUserEventsAttending(events));
+  } catch (err) {
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      return dispatch(receiveErrors(resBody.errors));
+    }
+  }
+};
+
 export const composeEvent = (data) => async (dispatch) => {
   try {
     const res = await jwtFetch("/api/events/", {
@@ -94,7 +113,7 @@ export const deleteEvent = (eventId) => async (dispatch) => {
   }
 };
 
-export const addUserToEvent = (data) => async (dispatch) => {
+export const updateEvent = (data) => async (dispatch) => {
   try {
     const res = await jwtFetch(`/api/events/${data.event._id}`, {
       method: "PATCH",
@@ -133,6 +152,8 @@ const eventsReducer = (
     case RECEIVE_EVENTS:
       return { ...state, all: action.events, new: undefined };
     case RECEIVE_USER_EVENTS:
+      return { ...state, user: action.events, new: undefined };
+    case RECEIVE_USER_EVENTS_ATTENDING:
       return { ...state, user: action.events, new: undefined };
     case RECEIVE_NEW_EVENT:
       return { ...state, new: action.event };

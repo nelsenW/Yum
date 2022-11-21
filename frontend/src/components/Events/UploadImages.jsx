@@ -21,10 +21,8 @@ const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
       method: "POST",
       body: formData,
     }).then(() => {
-      setTimeout(() => {
-        setImageUploadElement(false);
-        setUserModal(false);
-      }, 5000);
+      setImageUploadElement(false);
+      setUserModal(false);
     });
   };
 

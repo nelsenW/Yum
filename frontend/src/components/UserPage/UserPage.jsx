@@ -8,7 +8,9 @@ import EventForm from "./TabFiles/EventForm";
 
 function UserPage({ setUserModal, inputTab }) {
   const dispatch = useDispatch();
-  const [tab, setTab] = useState(inputTab ?? <EventForm setUserModal={setUserModal}/>);
+  const [tab, setTab] = useState(
+    inputTab ?? <EventForm setUserModal={setUserModal} />
+  );
 
   const logoutUser = (e) => {
     e.preventDefault();
@@ -21,15 +23,38 @@ function UserPage({ setUserModal, inputTab }) {
         <ul className="modal-nav-tabs">
           <li
             onClick={() =>
-              setTab(<MyPosts setTab={setTab} setUserModal={setUserModal} />)
+              setTab(
+                <MyPosts
+                  setTab={setTab}
+                  setUserModal={setUserModal}
+                  type={"hosted"}
+                />
+              )
             }
           >
-            My Account
+            My Hosted Events
+          </li>
+          <div className="seperator"></div>
+
+          <li
+            onClick={() =>
+              setTab(
+                <MyPosts
+                  setTab={setTab}
+                  setUserModal={setUserModal}
+                  type={"attending"}
+                />
+              )
+            }
+          >
+            Attending Events
           </li>
           <div className="seperator"></div>
           <li onClick={() => setTab(<ReviewForm />)}>Reviews</li>
           <div className="seperator"></div>
-          <li onClick={() => setTab(<EventForm setUserModal={setUserModal}/>)}>Make an Event</li>
+          <li onClick={() => setTab(<EventForm setUserModal={setUserModal} />)}>
+            Make an Event
+          </li>
           <div className="seperator"></div>
           <li onClick={logoutUser}>
             <span id="logout-user">Log Out</span>

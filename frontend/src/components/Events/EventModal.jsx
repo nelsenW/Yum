@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addUserToEvent } from "../../store/events";
+import { updateEvent } from "../../store/events";
 import "./eventModal.css";
 
 export default function EventModal({ setEventModal, event }) {
@@ -14,7 +14,7 @@ export default function EventModal({ setEventModal, event }) {
       newGuestList = newGuestList.concat(userId);
     }
     event.guestLists = newGuestList;
-    dispatch(addUserToEvent({ event }));
+    dispatch(updateEvent({ event }));
     setEventModal(false);
   };
 
