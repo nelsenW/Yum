@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import EventCard from "../../Events/EventCard";
 import "./eventForm.css";
 import { clearEventErrors } from "../../../store/events";
-import { addUserToEvent, composeEvent } from "../../../store/events";
+import { updateEvent, composeEvent } from "../../../store/events";
 import AddressInput from "../../Map/AddressInput";
 import UploadImages from "../../Events/UploadImages";
 
@@ -41,7 +41,7 @@ export default function EventForm({ event, type, setUserModal }) {
     };
     if (type === "edit") {
       dispatch(
-        addUserToEvent({
+        updateEvent({
           event: {
             _id: event._id,
             location: location,
