@@ -24,6 +24,17 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
   const [selectedLocation, setSelectedLocation] = useState([]);
   const [eventModal, setEventModal] = useState(false);
   const [clickedPin, setClickedPin] = useState(null);
+  const markerPositions = [
+    "center",
+    "left",
+    "right",
+    "top",
+    "bottom",
+    "top-left",
+    "top-right",
+    "bottom-left",
+    "bottom-right",
+  ];
 
   useEffect(() => {
     fetchEvents().then((data) => {
@@ -109,6 +120,11 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
                 <Marker
                   latitude={event.location.coordinates[0]}
                   longitude={event.location.coordinates[1]}
+                  anchor={
+                    markerPositions[
+                      Math.floor(Math.random() * markerPositions.length)
+                    ]
+                  }
                 >
                   <p
                     onClick={() => {
@@ -117,7 +133,7 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
                       setEventModal(true);
                     }}
                   >
-                    <ImLocation2 size={30} className="map-marker-icon" />
+                    <ImLocation2 size={35} className="map-marker-icon" />
                   </p>
                 </Marker>
               </div>
