@@ -13,21 +13,26 @@ const eventSchema = Schema(
     },
     price: {
       type: Number,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
     },
     location: {
-        type: {
-            type: String,
-            enum:['Point'],
-            required:true
-        },
-        coordinates: {
-            type: [Number],
-            required: true
-        },
-        name:{
-            type: String,
-            required: true
-        }
+      type: {
+        type: String,
+        enum: ["Point"],
+        required: true,
+      },
+      coordinates: {
+        type: [Number],
+        required: true,
+      },
+      name: {
+        type: String,
+        required: true,
+      },
     },
     eventType: {
       type: String,
@@ -45,17 +50,26 @@ const eventSchema = Schema(
       },
     ],
     guestNumber: {
-        type: Number,
-        required:true
+      type: Number,
+      required: true,
     },
-    guestLists: [{
+    guestLists: [
+      {
         type: Schema.Types.ObjectId,
-        ref: "User"
-        }],
+        ref: "User",
+      },
+    ],
     restrictions: {
-        type: [String]
-    }}, {
-    timestamps: true
-  });
+      type: [String],
+    },
+    expireAt: {
+      type: Date,
+      expires: 86400,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
 module.exports = mongoose.model("Event", eventSchema);

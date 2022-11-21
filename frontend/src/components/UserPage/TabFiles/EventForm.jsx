@@ -25,6 +25,10 @@ export default function EventForm({ event, type, setUserModal }) {
   const dispatch = useDispatch();
   const [imageUploadElement, setImageUploadElement] = useState(false);
   const [newEvent, setNewEvent] = useState(null);
+  const [today, setToday] = useState(new Date().toLocaleDateString());
+  const [date, setDate] = useState(today);
+  // const dayAfter = date;
+  // dayAfter?.setDate(dayAfter?.getDate() + 1);
 
   useEffect(() => {
     return () => {
@@ -47,11 +51,13 @@ export default function EventForm({ event, type, setUserModal }) {
             location: location,
             title,
             description,
+            date,
             price,
             guestNumber,
             restrictions,
             eventType,
             host: userId,
+            expireAt: date,
           },
         })
       );
@@ -63,11 +69,13 @@ export default function EventForm({ event, type, setUserModal }) {
         location: location,
         title,
         description,
+        date,
         price,
         guestNumber,
         restrictions,
         eventType,
         host: userId,
+        expireAt: date,
       })
     ).then((event) => {
       setNewEvent(event);
@@ -76,7 +84,9 @@ export default function EventForm({ event, type, setUserModal }) {
     });
   };
 
-  console.log(Object.values(errors).length);
+  // console.log(dayAfter);
+
+  // console.log(Object.values(errors).length);
   return (
     <div className="event-form-cont">
       <form
@@ -119,6 +129,19 @@ export default function EventForm({ event, type, setUserModal }) {
           />
         </label>
         <div className="errors">{errors?.description}</div>
+        <label>
+          <span>Date</span>
+          <input
+            type="datetime-local"
+            id="event-date"
+            name="event-date"
+            value={date}
+            min={today}
+            onChange={(e) => setDate(e.target.value)}
+            // max="2018-06-14T00:00"
+          />
+        </label>
+        <div className="errors">{errors?.date}</div>
 
         <label>
           <span>Price</span>
@@ -127,6 +150,7 @@ export default function EventForm({ event, type, setUserModal }) {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
             placeholder="price"
+            min={0}
           />
         </label>
         <div className="errors">{errors?.price}</div>
@@ -137,6 +161,7 @@ export default function EventForm({ event, type, setUserModal }) {
             type="number"
             value={guestNumber}
             onChange={(e) => setGuestNumber(e.target.value)}
+            min={0}
           />
         </label>
         <div className="errors">{errors?.guests}</div>
@@ -173,7 +198,7 @@ export default function EventForm({ event, type, setUserModal }) {
             type="submit"
             // disabled={locationName.length === 0 || title.length === 0}
           >
-            Create
+            {type === "edit" ? "Edit" : "Create"}
           </button>
         </div>
       </form>
