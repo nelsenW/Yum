@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateEvent } from "../../store/events";
 import "./eventModal.css";
@@ -7,6 +7,11 @@ export default function EventModal({ setEventModal, event }) {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.session.user._id);
+  const [eventDate, setEventDate] = useState();
+
+  useEffect(() => {
+    setEventDate(formatDate);
+  }, []);
 
   const handleClick = () => {
     let newGuestList = event?.guestLists;
@@ -16,6 +21,19 @@ export default function EventModal({ setEventModal, event }) {
     event.guestLists = newGuestList;
     dispatch(updateEvent({ event }));
     setEventModal(false);
+  };
+
+  const formatDate = () => {
+    const year = event?.date.slice(0, 4);
+    const month = event?.date.slice(5, 7);
+    const day = event?.date.slice(8, 10);
+    const hour = Number(event?.date.slice(11, 13));
+    const formattedHour = `${hour > 12 ? hour - 12 : hour}`;
+    const time = `${formattedHour}:${event?.date.slice(14, 16)} ${
+      hour > 11 ? "PM" : "AM"
+    }`;
+
+    return `${day}/${month}/${year} at ${time}`;
   };
 
   return (
@@ -45,7 +63,9 @@ export default function EventModal({ setEventModal, event }) {
       <div className="event-modal-main">
         <h1>{event?.title}</h1>
         <p id="event-modal-desc">Description: {event?.description}</p>
-        <p id="event-modal-price">${event?.price}</p>
+        <p id="event-modal-location">Location: {event?.location.name}</p>
+        <p id="event-modal-date">Date: {eventDate}</p>
+        <p id="event-modal-price">Price: ${event?.price}</p>
         <p id="event-modal-type">Event-Type: {event?.eventType}</p>
         <p id="event-modal-host">Hosted by: {event?.host.username}</p>
         <p id="event-modal-guests">
