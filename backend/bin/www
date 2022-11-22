@@ -30,7 +30,6 @@ mongoose
 // .then(() => {
 //   debug("Connected to MongoDB successfully");
 //   server.listen(port);
-//   console.log("hello");
 // })
 // .catch((err) => {
 //   debug(err);
