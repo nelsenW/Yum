@@ -61,11 +61,11 @@ function LoginForm() {
       <div className="errors">{errors?.password}</div>
 
       <div>
-        <button type="submit" onClick={demoUser}>
-          Demo User
-        </button>
         <button type="submit" disabled={!email || !password}>
           Log In!
+        </button>
+        <button type="submit" onClick={demoUser}>
+          Demo User
         </button>
       </div>
     </form>
