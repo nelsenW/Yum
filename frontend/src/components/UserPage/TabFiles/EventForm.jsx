@@ -6,6 +6,8 @@ import { clearEventErrors } from '../../../store/events';
 import { updateEvent, composeEvent } from '../../../store/events';
 import AddressInput from '../../Map/AddressInput';
 import UploadImages from '../../Events/UploadImages';
+import { Modal } from "../../../context/Modal";
+import UserPage from '../UserPage';
 
 export default function EventForm({ event, type, setUserModal }) {
 	const [locationName, setLocationName] = useState(event?.location.name ?? '');
@@ -133,7 +135,6 @@ export default function EventForm({ event, type, setUserModal }) {
 						value={date}
 						min={today}
 						onChange={(e) => setDate(e.target.value)}
-						// max="2018-06-14T00:00"
 					/>
 				</label>
 				<div className='errors'>{errors?.date}</div>
@@ -195,15 +196,12 @@ export default function EventForm({ event, type, setUserModal }) {
 				</div>
 			</form>
 			{imageUploadElement && errors.length === 0 ? (
-				<Modal onClose={() => setUserModal(false)}>
-					<UserPage setUserModal={setUserModal} />
-					<div className='upload-images-modal-container'>
+				<Modal onClose={() => setImageUploadElement(false)}>
 						<UploadImages
 							setImageUploadElement={setImageUploadElement}
 							event={newEvent}
 							setUserModal={setUserModal}
 						/>
-					</div>
 				</Modal>
 			) : null}
 		</div>
