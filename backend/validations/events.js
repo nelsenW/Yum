@@ -15,13 +15,17 @@ const validateEventInput = [
     .exists({ checkFalsy: true })
     .withMessage("Descrition must exist between 5 and 255 characters")
     .isLength({ min: 5, max: 255 })
-    .withMessage("Descrition must be between 5 and 255 characters"),
+    .withMessage("Description must be between 5 and 255 characters"),
 
   check("date")
     .exists({ checkFalsy: true })
-    .withMessage("Date must be included"),
+    .withMessage("Date must be included")
+    .isLength({ min: 0 }),
 
-  check("price").isLength({ min: 0 }).withMessage("Price is invalid"),
+  check("price")
+    .exists({ checkFalsy: true })
+    .withMessage("Price is invalid")
+    .isLength({ min: 0 }),
 
   check("location")
     .exists({ checkFalsy: true })
