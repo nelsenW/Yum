@@ -64,7 +64,10 @@ function LoginForm() {
         <button type="submit" onClick={demoUser}>
           Demo User
         </button>
-        <button type="submit" disabled={!email || !password}>
+        <button
+          type="submit"
+          // disabled={!email || !password}
+        >
           Log In!
         </button>
       </div>

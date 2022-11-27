@@ -26,7 +26,7 @@ export default function EventForm({ event, type, setUserModal }) {
   const [imageUploadElement, setImageUploadElement] = useState(false);
   const [newEvent, setNewEvent] = useState(null);
   const [today, setToday] = useState(new Date().toLocaleDateString());
-  const [date, setDate] = useState(today);
+  const [date, setDate] = useState();
   // const dayAfter = date;
   // dayAfter?.setDate(dayAfter?.getDate() + 1);
 
@@ -38,11 +38,15 @@ export default function EventForm({ event, type, setUserModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const location = {
-      type: "Point",
-      name: locationName,
-      coordinates: coordinates,
-    };
+    let location = null;
+    if (locationName.length > 0 && coordinates.length > 0) {
+      location = {
+        type: "Point",
+        name: locationName,
+        coordinates: coordinates,
+      };
+    }
+
     if (type === "edit") {
       dispatch(
         updateEvent({
@@ -83,8 +87,6 @@ export default function EventForm({ event, type, setUserModal }) {
       // console.log(imageUploadElement);
     });
   };
-
-  // console.log(dayAfter);
 
   // console.log(Object.values(errors).length);
   return (
