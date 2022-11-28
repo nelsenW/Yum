@@ -6,12 +6,16 @@ const handleValidationErrors = require("./handleValidationErrors");
 const validateLoginInput = [
   check("email")
     .exists({ checkFalsy: true })
+    .withMessage("Email is invalid")
     .isEmail()
     .withMessage("Email is invalid"),
+
   check("password")
     .exists({ checkFalsy: true })
+    .withMessage("Password must be between 6 and 30 characters")
     .isLength({ min: 6, max: 30 })
     .withMessage("Password must be between 6 and 30 characters"),
+
   handleValidationErrors,
 ];
 

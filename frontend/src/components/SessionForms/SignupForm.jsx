@@ -9,7 +9,9 @@ function SignupForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-  const errors = useSelector((state) => state.errors.session ? state.errors.session : []);
+  const errors = useSelector((state) =>
+    state.errors.session ? state.errors.session : []
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -101,7 +103,7 @@ function SignupForm() {
       </label>
       <button
         type="submit"
-        disabled={!email || !username || !password || password !== password2}
+        // disabled={!email || !username || !password || password !== password2}
       >
         Signup
       </button>

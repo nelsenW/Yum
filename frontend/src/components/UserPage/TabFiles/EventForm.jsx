@@ -33,6 +33,7 @@ export default function EventForm({ event, type, setUserModal }) {
 	// const dayAfter = date;
 	// dayAfter?.setDate(dayAfter?.getDate() + 1);
 
+
 	useEffect(() => {
 		return () => {
 			dispatch(clearEventErrors());
@@ -156,6 +157,7 @@ export default function EventForm({ event, type, setUserModal }) {
 						min={0}
 					/>
 				</label>
+
 
 				<label>
 					<span>Restrictions</span>
