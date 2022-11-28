@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Modal } from '../../context/Modal';
+import Errors from '../Errors/Errors';
 import LoginForm from '../SessionForms/LoginForm';
 import SignupForm from '../SessionForms/SignupForm';
 import Canvas from './Canvas';
@@ -14,6 +16,7 @@ export default function SplashPage() {
 	const [williamBubble, setWilliamBubble] = useState(false);
 	const [michaelBubble, setMichaelBubble] = useState(false);
 	const [canvasLoad, setCanvasLoad] = useState(false);
+	const errors = useSelector((state) => state.errors.session ? state.errors.session : []);
 
 	useEffect(() => {
 		setCanvasLoad(true)

@@ -36,7 +36,6 @@ router.get("/users/:userId", async (req, res, next) => {
   let user;
   try {
     user = await User.findById(req.params.userId);
-    // console.log(user);
   } catch (err) {
     const error = new Error("User not found");
     error.statusCode = 404;
@@ -49,7 +48,6 @@ router.get("/users/:userId", async (req, res, next) => {
     })
       .sort({ createdAt: -1 })
       .populate("host", "_id, username");
-    // console.log(events);
     return res.json(events);
   } catch (err) {
     return res.json(user);
@@ -114,7 +112,6 @@ router.post("/", requireUser, validateEventInput, async (req, res, next) => {
       { path: "host", select: "_id, username" },
       // { path: "guestLists", select: "_id, username" },
     ]);
-    console.log(event);
     return res.json(event);
   } catch (err) {
     next(err);

@@ -33,7 +33,6 @@ export default function MainPage() {
 
   const handleFilterEvents = (events) => {
     setFilteredEvents(events);
-    console.log(events);
   };
 
   return (

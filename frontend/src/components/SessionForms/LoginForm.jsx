@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./SessionForm.css";
 
 import { login, clearSessionErrors } from "../../store/session";
+import Errors from "../Errors/Errors";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -35,9 +36,11 @@ function LoginForm() {
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
+      
       <div className="h2-wrapper">
         <h2>Log In Form</h2>
       </div>
+      <Errors errors={errors}/>
 
       <label>
         <span>Email</span>
@@ -48,7 +51,6 @@ function LoginForm() {
           placeholder="Email"
         />
       </label>
-      <div className="errors">{errors?.email}</div>
       <label>
         <span>Password</span>
         <input
@@ -58,7 +60,6 @@ function LoginForm() {
           placeholder="Password"
         />
       </label>
-      <div className="errors">{errors?.password}</div>
 
       <div>
         <button type="submit" onClick={demoUser}>
