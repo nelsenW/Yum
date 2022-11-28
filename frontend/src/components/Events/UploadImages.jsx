@@ -83,10 +83,16 @@ const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
 						multiple
 						className='upload-images-file'
 					/>
-          {previews}
 				</div>
 				<button className='submit-button'>submit</button>
 			</form>
+			<div id='preview-container'>	
+				{previews}
+				<div className='preview-box'></div>
+				<div className='preview-box'></div>
+				<div className='preview-box'></div>
+				<div className='preview-box'></div>
+			</div>
 		</div>
 	);
 };

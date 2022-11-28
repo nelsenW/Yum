@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import michael from '../../assets/profiles/michael.jpeg'
 import william from '../../assets/profiles/william.jpeg'
+import yan from '../../assets/profiles/yan.JPEG'
 import './userbubble.css'
 
 export default function UserInfoBubble({ person }) {
@@ -21,8 +22,8 @@ export default function UserInfoBubble({ person }) {
 			break;
 		case 'y':
 			setName('Yan Rivera');
-            // setImg();
-            // setBio();
+            setImg(yan);
+            setBio('I\'m a Full Stack Software Engineer who loves facing challenges because of my deep desire to constantly grow and improve in every aspect of my life.');
             setGithub('https://github.com/yanrivera19');
             setLinkedIn('https://www.linkedin.com/in/ycrivera/')
 			break;
