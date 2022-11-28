@@ -8,6 +8,7 @@ import AddressInput from '../../Map/AddressInput';
 import UploadImages from '../../Events/UploadImages';
 import { Modal } from "../../../context/Modal";
 import UserPage from '../UserPage';
+import Errors from '../../Errors/Errors';
 
 export default function EventForm({ event, type, setUserModal }) {
 	const [locationName, setLocationName] = useState(event?.location.name ?? '');
@@ -79,14 +80,15 @@ export default function EventForm({ event, type, setUserModal }) {
 				host: userId,
 				expireAt: date
 			})
-		).then((event) => {
-			setNewEvent(event);
-			setImageUploadElement(true);
-		});
-	};
-
+			).then((event) => {
+				setNewEvent(event);
+				setImageUploadElement(true);
+			});
+		};
+		
 	return (
 		<div className='event-form-cont'>
+			<Errors errors={errors}/>
 			<form
 				className='event-form'
 				onSubmit={handleSubmit}
@@ -104,7 +106,6 @@ export default function EventForm({ event, type, setUserModal }) {
 					type={type}
 					name={locationName}
 				/>
-				<div className='errors'>{errors?.location} </div>
 				<label>
 					<span>Title</span>
 					<input
@@ -114,8 +115,6 @@ export default function EventForm({ event, type, setUserModal }) {
 						placeholder='title'
 					/>
 				</label>
-				<div className='errors'>{errors?.title}</div>
-
 				<label>
 					<span>Description</span>
 					<input
@@ -125,7 +124,6 @@ export default function EventForm({ event, type, setUserModal }) {
 						placeholder='description'
 					/>
 				</label>
-				<div className='errors'>{errors?.description}</div>
 				<label>
 					<span>Date</span>
 					<input
@@ -137,7 +135,6 @@ export default function EventForm({ event, type, setUserModal }) {
 						onChange={(e) => setDate(e.target.value)}
 					/>
 				</label>
-				<div className='errors'>{errors?.date}</div>
 
 				<label>
 					<span>Price</span>
@@ -149,7 +146,6 @@ export default function EventForm({ event, type, setUserModal }) {
 						min={0}
 					/>
 				</label>
-				<div className='errors'>{errors?.price}</div>
 
 				<label>
 					<span>Guests</span>
@@ -160,7 +156,6 @@ export default function EventForm({ event, type, setUserModal }) {
 						min={0}
 					/>
 				</label>
-				<div className='errors'>{errors?.guests}</div>
 
 				<label>
 					<span>Restrictions</span>
@@ -171,7 +166,6 @@ export default function EventForm({ event, type, setUserModal }) {
 						placeholder='restrictions'
 					/>
 				</label>
-				<div className='errors'>{errors?.restrictions}</div>
 
 				<fieldset
 					className='event-type radio'
@@ -185,8 +179,6 @@ export default function EventForm({ event, type, setUserModal }) {
 					<input type='radio' id='both' name='rating' value='both' />
 					<label htmlFor='both'>Both</label>
 				</fieldset>
-				<div className='errors'>{errors?.eventType}</div>
-
 				<div className='create-btn-container'>
 					<button
 						type='submit'

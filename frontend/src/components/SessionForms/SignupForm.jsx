@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./SessionForm.css";
 import { signup, clearSessionErrors } from "../../store/session";
+import Errors from "../Errors/Errors";
 
 function SignupForm() {
   const [email, setEmail] = useState("");
@@ -19,6 +20,9 @@ function SignupForm() {
 
   const update = (field) => {
     let setState;
+    if(password !== password2) {
+      errors.passwordMatch ="Confirm Password field must match"
+    }
 
     switch (field) {
       case "email":
@@ -57,6 +61,7 @@ function SignupForm() {
         <h2>Sign Up Form</h2>
       </div>
 
+      <Errors errors={errors}/>
       <label>
         <span>Email</span>
         <input
@@ -66,7 +71,6 @@ function SignupForm() {
           placeholder="Email"
         />
       </label>
-      <div className="errors">{errors?.email}</div>
       <label>
         <span>Username</span>
         <input
@@ -76,7 +80,6 @@ function SignupForm() {
           placeholder="Username"
         />
       </label>
-      <div className="errors">{errors?.username}</div>
 
       <label>
         <span>Password</span>
@@ -87,7 +90,6 @@ function SignupForm() {
           placeholder="Password"
         />
       </label>
-      <div className="errors">{errors?.password}</div>
       <label>
         <span>Confirm Password</span>
         <input
@@ -97,9 +99,6 @@ function SignupForm() {
           placeholder="Confirm Password"
         />
       </label>
-      <div className="errors" id="sign-up-error">
-        {password !== password2 && "Confirm Password field must match"}
-      </div>
       <button
         type="submit"
         disabled={!email || !username || !password || password !== password2}
