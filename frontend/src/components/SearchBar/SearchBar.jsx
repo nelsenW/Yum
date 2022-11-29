@@ -29,6 +29,7 @@ export default function SearchBar({
   const clearInput = (e) => {
     setFilteredData([]);
     setInputValue("");
+    handleFilterEvents([]);
   };
 
   const handleResultClick = (e, event) => {

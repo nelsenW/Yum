@@ -33,7 +33,6 @@ export default function MainPage() {
 
   const handleFilterEvents = (events) => {
     setFilteredEvents(events);
-    console.log(events);
   };
 
   return (
@@ -53,7 +52,11 @@ export default function MainPage() {
         <div className={`hamburger${hidden()}`}></div>
         <div className={`hamburger${hidden()}`}></div>
       </div>
-      <SideNav hidden={hidden} filteredEvents={filteredEvents} />
+      <SideNav
+        hidden={hidden}
+        filteredEvents={filteredEvents}
+        handleSelectedEvent={handleSelectedEvent}
+      />
       <MapContainer
         selectedEvent={selectedEvent}
         handleSelectedEvent={handleSelectedEvent}
