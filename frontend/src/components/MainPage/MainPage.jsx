@@ -45,6 +45,10 @@ export default function MainPage() {
             handleSelectedEvent={handleSelectedEvent}
             handleFilterEvents={handleFilterEvents}
           />
+            <button onClick={() => setUserModal(true)} id="make-event">
+          +
+           </button>
+          
         </div>
       )}
       <div onClick={() => setSideBar(!sideBar)} id="hamburger-wrapper">
@@ -57,9 +61,7 @@ export default function MainPage() {
         selectedEvent={selectedEvent}
         handleSelectedEvent={handleSelectedEvent}
       />
-      <button onClick={() => setUserModal(true)} id="make-event">
-        +
-      </button>
+      
       {userModal ? (
         <Modal onClose={() => setUserModal(false)}>
           <UserPage

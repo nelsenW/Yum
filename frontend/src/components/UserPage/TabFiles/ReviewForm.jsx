@@ -61,7 +61,7 @@ function ReviewForm() {
           type="textarea"
           value={body}
           onChange={update("body")}
-          placeholder="ur mom"
+          placeholder="body"
         />
       </label>
 
