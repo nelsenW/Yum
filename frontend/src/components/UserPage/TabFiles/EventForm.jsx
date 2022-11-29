@@ -6,7 +6,7 @@ import { clearEventErrors } from '../../../store/events';
 import { updateEvent, composeEvent } from '../../../store/events';
 import AddressInput from '../../Map/AddressInput';
 import UploadImages from '../../Events/UploadImages';
-import { Modal } from "../../../context/Modal";
+import { Modal } from '../../../context/Modal';
 import UserPage from '../UserPage';
 import Errors from '../../Errors/Errors';
 
@@ -29,10 +29,9 @@ export default function EventForm({ event, type, setUserModal }) {
 	const [imageUploadElement, setImageUploadElement] = useState(false);
 	const [newEvent, setNewEvent] = useState(null);
 	const [today, setToday] = useState(new Date().toLocaleDateString());
-	const [date, setDate] = useState(today);
+	const [date, setDate] = useState();
 	// const dayAfter = date;
 	// dayAfter?.setDate(dayAfter?.getDate() + 1);
-
 
 	useEffect(() => {
 		return () => {
@@ -42,11 +41,14 @@ export default function EventForm({ event, type, setUserModal }) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const location = {
-			type: 'Point',
-			name: locationName,
-			coordinates: coordinates
-		};
+		let location = null;
+		if (locationName.length > 0 && coordinates.length > 0) {
+			location = {
+				type: 'Point',
+				name: locationName,
+				coordinates: coordinates
+			};
+		}
 		if (type === 'edit') {
 			dispatch(
 				updateEvent({
@@ -81,15 +83,15 @@ export default function EventForm({ event, type, setUserModal }) {
 				host: userId,
 				expireAt: date
 			})
-			).then((event) => {
-				setNewEvent(event);
-				setImageUploadElement(true);
-			});
-		};
-		
+		).then((event) => {
+			setNewEvent(event);
+			setImageUploadElement(true);
+		});
+	};
+
 	return (
 		<div className='event-form-cont'>
-			<Errors errors={errors}/>
+			<Errors errors={errors} />
 			<form
 				className='event-form'
 				onSubmit={handleSubmit}
@@ -158,7 +160,6 @@ export default function EventForm({ event, type, setUserModal }) {
 					/>
 				</label>
 
-
 				<label>
 					<span>Restrictions</span>
 					<input
@@ -182,20 +183,16 @@ export default function EventForm({ event, type, setUserModal }) {
 					<label htmlFor='both'>Both</label>
 				</fieldset>
 				<div className='create-btn-container'>
-					<button
-						type='submit'
-					>
-						{type === 'edit' ? 'Edit' : 'Create'}
-					</button>
+					<button type='submit'>{type === 'edit' ? 'Edit' : 'Create'}</button>
 				</div>
 			</form>
 			{imageUploadElement && errors.length === 0 ? (
 				<Modal onClose={() => setImageUploadElement(false)}>
-						<UploadImages
-							setImageUploadElement={setImageUploadElement}
-							event={newEvent}
-							setUserModal={setUserModal}
-						/>
+					<UploadImages
+						setImageUploadElement={setImageUploadElement}
+						event={newEvent}
+						setUserModal={setUserModal}
+					/>
 				</Modal>
 			) : null}
 		</div>
