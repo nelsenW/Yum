@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Modal } from "../../context/Modal";
 import { updateEvent } from "../../store/events";
+import UserModal from "../UserPage/UserModal";
 import "./eventModal.css";
 
 export default function EventModal({ setEventModal, event }) {
@@ -8,6 +10,7 @@ export default function EventModal({ setEventModal, event }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.session.user._id);
   const [eventDate, setEventDate] = useState();
+  const [userModal, setUserModal] = useState()
 
   useEffect(() => {
     setEventDate(formatDate);
@@ -67,7 +70,7 @@ export default function EventModal({ setEventModal, event }) {
         <p id="event-modal-date">Date: {eventDate}</p>
         <p id="event-modal-price">Price: ${event?.price}</p>
         <p id="event-modal-type">Event-Type: {event?.eventType}</p>
-        <p id="event-modal-host">Hosted by: {event?.host.username}</p>
+        <p id="event-modal-host" onClick={() => setUserModal(true)}>Hosted by: {event?.host.username}</p>
         <p id="event-modal-guests">
           Available spots: [ {event?.guestLists?.length}/{event?.guestNumber} ]
         </p>
@@ -85,6 +88,15 @@ export default function EventModal({ setEventModal, event }) {
           Join the group!
         </button>
       </div>
+      {userModal && (
+				<Modal
+					onClose={() => {
+						setUserModal(false);
+					}}>
+					<UserModal setUserModal={setUserModal} userId={event?.host._id} />
+				</Modal>
+			)}
+
     </div>
   );
 }

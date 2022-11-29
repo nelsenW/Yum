@@ -1,7 +1,0 @@
-.event-card svg {
-  transition: transform 1s ease-in-out;
-}
-
-.rot {
-  transform: rotateX(180deg);
-}
