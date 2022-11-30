@@ -96,40 +96,10 @@ function escapeRegex(text) {
 }
 ```
 
-2. Example schema for users.
+2. Address input logic for the 'create an event' form. The useAddress custom hook takes care of fetching the addresses that match the user's input and returns the search results. These results are then displayed in the AddressInput component.
 
 ```javascript
-// backend/models/User.js line 23
-
-const userSchema = Schema(
-  {
-    username: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    hashedPassword: {
-      type: String,
-      required: true,
-    },
-    hostReviews: [reviewSchema],
-    guestReviews: [reviewSchema],
-  },
-  {
-    timestamps: true,
-  }
-);
-```
-
-3. Address input logic for the 'create an event' form. The useAddress custom hook takes care of fetching the addresses that match the user's input and returns the search results. These results are then displayed in the AddressInput component.
-
-```javascript
-// useAdress custom hook - frontend/src/components/Map/useAddress.js
-
-import { useState } from "react";
+// useAdress custom hook - frontend/src/components/Map/useAddress.js line 3
 
 const useAddress = () => {
   const [inputValue, setInputValue] = useState("");
@@ -158,8 +128,6 @@ const useAddress = () => {
     setSearchResults,
   };
 };
-
-export default useAddress;
 ```
 
 ```javascript
@@ -198,7 +166,7 @@ export default useAddress;
 </>
 ```
 
-4. Average rating for user reviews made DRY to accept multiple types of reviews so that you don’t need to rewrite code for each different type of review.
+3. Average rating for user reviews made DRY to accept multiple types of reviews so that you don’t need to rewrite code for each different type of review.
 
 ```javascript
 // frontend/src/components/UserPage/userModal.jsx line 28
@@ -214,7 +182,7 @@ const reviewsAverage = (type) => {
 };
 ```
 
-5. DRY code for updating state based on target inputs for signup form. Refactored from previous iteration in which each field would individually call a separate function to update the state for that field.
+4. DRY code for updating state based on target inputs for signup form. Refactored from previous iteration in which each field would individually call a separate function to update the state for that field.
 
 ```javascript
 // frontend/src/components/SessionForms/SignupForm.jsx line 23
