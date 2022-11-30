@@ -103,7 +103,6 @@ function SignupForm() {
       </label>
       <button
         type="submit"
-        // disabled={!email || !username || !password || password !== password2}
       >
         Signup
       </button>

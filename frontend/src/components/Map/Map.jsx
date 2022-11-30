@@ -5,7 +5,6 @@ import ReactMapGL, {
   NavigationControl,
 } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
-import getCenter from "geolib/es/getCenter";
 import { ImLocation2 } from "react-icons/im";
 import jwtFetch from "../../store/jwt";
 import "./map.css";

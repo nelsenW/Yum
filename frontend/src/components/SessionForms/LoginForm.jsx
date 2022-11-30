@@ -67,7 +67,6 @@ function LoginForm() {
         </button>
         <button
           type="submit"
-          // disabled={!email || !password}
         >
           Log In!
         </button>

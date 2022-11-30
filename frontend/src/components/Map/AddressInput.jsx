@@ -80,15 +80,6 @@ const AddressInput = ({ setLocationName, setCoordinates, type, name }) => {
           </div>
         ) : null}
       </div>
-      {/* <div className="current-loc-container">
-        <button
-          className="use-current-loc-btn"
-          type="button"
-          onClick={handleCurrentLocationClick}
-        >
-          Use Current Location
-        </button>
-      </div> */}
     </>
   );
 };

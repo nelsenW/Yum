@@ -1,9 +1,5 @@
 const { validationResult } = require("express-validator");
 
-// handleValidationErrors is an Express middleware used with the check
-// middleware to format the validation errors. (To customize, see
-// express-validator's documentation.)
-
 const handleValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
 

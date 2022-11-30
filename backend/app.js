@@ -5,7 +5,6 @@ const csurf = require("csurf");
 const debug = require("debug");
 const bodyParser = require("body-parser");
 
-//making model available in application
 const cors = require("cors");
 const { isProduction } = require("./config/keys");
 

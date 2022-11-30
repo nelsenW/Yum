@@ -37,10 +37,10 @@ export default function Canvas() {
 	class Particle {
 		constructor() {
 			this.x = Math.random() * canvas.width;
-			this.y = Math.random() * canvas.height; // Could start at 0 if you wanted all rain to intialize at top
+			this.y = Math.random() * canvas.height;
 			this.speed = 0;
-			this.velocity = Math.random() * 10 + 15; // Increase to create a sense of blur and have better idea of image
-			this.size = Math.random() * 5 + 1; // Size of "droplets "
+			this.velocity = Math.random() * 10 + 15; 
+			this.size = Math.random() * 5 + 1; 
 		}
 		update() {
 			this.y += this.velocity;
