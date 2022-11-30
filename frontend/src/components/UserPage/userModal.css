@@ -1,0 +1,23 @@
+#user-modal{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+
+.person-img{
+    width: 360px;
+    height: 200px;
+    object-fit: scale-down;
+    margin: 32px 32px 16px 32px;
+    overflow: hidden;
+    border-radius: 100% ;
+}
+
+.user-modal-info{
+    margin: 32px;
+}
+
+#user-modal-info-username{
+    margin-bottom: 16px;
+}

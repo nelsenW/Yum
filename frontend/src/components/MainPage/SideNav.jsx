@@ -38,7 +38,7 @@ export default function SideNav({ hidden, filteredEvents }) {
             className="settings-button"
             onClick={() => setUserModal(true)}
           >
-            <i class="fa-regular fa-user"></i>
+            <i className="fa-regular fa-user"></i>
           </button>
           <button
             className="settings-button"
