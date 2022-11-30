@@ -60,7 +60,7 @@ export default function SearchBar({
           )}
         </div>
       </div>
-      {filteredData.length != 0 && (
+      {filteredData.length !== 0 && (
         <div className="data-result">
           {filteredData.slice(0, 7).map((event, key) => {
             return (

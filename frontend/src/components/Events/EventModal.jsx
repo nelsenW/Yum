@@ -58,7 +58,7 @@ export default function EventModal({ setEventModal, event }) {
           </div>
           <div className="event-modal-image-group">
             {event?.images?.map((image) => (
-              <img src={image} key={image} className="event-modal-image"></img>
+              <img src={image} key={image} className="event-modal-image" alt=""></img>
             ))}
           </div>
           <button className="settings-button card" onClick={flipCard}>
@@ -104,9 +104,8 @@ export default function EventModal({ setEventModal, event }) {
               </p>
               <p id="event-modal-host" onClick={() => setUserModal(true)}>
                 <span>
-                  <span className="event-details-label">Hosted by</span>:{" "}
+                  <span className="event-details-label">Hosted by</span>:{" "}<button id="host-button">{event?.host.username}</button>
                 </span>
-                {event?.host.username}
               </p>
               <p id="event-modal-guests">
                 <span>

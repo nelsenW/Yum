@@ -42,8 +42,4 @@ const userSchema = Schema(
   }
 );
 
-
-
-// userSchema.set("validateBeforeSave",false)
-
 module.exports = mongoose.model("User", userSchema);

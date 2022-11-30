@@ -6,7 +6,6 @@ import { updateEvent, composeEvent } from '../../../store/events';
 import AddressInput from '../../Map/AddressInput';
 import UploadImages from '../../Events/UploadImages';
 import { Modal } from '../../../context/Modal';
-import UserPage from '../UserPage';
 import Errors from '../../Errors/Errors';
 
 export default function EventForm({ event, type, setUserModal }) {
@@ -27,10 +26,8 @@ export default function EventForm({ event, type, setUserModal }) {
 	const dispatch = useDispatch();
 	const [imageUploadElement, setImageUploadElement] = useState(false);
 	const [newEvent, setNewEvent] = useState(null);
-	const [today, setToday] = useState(new Date().toLocaleDateString());
+	const today = new Date().toLocaleDateString();
 	const [date, setDate] = useState();
-	// const dayAfter = date;
-	// dayAfter?.setDate(dayAfter?.getDate() + 1);
 
 	useEffect(() => {
 		return () => {

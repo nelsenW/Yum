@@ -36,7 +36,7 @@ export default function UserModal({ userId }) {
   
   return (
     <div id="user-modal">
-      <img src={peopleImgs[Math.floor(Math.random()*3)]} className='person-img'></img>
+      <img src={peopleImgs[Math.floor(Math.random()*3)]} className='person-img' alt=""></img>
       <div className="user-modal-info">
         <h1 id="user-modal-info-username">{user?.username}</h1>
       <h2>Host Reviews: <span>{reviewsAverage('hostReviews')} <i className="fa-regular fa-star"></i></span></h2>

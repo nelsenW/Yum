@@ -1,12 +1,10 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import jwtFetch from '../../store/jwt';
 import './uploadImages.css';
 
 const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
 	const [imageFiles, setImageFiles] = useState([]);
 	const [imageFilesUrls, setImageFilesUrls] = useState([]);
-	const history = useHistory();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -37,6 +35,7 @@ const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
 					setImageFiles((prevState) => [...prevState, file]);
 					setImageFilesUrls((prevState) => [...prevState, fileReader.result]);
 				};
+				return null
 			});
 		}
 	};
@@ -45,6 +44,7 @@ const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
 		? imageFilesUrls.map((url) => {
 				return (
 					<img
+					alt=''
 						src={url}
 						className='event-form-image-preview'
 						style={{ backgroundColor: 'transparent' }}

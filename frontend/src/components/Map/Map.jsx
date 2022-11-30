@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import ReactMapGL, {
-  GeolocateControl,
   Marker,
   NavigationControl,
 } from "react-map-gl";
@@ -20,7 +19,6 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
   const [events, setEvents] = useState([]);
   const [currentUserLocation, setCurrentUserLocation] = useState();
   const [viewport, setViewport] = useState({});
-  const [selectedLocation, setSelectedLocation] = useState([]);
   const [eventModal, setEventModal] = useState(false);
   const [clickedPin, setClickedPin] = useState(null);
   const markerPositions = [
@@ -127,7 +125,6 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
                 >
                   <p
                     onClick={() => {
-                      setSelectedLocation(event.location.coordinates);
                       setClickedPin(event);
                       setEventModal(true);
                     }}
@@ -138,7 +135,6 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
               </div>
             ))}
           <NavigationControl position="bottom-right" />
-          {/* <GeolocateControl position="bottom-right" trackerUseLocation /> */}
         </ReactMapGL>
       )}
       {eventModal && (

@@ -7,7 +7,6 @@ function ReviewForm() {
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState("");
   const [body, setBody] = useState("");
-  const [userId, setUserId] = useState("");
   const errors = useSelector((state) => state.errors.session);
   const dispatch = useDispatch();
 
