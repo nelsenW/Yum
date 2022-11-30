@@ -26,7 +26,7 @@ export default function UserModal({ userId }) {
   }, []);
 
   const reviewsAverage = (type) => {
-    if (user && user[type]){
+    if (user && user[type].length > 0){
       return user[type].reduce((acc, el) => {
         return acc.rating + el.rating
       }) / user[type].length 
