@@ -7,7 +7,11 @@ import EventBubble from "../Events/EventBubble";
 import UserPage from "../UserPage/UserPage";
 import "./sideNav.css";
 
-export default function SideNav({ hidden, filteredEvents }) {
+export default function SideNav({
+  hidden,
+  filteredEvents,
+  handleSelectedEvent,
+}) {
   const userName = useSelector((state) => state.session.user.username);
   const dispatch = useDispatch();
   const [userModal, setUserModal] = useState(false);
@@ -28,7 +32,11 @@ export default function SideNav({ hidden, filteredEvents }) {
     >
       <div id="nav-sidebar-main">
         {listedEvents?.map((event) => {
-          return <EventBubble event={event} key={event.id} />;
+          return (
+            <div onClick={(e) => handleSelectedEvent(event)}>
+              <EventBubble event={event} key={event.id} />
+            </div>
+          );
         })}
       </div>
       <div className="sidebar-profile-token">
