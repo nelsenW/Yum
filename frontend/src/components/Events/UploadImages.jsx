@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import jwtFetch from '../../store/jwt';
-import './uploadImagesModal.css';
+import './uploadImages.css';
 
 const UploadImages = ({ setImageUploadElement, event, setUserModal }) => {
 	const [imageFiles, setImageFiles] = useState([]);

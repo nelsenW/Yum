@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import EventCard from '../../Events/EventCard';
 import './eventForm.css';
 import { clearEventErrors } from '../../../store/events';
 import { updateEvent, composeEvent } from '../../../store/events';

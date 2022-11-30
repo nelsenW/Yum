@@ -47,8 +47,9 @@
   width: 48px;
   height: 48px;
   position: absolute;
-  bottom: 2em;
-  right: 2em;
+  top: 52px;
+  left: calc(50vw + 180px);
+  z-index: 99;
   border-radius: 50%;
   font-size: 32px;
   background-color: var(--off-white);

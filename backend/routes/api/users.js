@@ -206,4 +206,17 @@ router.get("/current", restoreUser, (req, res) => {
   });
 });
 
+router.get("/:userId", async function (req, res, next) {
+  let user;
+  try {
+    user = await User.find({"_id":req.params.userId},{"hashedPassword":0});    return res.json(user);
+  } catch (err) {
+    const error = new Error("User not found");
+    error.statusCode = 404;
+    error.errors = { message: "No user found with that id" };
+    return next(error);
+  }
+});
+
+
 module.exports = router;
