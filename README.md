@@ -56,3 +56,192 @@ Yum’s core application is built around the Mapbox API to render a map with pin
 
 - Users can create, edit, and delete their reviews of hosts.
 - Users can see the reviews made to event hosts, and the reviews made to them by other users.
+
+---
+
+## Code Snippets
+
+1. Backend query for the event search bar. By using regular expressions that are global and case insensitive we can query for any events that may match a users search and then filter out events like that.
+
+```javascript
+// backend/routes/api/events.js line 74
+
+router.get("/", async (req, res) => {
+  try {
+    if (req.query.search) {
+      const regex = new RegExp(escapeRegex(req.query.search), "gi");
+      const events = await Event.find({ title: regex })
+        .populate("host", "_id, username")
+        .populate("guestLists", "_id, username")
+        .sort({ createdAt: -1 });
+      let noMatch;
+      if (events.length < 1) {
+        noMatch = "No Events match that query, please try again";
+      }
+      return res.json(events);
+    } else {
+      const events = await Event.find()
+        .populate("host", "_id, username")
+        .populate("guestLists", "_id, username")
+        .sort({ createdAt: -1 });
+      return res.json(events);
+    }
+  } catch (err) {
+    return res.json([]);
+  }
+});
+
+function escapeRegex(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+```
+
+2. Example schema for users.
+
+```javascript
+// backend/models/User.js line 23
+
+const userSchema = Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+    },
+    hashedPassword: {
+      type: String,
+      required: true,
+    },
+    hostReviews: [reviewSchema],
+    guestReviews: [reviewSchema],
+  },
+  {
+    timestamps: true,
+  }
+);
+```
+
+3. Address input logic for the 'create an event' form. The useAddress custom hook takes care of fetching the addresses that match the user's input and returns the search results. These results are then displayed in the AddressInput component.
+
+```javascript
+// useAdress custom hook - frontend/src/components/Map/useAddress.js
+
+import { useState } from "react";
+
+const useAddress = () => {
+  const [inputValue, setInputValue] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+
+  const handleChange = async (e) => {
+    setInputValue(e.target.value);
+
+    try {
+      const endpoint = `https://api.mapbox.com/geocoding/v5/mapbox.places/${e.target.value}.json?access_token=${accessToken}&autocomplete=true`;
+      const response = await fetch(endpoint);
+      const results = await response.json();
+
+      setSearchResults(results.features);
+    } catch (err) {
+      console.log("Error", err);
+    }
+  };
+
+  return {
+    inputValue,
+    setInputValue,
+    handleChange,
+    searchResults,
+    setSearchResults,
+  };
+};
+
+export default useAddress;
+```
+
+```javascript
+// frontend/src/components/AddressInput.jsx line 32
+
+<>
+  <div className="location-container">
+    <label>
+      <span>Location</span>
+      <input
+        value={type === "edit" ? name : address.inputValue}
+        onChange={(e) => {
+          address.handleChange(e);
+          setLocationName(e.target.value);
+          setShowResultsDiv(true);
+        }}
+      />
+    </label>
+
+    {address.searchResults.length > 0 && showResultsDiv ? (
+      <div className="location-results" ref={resultsRef}>
+        {address.searchResults.map((searchResult) => {
+          return (
+            <div
+              className="result-items"
+              onClick={() => handleResultClick(searchResult)}
+              key={searchResult.id}
+            >
+              {searchResult.place_name}
+            </div>
+          );
+        })}
+      </div>
+    ) : null}
+  </div>
+</>
+```
+
+4. Average rating for user reviews made DRY to accept multiple types of reviews so that you don’t need to rewrite code for each different type of review.
+
+```javascript
+// frontend/src/components/UserPage/userModal.jsx line 28
+
+const reviewsAverage = (type) => {
+  if (user && user[type].length > 0) {
+    return (
+      user[type].reduce((acc, el) => {
+        return acc.rating + el.rating;
+      }) / user[type].length
+    );
+  }
+};
+```
+
+5. DRY code for updating state based on target inputs for signup form. Refactored from previous iteration in which each field would individually call a separate function to update the state for that field.
+
+```javascript
+// frontend/src/components/SessionForms/SignupForm.jsx line 23
+
+const update = (field) => {
+  let setState;
+  if (password !== password2) {
+    errors.passwordMatch = "Confirm Password field must match";
+  }
+
+  switch (field) {
+    case "email":
+      setState = setEmail;
+      break;
+    case "username":
+      setState = setUsername;
+      break;
+    case "password":
+      setState = setPassword;
+      break;
+    case "password2":
+      setState = setPassword2;
+      break;
+    default:
+      throw Error("Unknown field in Signup Form");
+  }
+
+  return (e) => setState(e.currentTarget.value);
+};
+```
