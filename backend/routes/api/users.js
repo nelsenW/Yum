@@ -14,6 +14,51 @@ const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 const validateReviewsInput = require("../../validations/reviews");
 
+router.get("/current", restoreUser, (req, res) => {
+  if (!isProduction) {
+    const csrfToken = req.csrfToken();
+    res.cookie("CSRF-TOKEN", csrfToken);
+  }
+  if (!req.user) return res.json(null);
+  res.json({
+    _id: req.user._id,
+    username: req.user.username,
+    email: req.user.email,
+  });
+});
+
+//get all reviews of me
+router.get("/:userId/reviewsOf", async function (req, res, next) {
+  try {
+    const review = await User.find({$or:
+      [{"hostReviews.userId": req.params.userId},
+      {"guestReviews.userId": req.params.userId}
+    ]},{"_id":0, "hostReviews":1, "guestReviews":1})
+    return res.json(review)
+
+  } catch (err) {
+    const error = new Error("Review not found");
+    error.statusCode = 404;
+    error.errors = { message: "No Review found with that id" };
+    return next(error);
+  }
+});
+
+//single user
+router.get("/:userId", async function (req, res, next) {
+  let user;
+  try {
+    user = await User.find({"_id":req.params.userId},{"hashedPassword":0});
+    return res.json(user);
+  } catch (err) {
+    const error = new Error("User not found");
+    error.statusCode = 404;
+    error.errors = { message: "No user found with that id" };
+    return next(error);
+  }
+});
+
+
 //all users
 router.get("/", async function (req, res, next) {
   if (!isProduction) {
@@ -193,18 +238,6 @@ router.delete("/:id/guest_reviews/:review_id", async (req, res, next) => {
   }
 });
 
-router.get("/current", restoreUser, (req, res) => {
-  if (!isProduction) {
-    const csrfToken = req.csrfToken();
-    res.cookie("CSRF-TOKEN", csrfToken);
-  }
-  if (!req.user) return res.json(null);
-  res.json({
-    _id: req.user._id,
-    username: req.user.username,
-    email: req.user.email,
-  });
-});
 
 router.get("/:userId", async function (req, res, next) {
   let user;

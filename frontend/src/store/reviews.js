@@ -30,9 +30,9 @@ export const clearReviewErrors = (errors) => ({
   errors,
 });
 
-export const fetchReviews = () => async (dispatch) => {
+export const fetchOfMeReviews = (userId) => async (dispatch) => {
   try {
-    const res = await jwtFetch("/api/reviews/");
+    const res = await jwtFetch(`/api/users/${userId}/reviews/`);
     const reviews = await res.json();
     dispatch(receiveReviews(reviews));
   } catch (err) {
@@ -43,21 +43,21 @@ export const fetchReviews = () => async (dispatch) => {
   }
 };
 
-export const composeReview = (data) => async (dispatch) => {
-  try {
-    const res = await jwtFetch("/api/reviews/", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
-    const review = await res.json();
-    dispatch(receiveNewReview(review));
-  } catch (err) {
-    const resBody = await err.json();
-    if (resBody.statusCode === 400) {
-      return dispatch(receiveErrors(resBody.errors));
-    }
-  }
-};
+// export const composeHostReview = ({guestId, data}) => async (dispatch) => {
+//   try {
+//     const res = await jwtFetch(`/api/users/${guestId}/guest_reviews/`, {
+//       method: "POST",
+//       body: JSON.stringify(data),
+//     });
+//     const review = await res.json();
+//     dispatch(receiveNewReview(review));
+//   } catch (err) {
+//     const resBody = await err.json();
+//     if (resBody.statusCode === 400) {
+//       return dispatch(receiveErrors(resBody.errors));
+//     }
+//   }
+// };
 
 const nullErrors = null;
 
