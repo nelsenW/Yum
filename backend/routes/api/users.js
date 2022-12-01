@@ -14,7 +14,20 @@ const validateRegisterInput = require("../../validations/register");
 const validateLoginInput = require("../../validations/login");
 const validateReviewsInput = require("../../validations/reviews");
 
-//get reviews of me
+router.get("/current", restoreUser, (req, res) => {
+  if (!isProduction) {
+    const csrfToken = req.csrfToken();
+    res.cookie("CSRF-TOKEN", csrfToken);
+  }
+  if (!req.user) return res.json(null);
+  res.json({
+    _id: req.user._id,
+    username: req.user.username,
+    email: req.user.email,
+  });
+});
+
+//get all reviews of me
 router.get("/:userId/reviewsOf", async function (req, res, next) {
   try {
     const review = await User.find({$or:
@@ -30,7 +43,6 @@ router.get("/:userId/reviewsOf", async function (req, res, next) {
     return next(error);
   }
 });
-
 
 //single user
 router.get("/:userId", async function (req, res, next) {
@@ -226,17 +238,5 @@ router.delete("/:id/guest_reviews/:review_id", async (req, res, next) => {
   }
 });
 
-router.get("/current", restoreUser, (req, res) => {
-  if (!isProduction) {
-    const csrfToken = req.csrfToken();
-    res.cookie("CSRF-TOKEN", csrfToken);
-  }
-  if (!req.user) return res.json(null);
-  res.json({
-    _id: req.user._id,
-    username: req.user.username,
-    email: req.user.email,
-  });
-});
 
 module.exports = router;
