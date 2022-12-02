@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { composeHostReview, composeGuestReview } from "../../../store/reviews";
 import { clearSessionErrors } from "../../../store/session";
 import "./reviewForm.css";
 
-function ReviewForm() {
+function ReviewForm({ type, revieweeId}) {
+  type = "guest"
+  revieweeId = "637a9b447f26bdbfa5056a46"
   const [title, setTitle] = useState("");
   const [rating, setRating] = useState("");
   const [body, setBody] = useState("");
   const errors = useSelector((state) => state.errors.session);
+  const currentUser = useSelector((state)=> state.session.user)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,7 +40,18 @@ function ReviewForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch()
+    const newReview = {
+      title,
+      rating,
+      body,
+      userId: currentUser._id
+    }
+    if (type === "host"){
+      dispatch(composeHostReview({"hostId": revieweeId, data: newReview}))
+    } else {
+      dispatch(composeGuestReview({"guestId": revieweeId, data: newReview}))
+    }
+
   };
 
   return (

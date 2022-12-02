@@ -28,18 +28,56 @@ router.get("/current", restoreUser, (req, res) => {
 });
 
 //get all reviews of me
-router.get("/:userId/reviewsOf", async function (req, res, next) {
+router.get("/:userId/myReviews", async function (req, res, next) {
   try {
-    const review = await User.find({$or:
+    const reviews = await User.find({$or:
       [{"hostReviews.userId": req.params.userId},
       {"guestReviews.userId": req.params.userId}
-    ]},{"_id":0, "hostReviews":1, "guestReviews":1})
-    return res.json(review)
+    ]},{"_id":0, "hostReviews":1, "guestReviews":1, "username":1})
+
+    // reviews.forEach((user) => {
+    //   if (user.guestReviews) {
+    //     guestReviewsList = guestReviewsList.concat(user.guestReviews)
+    //   }
+    //   if (user.hostReviews){
+    //     hostReviewsList = hostReviewsList.concat(user.hostReviews)
+    //   }
+    // })
+
+    // return res.json({"guestReviews": guestReviewsList, "hostReviews": hostReviewsList});
+    return res.json(reviews);
 
   } catch (err) {
     const error = new Error("Review not found");
     error.statusCode = 404;
     error.errors = { message: "No Review found with that id" };
+    return next(error);
+  }
+});
+
+//all reviews made for me
+router.get("/:userId/reviewsOf", async function (req, res, next) {
+  let reviews;
+  try {
+    reviews = await User.find({"_id":req.params.userId},{"_id":0, "hostReviews":1, "guestReviews":1, "username":1});
+    // let guestReviewsList = []
+    // let hostReviewsList = []
+
+    // reviews.forEach((user) => {
+    //   if (user.guestReviews) {
+    //     guestReviewsList = guestReviewsList.concat(user.guestReviews)
+    //   }
+    //   if (user.hostReviews){
+    //     hostReviewsList = hostReviewsList.concat(user.hostReviews)
+    //   }
+    // })
+
+    return res.json(reviews);
+    // return res.json({"guestReviews": guestReviewsList, "hostReviews": hostReviewsList});
+  } catch (err) {
+    const error = new Error("User not found");
+    error.statusCode = 404;
+    error.errors = { message: "No user found with that id" };
     return next(error);
   }
 });

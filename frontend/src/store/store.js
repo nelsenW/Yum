@@ -2,12 +2,14 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session';
 import errors from './errors';
-import events from './events'
+import events from './events';
+import reviews from './reviews';
 
 const rootReducer = combineReducers({
   session,
   errors,
-  events
+  events,
+  reviews
 });
 
 let enhancer;
@@ -26,5 +28,3 @@ const configureStore = (preloadedState) => {
 };
 
 export default configureStore;
-
-

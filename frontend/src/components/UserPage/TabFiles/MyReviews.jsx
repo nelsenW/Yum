@@ -1,25 +1,21 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteEvent,
-  fetchEvents,
-  fetchUserEventsAttending,
-  updateEvent,
-} from "../../../store/events";
-import { fetchOfMeReviews } from "../../../store/reviews";
-import EventForm from "./EventForm";
+import { fetchMyReviews, fetchOfMeReviews } from "../../../store/reviews";
+// import EventForm from "./EventForm";
 import "./myPosts.css";
 
 export default function MyPosts({ setTab, setUserModal, type }) {
   const dispatch = useDispatch();
   const userEvents = useSelector((state) =>
-    state.events.user ? Object.values(state.events.user) : []
+    state.reviews.user ? Object.values(state.reviews.user) : []
   );
   const userId = useSelector((state) => state.session.user._id);
 
   useEffect(() => {
     if (type !== "MyReviews") {
-      dispatch(fetchOfMeReviews(userId));
+        dispatch(fetchMyReviews(userId));
+    } else {
+        dispatch(fetchOfMeReviews())
     }
   }, [dispatch, type]);
 
