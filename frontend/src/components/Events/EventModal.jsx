@@ -10,7 +10,7 @@ export default function EventModal({ setEventModal, event }) {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.session.user._id);
   const [eventDate, setEventDate] = useState();
-  const [userModal, setUserModal] = useState()
+  const [userModal, setUserModal] = useState();
   const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
@@ -58,7 +58,12 @@ export default function EventModal({ setEventModal, event }) {
           </div>
           <div className="event-modal-image-group">
             {event?.images?.map((image) => (
-              <img src={image} key={image} className="event-modal-image" alt=""></img>
+              <img
+                src={image}
+                key={image}
+                className="event-modal-image"
+                alt=""
+              ></img>
             ))}
           </div>
           <button className="settings-button card" onClick={flipCard}>
@@ -74,48 +79,49 @@ export default function EventModal({ setEventModal, event }) {
             <div>
               <p id="event-modal-desc">
                 <span>
-                  <span className="event-details-label">Description</span>:{" "}
+                  <span className="event-details-label">Description:</span>{" "}
                 </span>
                 {event?.description}
               </p>
               <p id="event-modal-location">
                 <span>
-                  <span className="event-details-label">Location</span>:{" "}
+                  <span className="event-details-label">Location:</span>{" "}
                 </span>
                 {event?.location.name}
               </p>
               <p id="event-modal-date">
                 <span>
-                  <span className="event-details-label">Date</span>:{" "}
+                  <span className="event-details-label">Date:</span>{" "}
                 </span>
                 {eventDate}
               </p>
               <p id="event-modal-price">
                 <span>
-                  <span className="event-details-label">Price</span>:{" "}
+                  <span className="event-details-label">Price:</span>{" "}
                 </span>
                 ${event?.price}
               </p>
               <p id="event-modal-type">
                 <span>
-                  <span className="event-details-label">Event-Type</span>:{" "}
+                  <span className="event-details-label">Event-Type:</span>{" "}
                 </span>
                 {event?.eventType}
               </p>
               <p id="event-modal-host" onClick={() => setUserModal(true)}>
                 <span>
-                  <span className="event-details-label">Hosted by</span>:{" "}<button id="host-button">{event?.host.username}</button>
+                  <span className="event-details-label">Hosted by:</span>{" "}
+                  <button id="host-button">{event?.host.username}</button>
                 </span>
               </p>
               <p id="event-modal-guests">
                 <span>
-                  <span className="event-details-label">Available spots</span>:{" "}
+                  <span className="event-details-label">Available spots:</span>{" "}
                 </span>
                 [ {event?.guestLists?.length}/{event?.guestNumber} ]
               </p>
               <label>
                 <span>
-                  <span id="event-num-meals">Number of meals</span>:{" "}
+                  <span id="event-num-meals">Number of meals:</span>{" "}
                 </span>
                 <input
                   type="number"
@@ -138,13 +144,14 @@ export default function EventModal({ setEventModal, event }) {
         </div>
       </div>
       {userModal && (
-				<Modal
-					onClose={() => {
-						setUserModal(false);
-					}}>
-					<UserModal setUserModal={setUserModal} userId={event?.host._id} />
-				</Modal>
-			)}
+        <Modal
+          onClose={() => {
+            setUserModal(false);
+          }}
+        >
+          <UserModal setUserModal={setUserModal} userId={event?.host._id} />
+        </Modal>
+      )}
     </div>
   );
 }

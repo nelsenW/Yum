@@ -38,7 +38,9 @@ export default function MyPosts({ setTab, setUserModal, type }) {
 
   return (
     <div>
-      <h1>{type === "hosted" ? "My Hosted Events" : "Attending Events"}</h1>
+      <h1 className="tab-head">
+        {type === "hosted" ? "My Hosted Events" : "Attending Events"}
+      </h1>
       {userEvents?.length === 0 ? (
         <div id="no-events-message">
           <p>{`You're not ${
@@ -49,7 +51,7 @@ export default function MyPosts({ setTab, setUserModal, type }) {
         userEvents?.map((event) => {
           return (
             <div className="user-event" key={event.id}>
-              <h1>{event.title}</h1>
+              <h1 className="event-title">{event.title}</h1>
               <div className="event-buttons">
                 {type === "hosted" ? (
                   <>
