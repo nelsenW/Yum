@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./SessionForm.css";
 import { signup, clearSessionErrors } from "../../store/session";
 import Errors from "../Errors/Errors";
+import Swal from "sweetalert2";
 
 function SignupForm() {
   const [email, setEmail] = useState("");
@@ -22,8 +23,8 @@ function SignupForm() {
 
   const update = (field) => {
     let setState;
-    if(password !== password2) {
-      errors.passwordMatch ="Confirm Password field must match"
+    if (password !== password2) {
+      errors.passwordMatch = "Confirm Password field must match";
     }
 
     switch (field) {
@@ -54,7 +55,21 @@ function SignupForm() {
       password,
     };
 
-    dispatch(signup(user));
+    dispatch(signup(user)).then((res) => {
+      if (!res.errors) {
+        Swal.fire({
+          title: "Note!",
+          text: "To experience Yum, please enable your location services. Thank you!",
+          buttons: {
+            confirm: { className: "ok-btn" },
+          },
+          icon: "info",
+          iconColor: "#f48c06",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "var(--dodger-blue)",
+        });
+      }
+    });
   };
 
   return (
@@ -63,7 +78,7 @@ function SignupForm() {
         <h2>Sign Up Form</h2>
       </div>
 
-      <Errors errors={errors}/>
+      <Errors errors={errors} />
       <label>
         <span>Email</span>
         <input
@@ -101,11 +116,7 @@ function SignupForm() {
           placeholder="Confirm Password"
         />
       </label>
-      <button
-        type="submit"
-      >
-        Signup
-      </button>
+      <button type="submit">Signup</button>
     </form>
   );
 }

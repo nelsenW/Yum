@@ -99,10 +99,7 @@
 
 .event-details-label,
 #event-num-meals {
-  text-decoration: underline;
-  text-decoration-color: var(--dark-yellow);
-  text-underline-offset: 2px;
-  line-height: 1.2;
+  color: var(--dark-yellow);
 }
 
 #event-modal input {
@@ -297,7 +294,6 @@
   font-size: 15px;
 }
 
-
 #host-button {
   border: none;
   outline: none;
@@ -309,7 +305,7 @@
   display: inline-block;
   align-items: center;
   justify-content: center;
-  z-index: 4; 
+  z-index: 4;
   box-sizing: border-box;
   border: 2px solid rgba(112, 128, 144, 0);
   transition: color 1s, box-shadow 1s, border 1s;

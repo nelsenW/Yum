@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./SessionForm.css";
-
+import Swal from "sweetalert2";
 import { login, clearSessionErrors } from "../../store/session";
 import Errors from "../Errors/Errors";
 
@@ -26,7 +26,22 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ email, password }));
+
+    dispatch(login({ email, password })).then((res) => {
+      if (!res.errors) {
+        Swal.fire({
+          title: "Note!",
+          text: "To experience Yum, please enable your location services. Thank you!",
+          buttons: {
+            confirm: { className: "ok-btn" },
+          },
+          icon: "info",
+          iconColor: "#f48c06",
+          confirmButtonText: "Ok",
+          confirmButtonColor: "var(--dodger-blue)",
+        });
+      }
+    });
   };
 
   const demoUser = () => {
@@ -36,11 +51,10 @@ function LoginForm() {
 
   return (
     <form className="session-form" onSubmit={handleSubmit}>
-      
       <div className="h2-wrapper">
         <h2>Log In Form</h2>
       </div>
-      <Errors errors={errors}/>
+      <Errors errors={errors} />
 
       <label>
         <span>Email</span>
@@ -62,11 +76,7 @@ function LoginForm() {
       </label>
 
       <div>
-        <button
-          type="submit"
-        >
-          Log In!
-        </button>
+        <button type="submit">Log In!</button>
         <button type="submit" onClick={demoUser}>
           Demo User
         </button>

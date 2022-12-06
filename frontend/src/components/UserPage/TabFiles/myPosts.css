@@ -69,8 +69,9 @@
 }
 
 #no-events-message {
-  height: 80vh;
+  height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 20px;
 }

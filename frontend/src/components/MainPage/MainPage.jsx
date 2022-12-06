@@ -21,6 +21,9 @@ export default function MainPage() {
 
   useEffect(() => {
     dispatch(fetchEvents());
+    // alert(
+    //   "To experience Yum, please enable your location services. Thank you!"
+    // );
   }, [eventChange, userModal]);
 
   const hidden = () => {
@@ -45,10 +48,9 @@ export default function MainPage() {
             handleSelectedEvent={handleSelectedEvent}
             handleFilterEvents={handleFilterEvents}
           />
-            <button onClick={() => setUserModal(true)} id="make-event">
-          +
-           </button>
-          
+          <button onClick={() => setUserModal(true)} id="make-event">
+            +
+          </button>
         </div>
       )}
       <div onClick={() => setSideBar(!sideBar)} id="hamburger-wrapper">
@@ -65,7 +67,7 @@ export default function MainPage() {
         selectedEvent={selectedEvent}
         handleSelectedEvent={handleSelectedEvent}
       />
-      
+
       {userModal ? (
         <Modal onClose={() => setUserModal(false)}>
           <UserPage

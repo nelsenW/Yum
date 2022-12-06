@@ -69,6 +69,16 @@
   flex-direction: column;
 }
 
+.tab-head {
+  font-size: 25px;
+  color: #fff;
+  margin-bottom: 35px;
+}
+
+.event-title {
+  color: var(--dark-yellow);
+}
+
 .seperator {
   width: 90%;
   height: 1px;
