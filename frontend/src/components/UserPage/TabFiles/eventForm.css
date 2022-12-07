@@ -13,6 +13,7 @@
   justify-content: flex-start;
   overflow: hidden;
   box-sizing: border-box;
+  box-shadow: 0 0px 15px white;
 }
 
 .event-form label {
@@ -143,4 +144,8 @@ label:focus-within {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
 }
