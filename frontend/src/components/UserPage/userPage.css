@@ -1,7 +1,14 @@
 .user-form-modal {
   width: 100vw;
   height: 100vh;
-  background-color: slategray;
+  background: linear-gradient(
+    270deg,
+    rgb(124, 124, 124) 0%,
+    rgb(55, 99, 143) 25%,
+    rgb(20, 53, 85) 50%,
+    rgb(11, 37, 63) 75%,
+    #040a2b 100%
+  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,7 +59,7 @@
 .user-form-modal-main {
   flex: 1 1 800px;
   height: 100%;
-  overflow: hidden scroll;
+  overflow: hidden;
   display: flex;
   justify-content: center;
 }
