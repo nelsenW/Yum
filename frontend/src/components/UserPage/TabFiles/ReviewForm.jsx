@@ -4,12 +4,15 @@ import { composeHostReview, composeGuestReview } from "../../../store/reviews";
 import { clearSessionErrors } from "../../../store/session";
 import "./reviewForm.css";
 
-function ReviewForm({ type, revieweeId}) {
+function ReviewForm({ type, review, revieweeId, kind, setUserModal }) {
   type = "guest"
   revieweeId = "637a9b447f26bdbfa5056a46"
-  const [title, setTitle] = useState("");
-  const [rating, setRating] = useState("");
-  const [body, setBody] = useState("");
+  kind = "create"
+
+  // getting a single review by Id
+  const [title, setTitle] = useState(review?.title ?? "");
+  const [rating, setRating] = useState(review?.rating ??"");
+  const [body, setBody] = useState(review?.body ?? "");
   const errors = useSelector((state) => state.errors.session);
   const currentUser = useSelector((state)=> state.session.user)
   const dispatch = useDispatch();

@@ -34,9 +34,9 @@ export const clearReviewErrors = (errors) => ({
   errors,
 });
 
-export const fetchOfMeReviews = (userId) => async (dispatch) => {
+export const fetchOfMeReviews = (currentUserId) => async (dispatch) => {
   try {
-    const res = await jwtFetch(`/api/users/${userId}/reviewsOf/`);
+    const res = await jwtFetch(`/api/users/${currentUserId}/reviewsOf/`);
     const reviews = await res.json();
     dispatch(receiveReviews(reviews));
   } catch (err) {
@@ -60,8 +60,11 @@ export const fetchMyReviews = (currentUserId) => async (dispatch) => {
   }
 };
 
+export const deleteReview = (reviewId) => async (dispatch) => {
+
+}
+
 export const composeHostReview = ({hostId, data}) => async (dispatch) => {
-  debugger
   try {
     const res = await jwtFetch(`/api/users/${hostId}/host_reviews/`, {
       method: "POST",
