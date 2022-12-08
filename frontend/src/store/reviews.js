@@ -6,20 +6,25 @@ const RECEIVE_REVIEW_ERRORS = "REVIEWS/RECEIVE_REVIEW_ERRORS";
 const CLEAR_REVIEW_ERRORS = "REVIEWS/CLEAR_REVIEW_ERRORS";
 const RECEIVE_REVIEWS = "REVIEWS/RECEIVE_REVIEWS";
 
+//add one review
 const receiveNewReview = (review) => ({
   type: RECEIVE_NEW_REVIEW,
   review,
 });
 
-const removeReview = (reviewID) => ({
+//remove removes
+const removeReview = (reviewId) => ({
   type: REMOVE_REVIEW,
+  reviewId
 });
 
+//create new review
 const receiveReviews = (reviews) => ({
   type: RECEIVE_REVIEWS,
   reviews,
 });
 
+//error handling
 const receiveErrors = (errors) => ({
   type: RECEIVE_REVIEW_ERRORS,
   errors,
@@ -30,9 +35,9 @@ export const clearReviewErrors = (errors) => ({
   errors,
 });
 
-export const fetchOfMeReviews = (userId) => async (dispatch) => {
+export const fetchOfMeReviews = (currentUserId) => async (dispatch) => {
   try {
-    const res = await jwtFetch(`/api/users/${userId}/reviews/`);
+    const res = await jwtFetch(`/api/users/${currentUserId}/reviewsOf/`);
     const reviews = await res.json();
     dispatch(receiveReviews(reviews));
   } catch (err) {
@@ -43,21 +48,72 @@ export const fetchOfMeReviews = (userId) => async (dispatch) => {
   }
 };
 
-// export const composeHostReview = ({guestId, data}) => async (dispatch) => {
-//   try {
-//     const res = await jwtFetch(`/api/users/${guestId}/guest_reviews/`, {
-//       method: "POST",
-//       body: JSON.stringify(data),
-//     });
-//     const review = await res.json();
-//     dispatch(receiveNewReview(review));
-//   } catch (err) {
-//     const resBody = await err.json();
-//     if (resBody.statusCode === 400) {
-//       return dispatch(receiveErrors(resBody.errors));
-//     }
-//   }
-// };
+export const fetchMyReviews = (currentUserId) => async (dispatch) => {
+  try {
+    const res = await jwtFetch(`/api/users/${currentUserId}/myReviews/`);
+    const reviews = await res.json();
+    dispatch(receiveReviews(reviews));
+  } catch (err) {
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      dispatch(receiveErrors(resBody.errors));
+    }
+  }
+};
+
+export const deleteReview = ({revieweeId, kind, reviewId}) => async (dispatch) => {
+  try{
+    const res = await jwtFetch(`/api/users/${revieweeId}/reviews/${kind}/${reviewId}`, {
+      method: "DELETE"
+    });
+    dispatch(removeReview(revieweeId))
+  } catch (err){
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      return dispatch(receiveErrors(resBody.errors));
+    }
+  }
+}
+
+export const composeReview = ({revieweeId, newReview, type}) => async (dispatch) => {
+  try {
+    let res
+    if (type === "host"){
+      res = await jwtFetch(`/api/users/${revieweeId}/host_reviews/`, {
+        method: "POST",
+        body: JSON.stringify(newReview),
+      });
+    }else {
+      res = await jwtFetch(`/api/users/${revieweeId}/guest_reviews/`, {
+        method: "POST",
+        body: JSON.stringify(newReview),
+      });
+    }
+    const review = await res.json();
+    dispatch(receiveNewReview(review));
+  } catch (err) {
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      return dispatch(receiveErrors(resBody.errors));
+    }
+  }
+};
+
+export const updateReview = ({revieweeId, newReview, type, reviewId}) => async (dispatch) => {
+  try {
+    const res = await jwtFetch(`/api/users/${revieweeId}/reviews/${type}/${reviewId}`, {
+        method: "PATCH",
+        body: JSON.stringify(newReview),
+      });
+    const review = await res.json();
+    dispatch(receiveNewReview(review));
+  } catch (err) {
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      return dispatch(receiveErrors(resBody.errors));
+    }
+  }
+};
 
 const nullErrors = null;
 
@@ -74,7 +130,7 @@ export const reviewErrorsReducer = (state = nullErrors, action) => {
 };
 
 const reviewsReducer = (
-  state = { all: {}, user: {}, new: undefined },
+  state = { all: {}, new: undefined },
   action
 ) => {
   switch (action.type) {
@@ -82,6 +138,12 @@ const reviewsReducer = (
       return { ...state, all: action.reviews, new: undefined };
     case RECEIVE_NEW_REVIEW:
       return { ...state, new: action.review };
+    case REMOVE_REVIEW:
+      const newState = {...state}
+      newState.all.splice(
+        newState.all.findIndex((object) => object._id === action.reviewId),1
+      );
+      return newState;
     default:
       return state;
   }

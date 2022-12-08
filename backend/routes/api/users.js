@@ -27,19 +27,55 @@ router.get("/current", restoreUser, (req, res) => {
   });
 });
 
-//get all reviews of me
-router.get("/:userId/reviewsOf", async function (req, res, next) {
+//get all reviews made by me
+router.get("/:userId/myReviews", async function (req, res, next) {
+  const id = mongoose.Types.ObjectId(req.params.userId)
   try {
-    const review = await User.find({$or:
+    const reviews = await User.find({$or:
       [{"hostReviews.userId": req.params.userId},
       {"guestReviews.userId": req.params.userId}
-    ]},{"_id":0, "hostReviews":1, "guestReviews":1})
-    return res.json(review)
+    ]
+  },{
+      "_id":1,
+      "hostReviews": {
+        $filter:{
+          input: "$hostReviews",
+          as: "hostReviews",
+          cond: { $eq: [ "$$hostReviews.userId", id ]},
+        }},
+      "guestReviews":{
+        $filter:{
+          input: "$guestReviews",
+          as: "guestReviews",
+          cond: { $eq: [ "$$guestReviews.userId", id ]},
+        }},
+      "username":1
+})
+
+    return res.json(reviews);
 
   } catch (err) {
     const error = new Error("Review not found");
     error.statusCode = 404;
     error.errors = { message: "No Review found with that id" };
+    return next(error);
+  }
+});
+
+//all reviews made for me
+router.get("/:userId/reviewsOf", async function (req, res, next) {
+  try {
+    const reviews = await User.find({
+      "_id":req.params.userId
+    },{
+      "_id":1, "hostReviews":1, "guestReviews":1, "username":1
+    });
+    return res.json(reviews);
+
+  } catch (err) {
+    const error = new Error("User not found");
+    error.statusCode = 404;
+    error.errors = { message: "No user found with that id" };
     return next(error);
   }
 });
@@ -172,14 +208,24 @@ router.post(
   }
 );
 
-//update a host reviews
-router.patch("/:id/host_reviews/:review_id", async (req, res, next) => {
+//update a reviews
+router.patch("/:id/reviews/:type/:review_id", async (req, res, next) => {
   try {
-    const filter = {
-      _id: req.params.id,
-      "hostReviews._id": req.params.review_id,
-    };
-    const update = { $set: { "hostReviews.$": { ...req.body } } };
+    let filter, update
+    if (req.params.type === "guest"){
+      filter = {
+        _id: req.params.id,
+        "guestReviews._id": req.params.review_id,
+      };
+      update = { $set: { "guestReviews.$": { ...req.body } } };
+    } else {
+      filter = {
+        _id: req.params.id,
+        "hostReviews._id": req.params.review_id,
+      };
+      update = { $set: { "hostReviews.$": { ...req.body } } };
+    }
+
     await User.findOneAndUpdate(filter, update, { new: true });
     return res.json("Event updated");
   } catch (err) {
@@ -190,44 +236,16 @@ router.patch("/:id/host_reviews/:review_id", async (req, res, next) => {
   }
 });
 
-//update a guest reviews
-router.patch("/:id/guest_reviews/:review_id", async (req, res, next) => {
-  try {
-    const filter = {
-      _id: req.params.id,
-      "guestReviews._id": req.params.review_id,
-    };
-    const update = { $set: { "guestReviews.$": { ...req.body } } };
-    await User.findOneAndUpdate(filter, update, { new: true });
-    return res.json("Event updated");
-  } catch (err) {
-    const error = new Error("Something went wrong");
-    error.statusCode = 404;
-    error.errors = { message: "something went wrong" };
-    return next(error);
-  }
-});
-
-//delete host review
-router.delete("/:id/host_reviews/:review_id", async (req, res, next) => {
+//delete review
+router.delete("/:id/reviews/:type/:review_id", async (req, res, next) => {
   try {
     const user = await User.findById({ _id: req.params.id });
-    const newUser = user.hostReviews.id(req.params.review_id).remove();
-    await user.save();
-    return res.json("Event delete");
-  } catch (err) {
-    const error = new Error("Something went wrong");
-    error.statusCode = 404;
-    error.errors = { message: "something went wrong" };
-    return next(error);
-  }
-});
-
-//delete guest review
-router.delete("/:id/guest_reviews/:review_id", async (req, res, next) => {
-  try {
-    const user = await User.findById({ _id: req.params.id });
-    const newUser = user.guestReviews.id(req.params.review_id).remove();
+    let newUser
+    if (req.params.type === "host"){
+      newUser = user.hostReviews.id(req.params.review_id).remove();
+    } else {
+      newUser = user.guestReviews.id(req.params.review_id).remove();
+    }
     await user.save();
     return res.json("Event delete");
   } catch (err) {

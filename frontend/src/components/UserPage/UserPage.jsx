@@ -5,6 +5,7 @@ import { logout } from "../../store/session";
 import MyPosts from "./TabFiles/MyPosts";
 import ReviewForm from "./TabFiles/ReviewForm";
 import EventForm from "./TabFiles/EventForm";
+import MyReviews from "./TabFiles/MyReviews";
 
 function UserPage({ setUserModal, inputTab }) {
   const dispatch = useDispatch();
@@ -50,7 +51,35 @@ function UserPage({ setUserModal, inputTab }) {
             Attending Events
           </li>
           <div className="seperator"></div>
-          <li onClick={() => setTab(<ReviewForm />)}>Reviews</li>
+          <li
+            onClick={() =>
+              setTab(
+                <MyReviews
+                  setTab={setTab}
+                  setUserModal={setUserModal}
+                  type={"MyReviews"}
+                />
+              )
+            }
+          >
+            My Reviews
+          </li>
+          <div className="seperator"></div>
+          <li
+            onClick={() =>
+              setTab(
+                <MyReviews
+                  setTab={setTab}
+                  setUserModal={setUserModal}
+                  type={"ReviewsOfMe"}
+                />
+              )
+            }
+          >
+            Reviews of Me
+          </li>
+          <div className="seperator"></div>
+          <li onClick={() => setTab(<ReviewForm setUserModal={setUserModal}/>)}>Reviews</li>
           <div className="seperator"></div>
           <li onClick={() => setTab(<EventForm setUserModal={setUserModal} />)}>
             Make an Event

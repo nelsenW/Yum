@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { composeReview, updateReview } from "../../../store/reviews";
 import { clearSessionErrors } from "../../../store/session";
 import "./reviewForm.css";
 
-function ReviewForm() {
-  const [title, setTitle] = useState("");
-  const [rating, setRating] = useState("");
-  const [body, setBody] = useState("");
+function ReviewForm({ type, review, revieweeId, kind, setUserModal }) {
+  // kind = "create"
+  // type="host"
+  // revieweeId = "637292693d2b405d3bbe38db"
+
+  // getting a single review by Id
+  const [title, setTitle] = useState(review?.title ?? "");
+  const [rating, setRating] = useState(review?.rating ??"");
+  const [body, setBody] = useState(review?.body ?? "");
   const errors = useSelector((state) => state.errors.session);
+  const currentUser = useSelector((state)=> state.session.user)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,7 +43,18 @@ function ReviewForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch()
+    const newReview = {
+      title,
+      rating,
+      body,
+      userId: currentUser._id
+    }
+    if (kind === "create"){
+      dispatch(composeReview({revieweeId, newReview, type}))
+    } else {
+      dispatch(updateReview({revieweeId, newReview, type, reviewId: review._id}))
+    }
+    setUserModal(false);
   };
 
   return (
