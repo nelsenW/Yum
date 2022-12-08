@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchMyReviews, fetchOfMeReviews, deleteReview } from "../../../store/reviews";
-// import EventForm from "./EventForm";
 import "./myPosts.css";
 import ReviewForm from "./ReviewForm";
 

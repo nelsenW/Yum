@@ -5,9 +5,9 @@ import { clearSessionErrors } from "../../../store/session";
 import "./reviewForm.css";
 
 function ReviewForm({ type, review, revieweeId, kind, setUserModal }) {
-  kind = "create"
-  type="host"
-  revieweeId = "637292693d2b405d3bbe38db"
+  // kind = "create"
+  // type="host"
+  // revieweeId = "637292693d2b405d3bbe38db"
 
   // getting a single review by Id
   const [title, setTitle] = useState(review?.title ?? "");

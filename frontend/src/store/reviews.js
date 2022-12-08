@@ -115,22 +115,6 @@ export const updateReview = ({revieweeId, newReview, type, reviewId}) => async (
   }
 };
 
-// export const composeGuestReview = ({guestId, data}) => async (dispatch) => {
-//   try {
-//     const res = await jwtFetch(`/api/users/${guestId}/guest_reviews/`, {
-//       method: "POST",
-//       body: JSON.stringify(data),
-//     });
-//     const review = await res.json();
-//     dispatch(receiveNewReview(review));
-//   } catch (err) {
-//     const resBody = await err.json();
-//     if (resBody.statusCode === 400) {
-//       return dispatch(receiveErrors(resBody.errors));
-//     }
-//   }
-// };
-
 const nullErrors = null;
 
 export const reviewErrorsReducer = (state = nullErrors, action) => {
