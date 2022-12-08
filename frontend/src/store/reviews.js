@@ -13,8 +13,9 @@ const receiveNewReview = (review) => ({
 });
 
 //remove removes
-const removeReview = (reviewID) => ({
+const removeReview = (reviewId) => ({
   type: REMOVE_REVIEW,
+  reviewId
 });
 
 //create new review
@@ -60,16 +61,34 @@ export const fetchMyReviews = (currentUserId) => async (dispatch) => {
   }
 };
 
-export const deleteReview = (reviewId) => async (dispatch) => {
-
+export const deleteReview = ({revieweeId, kind, reviewId}) => async (dispatch) => {
+  try{
+    const res = await jwtFetch(`/api/users/${revieweeId}/reviews/${kind}/${reviewId}`, {
+      method: "DELETE"
+    });
+    dispatch(removeReview(revieweeId))
+  } catch (err){
+    const resBody = await err.json();
+    if (resBody.statusCode === 400) {
+      return dispatch(receiveErrors(resBody.errors));
+    }
+  }
 }
 
-export const composeHostReview = ({hostId, data}) => async (dispatch) => {
+export const composeReview = ({revieweeId, newReview, type}) => async (dispatch) => {
   try {
-    const res = await jwtFetch(`/api/users/${hostId}/host_reviews/`, {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+    let res
+    if (type === "host"){
+      res = await jwtFetch(`/api/users/${revieweeId}/host_reviews/`, {
+        method: "POST",
+        body: JSON.stringify(newReview),
+      });
+    }else {
+      res = await jwtFetch(`/api/users/${revieweeId}/guest_reviews/`, {
+        method: "POST",
+        body: JSON.stringify(newReview),
+      });
+    }
     const review = await res.json();
     dispatch(receiveNewReview(review));
   } catch (err) {
@@ -80,12 +99,12 @@ export const composeHostReview = ({hostId, data}) => async (dispatch) => {
   }
 };
 
-export const composeGuestReview = ({guestId, data}) => async (dispatch) => {
+export const updateReview = ({revieweeId, newReview, type, reviewId}) => async (dispatch) => {
   try {
-    const res = await jwtFetch(`/api/users/${guestId}/guest_reviews/`, {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+    const res = await jwtFetch(`/api/users/${revieweeId}/reviews/${type}/${reviewId}`, {
+        method: "PATCH",
+        body: JSON.stringify(newReview),
+      });
     const review = await res.json();
     dispatch(receiveNewReview(review));
   } catch (err) {
@@ -95,6 +114,22 @@ export const composeGuestReview = ({guestId, data}) => async (dispatch) => {
     }
   }
 };
+
+// export const composeGuestReview = ({guestId, data}) => async (dispatch) => {
+//   try {
+//     const res = await jwtFetch(`/api/users/${guestId}/guest_reviews/`, {
+//       method: "POST",
+//       body: JSON.stringify(data),
+//     });
+//     const review = await res.json();
+//     dispatch(receiveNewReview(review));
+//   } catch (err) {
+//     const resBody = await err.json();
+//     if (resBody.statusCode === 400) {
+//       return dispatch(receiveErrors(resBody.errors));
+//     }
+//   }
+// };
 
 const nullErrors = null;
 
@@ -119,6 +154,12 @@ const reviewsReducer = (
       return { ...state, all: action.reviews, new: undefined };
     case RECEIVE_NEW_REVIEW:
       return { ...state, new: action.review };
+    case REMOVE_REVIEW:
+      const newState = {...state}
+      newState.all.splice(
+        newState.all.findIndex((object) => object._id === action.reviewId),1
+      );
+      return newState;
     default:
       return state;
   }

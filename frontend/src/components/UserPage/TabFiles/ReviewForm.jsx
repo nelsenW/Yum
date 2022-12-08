@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { composeHostReview, composeGuestReview } from "../../../store/reviews";
+import { composeReview, updateReview } from "../../../store/reviews";
 import { clearSessionErrors } from "../../../store/session";
 import "./reviewForm.css";
 
 function ReviewForm({ type, review, revieweeId, kind, setUserModal }) {
-  type = "guest"
-  revieweeId = "637a9b447f26bdbfa5056a46"
   kind = "create"
+  type="host"
+  revieweeId = "637292693d2b405d3bbe38db"
 
   // getting a single review by Id
   const [title, setTitle] = useState(review?.title ?? "");
@@ -49,12 +49,12 @@ function ReviewForm({ type, review, revieweeId, kind, setUserModal }) {
       body,
       userId: currentUser._id
     }
-    if (type === "host"){
-      dispatch(composeHostReview({"hostId": revieweeId, data: newReview}))
+    if (kind === "create"){
+      dispatch(composeReview({revieweeId, newReview, type}))
     } else {
-      dispatch(composeGuestReview({"guestId": revieweeId, data: newReview}))
+      dispatch(updateReview({revieweeId, newReview, type, reviewId: review._id}))
     }
-
+    setUserModal(false);
   };
 
   return (

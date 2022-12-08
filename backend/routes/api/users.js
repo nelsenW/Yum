@@ -254,11 +254,16 @@ router.patch("/:id/reviews/:type/:review_id", async (req, res, next) => {
   }
 });
 
-//delete host review
-router.delete("/:id/host_reviews/:review_id", async (req, res, next) => {
+//delete review
+router.delete("/:id/reviews/:type/:review_id", async (req, res, next) => {
   try {
     const user = await User.findById({ _id: req.params.id });
-    const newUser = user.hostReviews.id(req.params.review_id).remove();
+    let newUser
+    if (req.params.type === "host"){
+      newUser = user.hostReviews.id(req.params.review_id).remove();
+    } else {
+      newUser = user.guestReviews.id(req.params.review_id).remove();
+    }
     await user.save();
     return res.json("Event delete");
   } catch (err) {
@@ -270,19 +275,19 @@ router.delete("/:id/host_reviews/:review_id", async (req, res, next) => {
 });
 
 //delete guest review
-router.delete("/:id/guest_reviews/:review_id", async (req, res, next) => {
-  try {
-    const user = await User.findById({ _id: req.params.id });
-    const newUser = user.guestReviews.id(req.params.review_id).remove();
-    await user.save();
-    return res.json("Event delete");
-  } catch (err) {
-    const error = new Error("Something went wrong");
-    error.statusCode = 404;
-    error.errors = { message: "something went wrong" };
-    return next(error);
-  }
-});
+// router.delete("/:id/guest_reviews/:review_id", async (req, res, next) => {
+//   try {
+//     const user = await User.findById({ _id: req.params.id });
+//     const
+//     await user.save();
+//     return res.json("Event delete");
+//   } catch (err) {
+//     const error = new Error("Something went wrong");
+//     error.statusCode = 404;
+//     error.errors = { message: "something went wrong" };
+//     return next(error);
+//   }
+// });
 
 
 router.get("/:userId", async function (req, res, next) {

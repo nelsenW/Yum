@@ -20,31 +20,20 @@ export default function MyReviews({ setTab, setUserModal, type }) {
     }
   }, [dispatch, type]);
 
-  const handleClick = (e, event) => {
-//     let newGuestList = event?.guestLists;
-//     for (let i = 0; i < newGuestList.length; i++) {
-//       newGuestList = newGuestList.filter((guest) => guest._id !== userId);
-//     }
-//     event.guestLists = newGuestList;
-//     dispatch(updateEvent({ event })).then(() =>
-//       dispatch(fetchUserEventsAttending(userId))
-//     );
-  };
-
   return (
     <div>
       <h1>{type === "MyReviews" ? "Reviews That I've Made" : "Reviews That Others Have Made For Me"}</h1>
 
-      {userReviews?.length === 0 ? (
+      {userReviews?.length === 0 && (
         <div id="no-events-message">
           <p>{`You do not have any ${
             type === "MyReviews" ? "reviews that you've made" : "reviews that others have made for you"
           } any events`}</p>
         </div>
-      ) : (
-        userReviews?.map((user) =>{
+      )}
+    {userReviews?.map((user) =>{
         return (
-            [...user?.guestReviews, ...user?.hostReviews].map((review) => {
+            user?.guestReviews.map((review) => {
             return (
                 <div className="user-event" key={review._id}>
                 <h1>{review.title}</h1>
@@ -58,6 +47,48 @@ export default function MyReviews({ setTab, setUserModal, type }) {
                             <ReviewForm
                                 type={"guest"}
                                 kind={"edit"}
+                                review={review}
+                                revieweeId={user?._id}
+                                setUserModal={setUserModal}
+                            />
+                            )
+                        }
+                        >
+                        Edit
+                        </button>
+                        <button
+                        className="delete-event"
+                        onClick={() => {
+                            dispatch(deleteReview({revieweeId: user._id, kind:"guest", reviewId: review._id}));
+                        }}
+                        >
+                        Delete
+                        </button>
+                    </>
+                    ) : (null)}
+                </div>
+                </div>
+            )})
+
+        )})
+    }
+    {userReviews?.map((user) =>{
+        return (
+            user?.hostReviews.map((review) => {
+            return (
+                <div className="user-event" key={review._id}>
+                <h1>{review.title}</h1>
+                <div className="event-buttons">
+                    {type === "MyReviews" ? (
+                    <>
+                        <button
+                        className="edit-event"
+                        onClick={() =>
+                            setTab(
+                            <ReviewForm
+                                type={"host"}
+                                kind={"edit"}
+                                review={review}
                                 revieweeId={user._id}
                                 setUserModal={setUserModal}
                             />
@@ -69,27 +100,19 @@ export default function MyReviews({ setTab, setUserModal, type }) {
                         <button
                         className="delete-event"
                         onClick={() => {
-                            dispatch(deleteReview(review._id));
+                            dispatch(deleteReview({revieweeId: user._id, kind:"host", reviewId: review._id}));
                         }}
                         >
                         Delete
                         </button>
                     </>
-                    ) : (
-                    <button
-                        className="edit-event"
-                        onClick={(e) => handleClick(e, review)}
-                    >
-                        Remove
-                    </button>
-                    )}
+                    ) : ( null)}
                 </div>
                 </div>
             )})
 
-            )})
-
-    )}
+        )})
+    }
     </div>
   );
 }

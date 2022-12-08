@@ -79,7 +79,7 @@ function UserPage({ setUserModal, inputTab }) {
             Reviews of Me
           </li>
           <div className="seperator"></div>
-          <li onClick={() => setTab(<ReviewForm />)}>Reviews</li>
+          <li onClick={() => setTab(<ReviewForm setUserModal={setUserModal}/>)}>Reviews</li>
           <div className="seperator"></div>
           <li onClick={() => setTab(<EventForm setUserModal={setUserModal} />)}>
             Make an Event
