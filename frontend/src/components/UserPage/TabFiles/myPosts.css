@@ -69,7 +69,8 @@
     0 0 0.5em 0 var(--vivid-sky-blue);
 }
 
-#no-events-message {
+#no-events-message,
+#no-reviews-message {
   height: 70vh;
   display: flex;
   justify-content: center;
