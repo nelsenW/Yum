@@ -22,9 +22,16 @@
   margin: 32px;
 }
 
+.user-modal-info h2{
+  margin-bottom: 8px;
+}
+
 #user-modal-info-username {
-  margin-bottom: 16px;
   font-size: 32px;
+}
+
+.user-modal-info button{
+  margin: 0 0 16px;
 }
 
 .review-bubble {
@@ -32,6 +39,7 @@
   border: 1px solid slategray;
   border-radius: 8px;
   padding: 8px;
+  display: block;
 }
 
 .review-bubble span {

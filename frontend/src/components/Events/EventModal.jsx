@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "../../context/Modal";
 import { updateEvent } from "../../store/events";
+import ReviewForm from "../UserPage/TabFiles/ReviewForm";
 import UserModal from "../UserPage/UserModal";
 import "./eventModal.css";
 
-export default function EventModal({ setEventModal, event }) {
+export default function EventModal({ setEventModal, event, setUserModal, setInputTab }) {
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.session.user._id);
   const [eventDate, setEventDate] = useState();
-  const [userModal, setUserModal] = useState();
+  const [userPage, setUserPage] = useState();
   const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
@@ -107,7 +108,10 @@ export default function EventModal({ setEventModal, event }) {
                 </span>
                 {event?.eventType}
               </p>
-              <p id="event-modal-host" onClick={() => setUserModal(true)}>
+              <p id="event-modal-host" onClick={() => {
+                setInputTab(<ReviewForm kind={"create"} type={"host"} revieweeId={event?.host._id} reviewee={event?.host} setUserModal={setUserModal}/>)
+                setUserPage(true)
+                }}>
                 <span>
                   <span className="event-details-label">Hosted by:</span>{" "}
                   <button id="host-button">{event?.host.username}</button>
@@ -143,13 +147,13 @@ export default function EventModal({ setEventModal, event }) {
           </div>
         </div>
       </div>
-      {userModal && (
+      {userPage && (
         <Modal
           onClose={() => {
-            setUserModal(false);
+            setUserPage(false);
           }}
         >
-          <UserModal setUserModal={setUserModal} userId={event?.host._id} />
+          <UserModal setUserPage={setUserPage} setUserModal={setUserModal} userId={event?.host._id} />
         </Modal>
       )}
     </div>
