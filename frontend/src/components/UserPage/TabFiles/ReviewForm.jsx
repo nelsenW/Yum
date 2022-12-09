@@ -4,7 +4,7 @@ import { composeReview, updateReview } from "../../../store/reviews";
 import { clearSessionErrors } from "../../../store/session";
 import "./reviewForm.css";
 
-function ReviewForm({ type, review, revieweeId, kind, setUserModal }) {
+function ReviewForm({ type, review, revieweeId, kind, setUserModal, reviewee }) {
   // kind = "create"
   // type="host"
   // revieweeId = "637292693d2b405d3bbe38db"
@@ -60,7 +60,7 @@ function ReviewForm({ type, review, revieweeId, kind, setUserModal }) {
   return (
     <form className="event-form" onSubmit={handleSubmit}>
       <div className="h2-wrapper review">
-        <h2>Review</h2>
+        <h2>Leave a review for {reviewee?.username}</h2>
       </div>
       <label>
         Title

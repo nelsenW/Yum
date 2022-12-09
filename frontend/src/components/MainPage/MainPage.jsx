@@ -62,6 +62,7 @@ export default function MainPage() {
         hidden={hidden}
         filteredEvents={filteredEvents}
         handleSelectedEvent={handleSelectedEvent}
+        setUserModal = {setUserModal}
       />
       <MapContainer
         selectedEvent={selectedEvent}

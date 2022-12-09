@@ -3,7 +3,7 @@ import './eventBubble.css';
 import { useEffect, useState } from 'react';
 import EventModal from './EventModal';
 
-export default function EventBubble({ event }) {
+export default function EventBubble({ event, setUserModal, setInputTab }) {
 	const [eventModal, setEventModal] = useState(false);
 	return (
 		<div>
@@ -23,7 +23,7 @@ export default function EventBubble({ event }) {
 					onClose={() => {
 						setEventModal(false);
 					}}>
-					<EventModal setEventModal={setEventModal} event={event} />
+					<EventModal setEventModal={setEventModal} event={event} setUserModal={setUserModal} setInputTab={setInputTab}/>
 				</Modal>
 			)}
 		</div>
