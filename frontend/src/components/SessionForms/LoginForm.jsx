@@ -12,6 +12,7 @@ function LoginForm() {
     state.errors.session ? state.errors.session : []
   );
   const dispatch = useDispatch();
+  const [showErrors, setShowErrors] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -40,6 +41,8 @@ function LoginForm() {
           confirmButtonText: "Ok",
           confirmButtonColor: "var(--dodger-blue)",
         });
+      } else {
+        setShowErrors(true);
       }
     });
   };
@@ -49,12 +52,18 @@ function LoginForm() {
     setPassword("password");
   };
 
+  const handleShowErrors = () => {
+    setShowErrors(false);
+  };
+
   return (
     <form className="session-form" onSubmit={handleSubmit}>
       <div className="h2-wrapper">
         <h2>Log In Form</h2>
       </div>
-      <Errors errors={errors} />
+      {showErrors && (
+        <Errors errors={errors} handleShowErrors={handleShowErrors} />
+      )}
 
       <label>
         <span>Email</span>

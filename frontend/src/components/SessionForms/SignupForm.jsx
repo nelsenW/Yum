@@ -14,6 +14,7 @@ function SignupForm() {
     state.errors.session ? state.errors.session : []
   );
   const dispatch = useDispatch();
+  const [showErrors, setShowErrors] = useState(false);
 
   useEffect(() => {
     return () => {
@@ -68,8 +69,14 @@ function SignupForm() {
           confirmButtonText: "Ok",
           confirmButtonColor: "var(--dodger-blue)",
         });
+      } else {
+        setShowErrors(true);
       }
     });
+  };
+
+  const handleShowErrors = () => {
+    setShowErrors(false);
   };
 
   return (
@@ -78,7 +85,10 @@ function SignupForm() {
         <h2>Sign Up Form</h2>
       </div>
 
-      <Errors errors={errors} />
+      {showErrors && (
+        <Errors errors={errors} handleShowErrors={handleShowErrors} />
+      )}
+
       <label>
         <span>Email</span>
         <input
