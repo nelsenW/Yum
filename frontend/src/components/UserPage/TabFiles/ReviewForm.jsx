@@ -4,17 +4,24 @@ import { composeReview, updateReview } from "../../../store/reviews";
 import { clearSessionErrors } from "../../../store/session";
 import "./reviewForm.css";
 
-function ReviewForm({ type, review, revieweeId, kind, setUserModal, reviewee }) {
+function ReviewForm({
+  type,
+  review,
+  revieweeId,
+  kind,
+  setUserModal,
+  reviewee,
+}) {
   // kind = "create"
   // type="host"
   // revieweeId = "637292693d2b405d3bbe38db"
 
   // getting a single review by Id
   const [title, setTitle] = useState(review?.title ?? "");
-  const [rating, setRating] = useState(review?.rating ??"");
+  const [rating, setRating] = useState(review?.rating ?? "");
   const [body, setBody] = useState(review?.body ?? "");
   const errors = useSelector((state) => state.errors.session);
-  const currentUser = useSelector((state)=> state.session.user)
+  const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -47,12 +54,14 @@ function ReviewForm({ type, review, revieweeId, kind, setUserModal, reviewee }) 
       title,
       rating,
       body,
-      userId: currentUser._id
-    }
-    if (kind === "create"){
-      dispatch(composeReview({revieweeId, newReview, type}))
+      userId: currentUser._id,
+    };
+    if (kind === "create") {
+      dispatch(composeReview({ revieweeId, newReview, type }));
     } else {
-      dispatch(updateReview({revieweeId, newReview, type, reviewId: review._id}))
+      dispatch(
+        updateReview({ revieweeId, newReview, type, reviewId: review._id })
+      );
     }
     setUserModal(false);
   };
