@@ -13,6 +13,7 @@ export default function UserModal({ userId, setUserModal }) {
     state?.reviews?.new ? Object.values(state.reviews?.new) : null
   );
   const peopleImgs = [P1, P2, P3, P4];
+  const currentUser = useSelector((state) => state.session.user);
 
   const fetchUser = async (userId) => {
     try {
@@ -48,26 +49,30 @@ export default function UserModal({ userId, setUserModal }) {
       ></img>
       <div className="user-modal-info">
         <h1 id="user-modal-info-username">{user?.username}</h1>
-        <button
-          className="submit-button"
-          onClick={() => {
-            setUserModal(true);
-          }}
-        >
-          Leave a review
-        </button>
+        {currentUser?._id !== user?._id ? (
+          <button
+            className="submit-button"
+            onClick={() => {
+              setUserModal(true);
+            }}
+          >
+            Leave a review
+          </button>
+        ) : (
+          <div style={{ marginBottom: "15px" }}></div>
+        )}
         <div>
-        <h2>
-          Host Reviews:{" "}
-          <span>
-            {reviewsAverage("hostReviews")}{" "}
-            <i className="fa-regular fa-star"></i>
-          </span>
-        </h2>
+          <h2>
+            Host Reviews:{" "}
+            <span>
+              {reviewsAverage("hostReviews")}{" "}
+              <i className="fa-regular fa-star"></i>
+            </span>
+          </h2>
           <ul className="reviews-list">
             {user?.hostReviews?.map((review) => {
               return (
-                <li className="review-bubble">
+                <li className="review-bubble" key={review._id}>
                   <h3>
                     {review.title}{" "}
                     <span>
@@ -80,9 +85,9 @@ export default function UserModal({ userId, setUserModal }) {
             })}
           </ul>
         </div>
-        <br/>
-        <br/>
-{/* <div>
+        <br />
+        <br />
+        {/* <div>
   <h2>
           Guest Reviews:{" "}
           <span>
@@ -106,7 +111,6 @@ export default function UserModal({ userId, setUserModal }) {
           })}
         </ul>
 </div> */}
-        
       </div>
     </div>
   );

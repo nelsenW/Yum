@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import ReactMapGL, {
-  Marker,
-  NavigationControl,
-} from "react-map-gl";
+import ReactMapGL, { Marker, NavigationControl } from "react-map-gl";
 import mapboxgl from "mapbox-gl";
 import { ImLocation2 } from "react-icons/im";
 import jwtFetch from "../../store/jwt";
@@ -113,7 +110,7 @@ const Map = ({ selectedEvent, handleSelectedEvent }) => {
         >
           {events &&
             events.map((event) => (
-              <div key={event.id}>
+              <div key={event._id}>
                 <Marker
                   latitude={event.location.coordinates[0]}
                   longitude={event.location.coordinates[1]}
