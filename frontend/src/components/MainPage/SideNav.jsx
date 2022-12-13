@@ -15,7 +15,7 @@ export default function SideNav({
   const userName = useSelector((state) => state.session.user.username);
   const dispatch = useDispatch();
   const [userModal, setUserModal] = useState(false);
-  const [inputTab, setInputTab] = useState("")
+  const [inputTab, setInputTab] = useState("");
   const newEvents = useSelector((state) => state.events.new);
   let events = useSelector((state) =>
     state.events.all ? Object.values(state.events.all) : []
@@ -34,8 +34,13 @@ export default function SideNav({
       <div id="nav-sidebar-main">
         {listedEvents?.map((event) => {
           return (
-            <div onClick={(e) => handleSelectedEvent(event)}>
-              <EventBubble event={event} key={event.id} setUserModal={setUserModal} setInputTab={setInputTab}/>
+            <div onClick={(e) => handleSelectedEvent(event)} key={event._id}>
+              <EventBubble
+                event={event}
+                key={event.id}
+                setUserModal={setUserModal}
+                setInputTab={setInputTab}
+              />
             </div>
           );
         })}
@@ -46,9 +51,9 @@ export default function SideNav({
           <button
             className="settings-button"
             onClick={() => {
-              setInputTab(null)
-              setUserModal(true)}
-            }
+              setInputTab(null);
+              setUserModal(true);
+            }}
           >
             <i className="fa-regular fa-user"></i>
           </button>
@@ -67,7 +72,7 @@ export default function SideNav({
       </div>
       {userModal ? (
         <Modal onClose={() => setUserModal(false)}>
-          <UserPage setUserModal={setUserModal} inputTab={inputTab}/>
+          <UserPage setUserModal={setUserModal} inputTab={inputTab} />
         </Modal>
       ) : null}
     </nav>

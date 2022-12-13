@@ -6,7 +6,12 @@ import ReviewForm from "../UserPage/TabFiles/ReviewForm";
 import UserModal from "../UserPage/UserModal";
 import "./eventModal.css";
 
-export default function EventModal({ setEventModal, event, setUserModal, setInputTab }) {
+export default function EventModal({
+  setEventModal,
+  event,
+  setUserModal,
+  setInputTab,
+}) {
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.session.user._id);
@@ -108,10 +113,21 @@ export default function EventModal({ setEventModal, event, setUserModal, setInpu
                 </span>
                 {event?.eventType}
               </p>
-              <p id="event-modal-host" onClick={() => {
-                setInputTab(<ReviewForm kind={"create"} type={"host"} revieweeId={event?.host._id} reviewee={event?.host} setUserModal={setUserModal}/>)
-                setUserPage(true)
-                }}>
+              <p
+                id="event-modal-host"
+                onClick={() => {
+                  setInputTab(
+                    <ReviewForm
+                      kind={"create"}
+                      type={"host"}
+                      revieweeId={event?.host._id}
+                      reviewee={event?.host}
+                      setUserModal={setUserModal}
+                    />
+                  );
+                  setUserPage(true);
+                }}
+              >
                 <span>
                   <span className="event-details-label">Hosted by:</span>{" "}
                   <button id="host-button">{event?.host.username}</button>
@@ -153,7 +169,11 @@ export default function EventModal({ setEventModal, event, setUserModal, setInpu
             setUserPage(false);
           }}
         >
-          <UserModal setUserPage={setUserPage} setUserModal={setUserModal} userId={event?.host._id} />
+          <UserModal
+            setUserPage={setUserPage}
+            setUserModal={setUserModal}
+            userId={event?.host._id}
+          />
         </Modal>
       )}
     </div>
