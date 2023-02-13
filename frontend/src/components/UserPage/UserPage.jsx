@@ -10,7 +10,11 @@ import MyReviews from "./TabFiles/MyReviews";
 function UserPage({ setUserModal, inputTab }) {
   const dispatch = useDispatch();
   const [tab, setTab] = useState(
-    inputTab ?? <EventForm setUserModal={setUserModal} />
+    inputTab ??
+    <MyPosts
+    setUserModal={setUserModal}
+    type={"hosted"}
+    />
   );
 
   const logoutUser = (e) => {

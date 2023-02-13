@@ -7,6 +7,7 @@ import SignupForm from "../SessionForms/SignupForm";
 import Canvas from "./Canvas";
 import NavBar from "./Navigation";
 import "./splashPage.css";
+import "./navigation.css"
 import UserInfoBubble from "./userInfoBubble";
 import michael from "../../assets/profiles/michael.jpeg";
 import william from "../../assets/profiles/william.jpeg";
@@ -45,6 +46,7 @@ export default function SplashPage() {
       )}
 
       <main id="splash-main">
+        <p className="splash-nav-title" id="welcome-sign">A way home chefs can connect with their local community and share or sell extra food!</p>
         <canvas id="canvas">{canvasLoad && <Canvas />}</canvas>
       </main>
       <footer className="splash-footer">
@@ -86,6 +88,7 @@ export default function SplashPage() {
             {williamBubble && <UserInfoBubble person={"w"} image={william} />}
           </div>
         </ul>
+        <p>copyright © Yum 2023</p>
       </footer>
     </div>
   );

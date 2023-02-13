@@ -74,6 +74,16 @@
   transition-timing-function: cubic-bezier(0, 2.03, 0, -1.57);
 }
 
+#welcome-sign{
+  flex-wrap: wrap;
+  font-size: 40px;
+  width: 200px;
+  position: fixed;
+  background-color: #c60d0d94;
+  margin-left: 2em;
+  margin-top: 4em;
+}
+
 #tongue {
   display: inline-block;
   height: 48px;
