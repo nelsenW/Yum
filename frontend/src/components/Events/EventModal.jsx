@@ -15,6 +15,7 @@ export default function EventModal({
   const [count, setCount] = useState(1);
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.session.user._id);
+  const username = useSelector((state) => state.session.user.username);
   const [eventDate, setEventDate] = useState();
   const [userPage, setUserPage] = useState();
   const [isFlipped, setIsFlipped] = useState(false);
@@ -133,11 +134,13 @@ export default function EventModal({
                   <button id="host-button">{event?.host.username}</button>
                 </span>
               </p>
+              <p id="hosting-error">{event?.host.username === username ? "self": null}</p>
+              <p id="hosting-error">{event?.guestLists?.some(user=>user._id === userId) ? "already-attending": null}</p>
               <p id="event-modal-guests">
                 <span>
                   <span className="event-details-label">Available spots:</span>{" "}
                 </span>
-                [ {event?.guestLists?.length}/{event?.guestNumber} ]
+                [ {event?.guestLists?.length > event?.guestNumber ? <span style={{color:"red"}}>max</span> : event?.guestLists?.length }/{event?.guestNumber} ]
               </p>
               <label>
                 <span>
@@ -152,7 +155,9 @@ export default function EventModal({
                 ></input>
               </label>
               <div className="attend-btn-container">
-                {event?.guestLists?.length < event?.guestNumber ?
+                {event?.guestLists?.length < event?.guestNumber &&
+                  event?.host.username !== username
+                ?
                 <button
                   onClick={handleClick}
                   className="settings-button attend">
@@ -160,7 +165,7 @@ export default function EventModal({
                 </button>
                 :
                 <button
-                  className="settings-button attend">
+                  className="settings-button unattend">
                   Cannot Attend Event</button>
                 }
               </div>

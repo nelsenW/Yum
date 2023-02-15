@@ -30,7 +30,7 @@
   opacity: 1;
   box-sizing: border-box;
 }
-/* 
+/*
 .event-modal-image-group::after {
   content: "";
   position: absolute;
@@ -100,6 +100,10 @@
 .event-details-label,
 #event-num-meals {
   color: var(--dark-yellow);
+}
+
+#event-modal-host{
+  display: inline;
 }
 
 #event-modal input {
@@ -252,6 +256,35 @@
   transform: rotateY(0deg);
 }
 
+.settings-button.unattend {
+  color: var(--deep-orange);
+  transition: color 1s, box-shadow 1s, border 1s;
+  transition-timing-function: cubic-bezier(0, 2.03, 0, -1.57);
+  font-family: var(--font-helvetica);
+  cursor: pointer;
+}
+
+.settings-button.unattend:hover {
+  border: 2px solid var(--deep-orange);
+  color: var(--deep-orange);
+  box-shadow: inset 0 0 0.5em 0 var(--deep-orange),
+    0 0 0.5em 0 var(--deep-orange);
+}
+
+#event-modal .settings-button.unattend:hover  {
+  color: var(--deep-orange);
+  text-shadow: 0 0 0.125em hsl(0 0% 100% / 0.3), 0 0 0.45em var(--deep-orange);
+  animation: horizontal-shaking 0.25s linear ;
+}
+
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
+ }
+
 .settings-button.card {
   position: absolute;
   bottom: 10px;
@@ -319,4 +352,13 @@
   color: var(--dark-yellow);
   box-shadow: inset 0 0 0.5em 0 var(--dark-yellow),
     0 0 0.5em 0 var(--dark-yellow);
+}
+
+#hosting-error{
+  color: red;
+  display: inline;
+  font-size: 11px;
+  position: relative;
+  left: -16px;
+  font-style: italic;
 }
