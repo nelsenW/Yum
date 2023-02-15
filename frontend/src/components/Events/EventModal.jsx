@@ -152,12 +152,17 @@ export default function EventModal({
                 ></input>
               </label>
               <div className="attend-btn-container">
+                {event?.guestLists?.length < event?.guestNumber ?
                 <button
                   onClick={handleClick}
-                  className="settings-button attend"
-                >
+                  className="settings-button attend">
                   Click here to attend event!
                 </button>
+                :
+                <button
+                  className="settings-button attend">
+                  Cannot Attend Event</button>
+                }
               </div>
             </div>
           </div>
